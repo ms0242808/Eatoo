@@ -1,0 +1,631 @@
+<!-- /templates/cart.liquid -->
+{% comment %}
+
+  For info on test orders:
+    - General http://docs.shopify.com/manual/your-store/orders/test-orders
+    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+    <br><br><br><br>
+<div class="grid">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+    {% if cart.item_count > 0 %}
+      <header class="section-header text-center">
+        <h2 style="font-weight: bold; font-size: 2em;" class="text-center">{{ 'cart.general.title' | t }}</h2>
+        <meta name="description" content="At here you will find the suitable ingredients for HOTPOT, BBQ, SUKIYAKI and BUDAE JJIGAE. Shop and get delivery fresh food with Eatoo">
+        <hr class="hr--small">
+      </header>
+
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+
+        <div class="cart__row medium-down--hide cart__header-labels">
+          <div class="grid--full">
+            <div class="grid__item large--two-fifths push--large--three-fifths">
+              <div class="grid--full">
+                <div class="grid__item one-third medium-down--half text-center">
+                  {{ 'cart.label.quantity' | t }}
+                </div>
+                <div class="grid__item two-thirds medium-down--half text-right">
+                  {{ 'cart.label.total' | t }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% comment %}
+          Loop through products in the cart
+        {% endcomment %}
+        {% for item in cart.items %}
+          <div class="cart__row" style="margin-bottom: 20px;">
+            <div class="grid--full cart__row--table-large">
+
+              <div class="grid__item large--three-fifths">
+                <div class="grid">
+                  <div class="gridImg__item one-third">
+                    <a href="{{ item.url | within: collections.all }}" class="cart__image">
+
+                      {% comment %}
+                        More image size options at:
+                          - http://docs.shopify.com/themes/filters/product-img-url
+                      {% endcomment %}
+                      <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}" title="{{ item.title | escape }}" style="width: -webkit-fill-available;">
+                    </a>
+                  </div>
+                  <div class="grid__item two-thirds" style="width: 231px; height: 66px;">
+                    <a href="{{ item.url }}" class="h4 cart__product-name">
+                      {{ item.product.title }}
+                      <span class='booster-cart-item-success-notes' data-key='{{item.key}}'></span><span class='booster-cart-item-upsell-notes' data-key='{{item.key}}'></span>
+                    </a>
+                    {% unless item.variant.title contains 'Default' %}
+                      <p class="cart__product-meta">
+                        {{ item.variant.title }}
+                      </p>
+                    {% endunless %}
+
+                    {% if settings.product_vendor_enable %}
+                      <p class="cart__product-meta">{{ item.vendor }}</p>
+                    {% endif %}
+
+                    {% assign property_size = item.properties | size %}
+                    <div class='' data-key='{{item.key}}'></div>{% if property_size > 0 %}
+                      {%- comment -%}{% for p in item.properties %}
+                        {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                        {% unless p.last == blank or first_character_in_key == '_' %}
+                          {{ p.first }}:
+
+                          {% if p.last contains '/uploads/' %}
+                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                          {% else %}
+                            {{ p.last }}
+                          {% endif %}
+
+                          <br>
+                        {% endunless %}
+                      {% endfor %}{%- endcomment -%}{%- for p in item.properties -%}
+            {%- unless p.last == blank -%}
+              <li class="product-details__item product-details__item--property{%if property_size == 0%} hide{% endif %}" data-cart-item-property>
+                <span class="product-details__item-label" data-cart-item-property-name>{{ p.first }}: </span>
+
+                {%- comment -%}
+                  Check if there was an uploaded file associated
+                {%- endcomment -%}
+                <span data-cart-item-property-value>
+                  {%- if p.last contains "uploads" -%}
+                    <a href="{{ p.last }}">Uploaded File</a>
+                  {%- else -%}
+                    {{ p.last }}
+                  {%- endif -%}
+                </span>
+              </li>
+            {%- endunless -%}
+          {%- endfor -%}
+            <button type="button" class="edit_cart_option btn btn--primary button" data-product_id="{{item.product_id}}" data-key="{{item.key}}" data-variant_id="{{item.variant_id}}" data-quantity="{{item.quantity}}">Edit Options</button>
+                    {% endif %}
+
+                    <p class="cart__product-meta" style="font-style: italic; font-size: 14px;">
+                      <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">
+                        {{ 'cart.general.remove' | t }}
+                      </a>
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="grid__item large--two-fifths cart__pricing">
+                <div class="grid--full cart__row--table{% if item.line_level_discount_allocations != blank %} cart__row--table-with-discount{% endif %}">
+
+                  <div class="grid__item one-third text-center">
+
+                    <label for="updates_{{ item.key }}" class="visually-hidden">{{ 'cart.label.quantity' | t }}</label>
+                      <input type="number" name="updates[]" id="updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}">
+                  </div>
+
+                  <div class="grid__item two-thirds text-right">
+
+                    {%- if item.original_line_price != item.final_line_price -%}
+                      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                      <del class="cart__price"><span class='' data-key='{{item.key}}'>{{ item.original_line_price | money }}</span></del>
+                      <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+                      <span class="order-discount cart__price">{{ item.final_line_price | money }}</span>
+                    {%- else -%}
+                      <span class="cart__price"><span class='booster-cart-item-line-price' data-key='{{item.key}}'><span class='' data-key='{{item.key}}'>{{ item.original_line_price | money }}</span></span></span>
+                    {%- endif -%}
+
+                    {%- if item.unit_price_measurement -%}
+                      <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+                      <span class="cart__unit-price">
+                        {%- capture unit_price_separator -%}
+                          <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                        {%- endcapture -%}
+                        {%- capture unit_price_base_unit -%}
+                          {%- if item.unit_price_measurement.reference_value != 1 -%}
+                            {{- item.unit_price_measurement.reference_value -}}
+                          {%- endif -%}
+                          {{ item.unit_price_measurement.reference_unit }}
+                        {%- endcapture -%}
+
+                        <span data-unit-price>{{ item.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                      </span>
+                    {%- endif -%}
+
+                    {%- if item.line_level_discount_allocations != blank -%}
+                      <ul class="order-discount order-discount--list order-discount--title order-discount--cart-list" aria-label="{{ 'customer.order.discount' | t }}">
+                        {%- for discount_allocation in item.line_level_discount_allocations -%}
+                          <li class="order-discount__item">
+                            <span class="icon icon-saletag" aria-hidden="true"></span>{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+        
+        <!--Create a border-->
+        <div style="border-top: 1px solid #1C1D1D;"></div>
+
+        <div class=""> <!--class="cart__row cart__row--last"-->
+          <div class="dipping-sauce" style="margin-bottom: 10px;">
+            {% assign collection = collections.dipping-sauce %}
+            {% include 'cart-recommendations'%}
+          </div>
+          <!-- Delivery date and time picker & Discount Code -->
+          <div class="grid grid--small">
+            <div class="grid__item large--one-half">
+              <div class="cart-form">
+                <div class="right-col" id="right-column">
+                {%comment%}<span id="expressD">If you wish to receive the order within two hours when the time you placed order, <br> please select the express delivery at the checkout page.</span>{%endcomment%}
+                <span id="expressD">If you wish to pick up the oder by yourself, <br> please select the "Self-collection" at the checkout page. <br>Pick up time 18.00 p.m - 21.00 p.m at WC1B 4HH.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid__item large--one-half note-cart">
+              {% if settings.cart_notes_enable %}
+            <div class="cart__note" style="padding-right:0px;">
+                <label for="CartSpecialInstructions" style="display: block;">{{ 'cart.general.note' | t }}</label>
+                <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+              </div>
+            {% endif %}
+              {%comment%}<div class="tbtDiscountCombine" data-brandcolor="#2d2d2d" data-boxtitle="Discount Code" data-boxdes="If you have multiple discount code please separating them using a comma" data-buttontext="Apply" data-maxcode="0" data-maxcodetext="We only allow this maximum codes per combination" data-placeholder="Enter discount codes here" data-enable="1">
+                <input type="date" id="cartFormDate" class="mw-dd-picker" name="cart[Date Return]">
+              </div> 
+              <div id="myItem1"></div>
+              <form method="post" action="/cart/add" id="AddToCartForm--product-template" accept-charset="UTF-8" class="
+              product-single__form
+" enctype="multipart/form-data" data-product-form=""><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
+                <div class="radio-wrapper js product-form__item">
+                  <label class="single-option-radio__label" for="ProductSelect-option-0">
+                    Pot Size
+                  </label>
+                    <fieldset class="single-option-radio" name="pot-size" id="ProductSelect-option-0">
+                          <input type="radio" checked="checked" value="Single Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Single Flavor">
+                          <label for="ProductSelect-option-pot-size-Single Flavor">Single Flavor</label>
+                          <input type="radio" value="Two Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Two Flavor">
+                          <label for="ProductSelect-option-pot-size-Two Flavor">Two Flavor</label>
+                    </fieldset>
+                </div>                
+                <select name="id" id="ProductSelect" class="product-single__variants no-js">
+                  <option selected="selected" data-sku="" value="30980678942775">
+                    Single Flavor - £40.00 GBP
+                  </option>       
+                  <option data-sku="" value="30980678975543">
+                    Two Flavor - £40.00 GBP
+                  </option>
+                </select>
+
+                <div class="product-single__add-to-cart">
+                            
+                </div>
+              </form>
+            </div>
+            <div class="tooltip" style="bottom:100px;">
+              <i class="fas fa-info-circle"></i>
+              <span class="tooltiptext">If you have multiple discount code please separating them using a comma</span>
+            </div>{%endcomment%}
+          </div>
+          
+          <div class="grid--full cart__row--table-large">
+            {%- comment -%}
+              Optional, add a textarea for special notes
+                - Your theme settings can turn this on or off. Default is on.
+                - Make sure you have name="note" for the message to be submitted properly
+                <div class="identixweb-order-delivery"></div>
+            {%- endcomment -%}
+            
+
+            <div class="grid__item large--five-twelfths text-center large--text-right{% if settings.cart_notes_enable %} cart__subtotal-container{% else %} push--large--seven-twelfths{% endif %}" style="float: right;">
+              {%- if cart.cart_level_discount_applications != blank -%}
+              <div class="grid--full cart__row--table">
+                <div class="cart__discounts">
+                  {%- for discount_application in cart.cart_level_discount_applications -%}
+                    <span class="order-discount order-discount--title order-discount--cart">
+                      <span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">{{ 'customer.order.discount' | t }}:</span>{{- discount_application.title -}}
+                    </span>
+                    <span class="order-discount order-discount--cart">-{{ discount_application.total_allocated_amount | money }}</span>
+                  {%- endfor -%}
+                </div>
+              </div>
+              {%- endif -%}
+              <div class="grid--full cart__row--table">
+                <div class="grid__item one-half large--two-thirds large--text-center">
+                  <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
+                </div>
+                <div class="grid__item one-half large--one-third">
+                  <p class="cart__subtotal"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
+                </div>
+              </div>
+
+              {%- capture taxes_shipping_checkout -%}
+                {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                  {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                {%- elsif shop.taxes_included -%}
+                  {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                {%- elsif shop.shipping_policy.body != blank -%}
+                  {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                {%- else -%}
+                  {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                {%- endif -%}
+              {%- endcapture -%}
+   
+              <p class="rte"><em>{{ taxes_shipping_checkout }}</em></p>
+              <p class="agree-box" style="float: none; text-align: right; clear: both; margin: 10px 0;">
+                <input style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="agree" />
+                  <label style="display:inline; float:none" for="agree">
+                    I agree with the <a href="/pages/legal">terms and conditions</a>
+                  </label>
+              </p>
+             <a class="cartitems" href="/cart/clear">Empty cart</a>
+              <button type="submit" name="update" class="btn--secondary update-cart" style="margin-top: 10px;">{{ 'cart.general.update' | t }}</button>
+              <button id="checkout" type="submit" name="checkout" class="btn cart__checkout" style="margin-top: 10px;" disabled>
+                {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
+              </button>
+
+              {% if additional_checkout_buttons and settings.cart_type != 'drawer' %}
+                <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
+              {% endif %}
+            </div>
+        </div>
+
+      </form>
+
+    {% else %}
+      {% comment %}
+        The cart is empty
+      {% endcomment %}
+      <header class="section-header text-center">
+        <h2 style="font-weight: bold; font-size: 2em;" class="text-center">{{ 'cart.general.title' | t }}</h2>
+        <meta name="description" content="At here you will find the suitable ingredients for HOTPOT, BBQ, SUKIYAKI and BUDAE JJIGAE. Shop and get delivery fresh food with Eatoo">
+        <hr class="hr--small">
+        <p class="cart--empty-message">{{ 'cart.general.empty' | t }}</p>
+        <p class="cart--continue-browsing">{{ 'cart.general.continue_browsing_html' | t: link: routes.all_products_collection_url }}<br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+        <p class="cookie-message">{{ 'cart.general.cookies_required' | t }} </p>
+      </header>
+
+    {% endif %}
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  jQuery('[max]').change(function() {
+    var max = parseInt(jQuery(this).attr('max'), 10) || 10000;
+    var value = parseInt(jQuery(this).val(), 10) || 0;
+    if (value > max) {
+      alert('We only have ' + max + ' of this item in stock');
+      jQuery(this).val(max);
+    }
+  });
+
+  function getMonth(date) {
+    var month = date.getMonth() + 1;
+    return month < 10 ? '0' + month : '' + month;
+  } 
+
+  function getProduct(divName){
+    $(divName).filter(function() {
+      var  product = [];
+      for (var i = $(divName).length; i <= $(divName).length; i++) {
+        product[i] = $(divName).text(); 
+        if ($(divName).text() === "Chili Oil" ){
+          $('.right-col *').removeAttr('disabled');
+            console.log('1');
+        } else {
+          $('.right-col *').attr('disabled', true);
+          console.log('2');
+        }
+      }
+
+      /*|| product[i] === "Chili Powder" || product[i] === "Chopped Green Onion" || product[i] === "Chopped Peanuts" || product[i] === "Coriander" || product[i] === "Fermented Bean Curd Sauce" || product[i] === "Oyster Sauce" || product[i] === "Sesame Oil"  || product[i] === "Sesame Sauce" || product[i] === "Thai Red Pepper" 
+        }*/
+    });
+  }
+
+  $('#agree').click(function() {
+    //check if checkbox is checked
+    if ($(this).is(':checked')) {
+      var x = document.getElementsByClassName("mw-dd-picker")[0].value;
+      //var y = document.getElementsByClassName('mw-dd-time')[0].value;
+      $('#checkout').removeAttr('disabled');
+      if(x == "" || x == null ){
+        $('#checkout').attr('disabled', true);
+        alert("You must select deliver date before check out.");
+        $("#agree").prop("checked", false);
+        //$('.tbtDiscountCombine *').attr('disabled', true);
+      } /*else if(y == 100){
+        $('#checkout').attr('disabled', true);
+        alert("You must select correct deliver date and time before check out.");
+        $("#agree").prop("checked", false);
+        $('.tbtDiscountCombine *').attr('disabled', true);
+      }*/ else {
+        $('#checkout').removeAttr('disabled'); //enable input
+        //$('.tbtDiscountCombine *').removeAttr('disabled');
+      }
+    } else {
+      $('#checkout').attr('disabled', true); //disable input
+      //$('.tbtDiscountCombine *').attr('disabled', true);
+    }
+  });
+
+  $(document).ready(function() {
+
+    /*setTimeout(function(){
+      let og = $('.wh-original-price').text().slice(1);
+        let prog = (og/200)* 100 ;
+        console.log(prog);
+        var bar1 = new ldBar("#myItem1");
+        /* ldBar stored in the element 
+        var bar2 = document.getElementById('myItem1').ldBar;
+        bar1.set(prog);
+    },500);*/
+
+    /*setTimeout(function() {
+      if($('.cart__product-name:contains(Chili Oil)') || $('.cart__product-name:contains(Chili Powder)') || $('.cart__product-name:contains(Chopped Green Onion)') || $('.cart__product-name:contains(Chopped Peanuts)') || $('.cart__product-name:contains(Coriander)') || $('.cart__product-name:contains(Fermented Bean Curd Sauce)') || $('.cart__product-name:contains(Oyster Sauce)') || $('.cart__product-name:contains(Sesame Oil)') || $('.cart__product-name:contains(Sesame Sauce)') || $('.cart__product-name:contains(Thai Red Pepper)')){
+          $('.right-col *').removeAttr('disabled');
+          console.log('1');
+        } else {
+          $('.right-col *').attr('disabled', true);
+          console.log('2');
+        }
+        //getProduct('.cart__product-name');
+      $('.tbtDiscountCombine *').attr('disabled', true);
+        $('.tbtDiscountCombine *').click( function () {
+          if($('.tbtDiscountCombine *').is(':disabled')){
+            alert("You must pick a delivery date and time and agree with the terms and conditions at below before you can enter discount codes.");
+          }
+        });
+    },5000);*/
+    
+    $('body').on('click', '[name="checkout"], [name="goto_pp"], [name="goto_gc"]', function() {
+      if ($('#agree').is(':checked')) {
+        $(this).submit();
+      }
+      else {
+        alert("You must agree with the terms and conditions of sales to check out.");
+        return false;
+      }
+    });
+
+    var checkDT = function (){
+      var today = new Date();
+      var now = today.getHours();
+      var nowDay = today.getDay();
+      if( 18 > now && nowDay != 0){
+        if($('.mw-flatpickr-day').hasClass('today')){
+          $('.today').removeClass('disabled');
+        }
+      }
+    };
+
+    setTimeout(function() {
+      checkDT();
+    },5000);
+    
+    $(document).on("click",".mw-dd-picker",function(){
+      checkDT();
+    });
+    
+    /*$(document).on("change",".mw-dd-picker",function(){      
+      var slots = [11,16,20];
+      var optSlots  = ["11:00 - 13:30","15:00 - 18:30","20:00 - 22:00"];
+      var today = new Date();
+      var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
+      var time = today.getHours(); //testing to add value
+      var x = document.getElementsByClassName("mw-dd-picker")[0].value;
+      var y = document.getElementsByClassName('mw-dd-time')[0].value;
+      var z = "No available time slots for today";
+      $("#agree").prop("checked", false);
+      $('#checkout').attr('disabled', true); //disable input
+      
+      if(x !== date.toString()){//keep all option || $('.mw-dd-time').children().first().remove();   
+        $("#expressD").css("display","none");
+      } else if(x == date.toString()){
+        $("#expressD").css("display","block");
+        if(time <= 9){//Keep all option
+        } else {
+          for(var i=0; i<=2; i++){
+            $('.mw-dd-time option[value="'+optSlots[i]+'"]').remove();//remove first two option if time is greater than them
+            $('.mw-dd-time').append($('<option>').val(optSlots[i]).text(optSlots[i]));
+            if(slots[i] <= time ){
+              $('.mw-dd-time option[value="'+optSlots[i]+'"]').remove();//remove first two option if time is greater than them
+            }  
+          }
+        }
+        if(20 <= time){
+          $('.mw-dd-time').append($('<option>').val(100).text(z));//append value
+        }
+      }
+      $('.tbtDiscountCombine *').attr('disabled', true);
+    });*/
+  });
+</script>
+
+<style>
+  .cart__product-name {
+    font-style: normal; 
+    width: max-content;
+  }
+
+  .coder {
+    float: right;
+    padding-left: 18%;
+    margin-top: -20px;
+    font-size: 15px;
+  }
+
+  .tooltip {
+    float: right;
+    padding: 5px 270px 0px 0px;
+  }
+
+  .tooltiptext {
+    width: 300px !important;
+    top: -14px !important;
+    left: 7% !important;
+  }
+
+  .tbtDiscountCombine {
+    border: unset !important;
+    width: 400px;
+    margin-top: -5px;
+    padding: unset !important;
+  }
+
+  .dcbHeading {
+    background: unset !important;
+    color: #2D2D2D !important;
+    padding: 7px 0px !important;
+    font-style: italic !important;
+  }
+
+  .dcbDes {
+    display: none !important;
+  }
+
+  .dcbInputGroup {
+    padding: unset !important;
+  }
+
+  #mw-dd-container label {
+    width: max-content;
+  }
+  
+  #expressD {
+    font-size: 12px;
+    position: absolute;
+    margin-top: 86px;
+    display: block;
+  }
+
+  .cartitems {
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-size: 0.8125em;
+    background-color: rgba(0,0,0,.3);
+    border: 1px solid transparent;
+    color: #000;
+    margin-right: 10px;
+    margin-top: 10px;
+    vertical-align: -webkit-baseline-middle;
+  }
+
+  @media only screen and (max-width: 720px) {
+    #mw-dd-container, .cart-form .right-col{
+      float: none !important;
+    }
+
+    .coder {
+      padding-left: 0px;
+    }
+
+    .tooltip{
+      display: none;
+    }
+
+    .dcbDes {
+      display: contents !important;
+    }
+
+    .agree-box {
+      text-align: center !important;
+    }
+
+    .cart__product-name {
+      width: fit-content;
+    }
+
+    .cart__row .js-qty, .cart__row .ajaxcart__qty{
+      margin: 0 0;
+    }
+
+    #expressD {
+      margin-top: -10px;
+    }
+
+    #expressD>br {
+      display: none;
+    }
+
+    #checkout {
+      margin-top: 20px;
+    }
+
+    .note-cart {
+      margin-top: 50px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    #mw-dd-container, .cart-form .right-col{
+      float: none !important;
+    }
+
+    .coder {
+      padding-left: 0px;
+    }
+
+    .tooltip {
+      display: none;
+    }
+
+    .dcbDes {
+      display: contents !important;
+    }
+
+    .tbtDiscountCombine {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+
+    .agree-box {
+      text-align: center !important;
+    }
+
+    .cart__product-name {
+      width: fit-content;
+    }
+
+    #expressD {
+      margin-top: -10px;
+    }
+
+    #expressD>br {
+      display: none;
+    }
+    
+    #checkout {
+      margin-top: 20px;
+    }
+
+    .note-cart {
+      margin-top: 50px;
+    }
+  }
+</style>

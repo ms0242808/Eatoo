@@ -1,0 +1,198 @@
+<img src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/Return_c9a0661d-134b-4801-b178-789d44be764e.png?v=1578990577" alt="return equipment" title="Return equipment | Eatoo UK" />
+<!-- /templates/page.contact.liquid -->
+<div class="grid">
+
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+
+    <header class="section-header text-center" style="margin-bottom: 0px;">
+      <h2 style="font-size: 2em;"><b>{{ page.title }}</b></h2>
+      <hr class="hr--small">
+    </header>
+
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
+        <div class="rte rte--nomargin rte--indented-images">
+          Enter your order number, email address and select the equipment you would like to return then choose the date and time for us to pick up the equipment from your delivery address.
+          <br><br>
+        </div>
+
+        <div class="form-vertical">
+          {% form 'contact' %}
+
+            {% comment %}
+              Successful message
+            {% endcomment %}
+            {% if form.posted_successfully? %}
+              <p class="note form-success">
+                {{ 'contact.form.post_success' | t }}
+              </p>
+            {% endif %}
+
+            {{ form.errors | default_errors }}
+
+            <div class="grid grid--small">
+              <div class="grid__item large--one-half">
+                <label for="ContactFormOrderNumber" class="hidden-label">Order Number</label>
+                <input type="text" id="ContactFormOrderNumber" class="input-full" name="contact[Order Number]" placeholder="Order Number">
+              </div>
+
+              <div class="grid__item large--one-half">
+                <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+                <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+              </div>
+            </div>
+
+            <label for="ContactFormDateReturn">
+              Select the date and time for us to pick up the equipment
+            </label>
+            <br>
+            <div class="grid grid--small">
+              <div class="grid__item large--one-half">
+                <input type="date" id="contactFormDate" class="input-full" name="contact[Date Return]">
+              </div>
+
+              <div class="grid__item large--one-half">
+                <select id="ContactFormTimeReturn" class="input-full" name="contact[Time Return]">
+                  <option>11.00 - 12.00</option>
+                  <option>12.00 - 13.00</option>
+                  <option>13.00 - 14.00</option>
+                  <option>14.00 - 15.00</option>
+                  <option>15.00 - 16.00</option>
+                  <option>16.00 - 17.00</option>
+                  <option>17.00 - 18.00</option>
+                  <option>18.00 - 19.00</option>
+                  <option>19.00 - 20.00</option>
+                  <option>20.00 - 21.00</option>
+                  <option>21.00 - 22.00</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+              <label for="ContactFormEquipmentReturn">Select the equipment you would like to return</label><br>
+              <input type="checkbox" id="ContactFormHotPot" name="contact[Equipment Return]" value="HotPot" style="display: none;"/> HOT POT 
+              <label for="ContactFormHotPot" class="check">
+                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                  <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                  <polyline points="1 9 7 14 15 4"></polyline>
+                </svg>
+              </label>
+
+              <input type="checkbox" id="ContactFormSukiyaki" name="contact[Equipment Return]" value="Sukiyaki" style="display: none;"/> SUKIYAKI
+              <label for="ContactFormSukiyaki" class="check">
+                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                  <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                  <polyline points="1 9 7 14 15 4"></polyline>
+                </svg>
+              </label>
+
+              <input type="checkbox" id="ContactFormBuadeJjigae" name="contact[Equipment Return]" value="BuadeJjigae" style="display: none;"/> BUDAE JJIGAE
+              <label for="ContactFormBuadeJjigae" class="check">
+                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                  <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                  <polyline points="1 9 7 14 15 4"></polyline>
+                </svg>
+              </label>
+
+              <input type="checkbox" id="ContactFormBBQ" name="contact[Equipment Return]" value="Bbq" style="display: none;"/> BBQ
+              <label for="ContactFormBBQ" class="check">
+                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                  <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                  <polyline points="1 9 7 14 15 4"></polyline>
+                </svg>
+              </label>
+            </div>
+
+            <input style="font-weight: bold;" type="submit" class="btn right" value="{{ 'contact.form.send' | t }}">
+
+          {% endform %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .main-content {
+      margin-top: 80px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .main-content {
+      margin-top: 100px;
+    }
+  }
+
+  .check {
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .check:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34,50,84,0.03);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+  }
+
+  .check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+  }
+
+  .check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
+  }
+
+  .check:hover:before {
+    opacity: 1;
+  }
+
+  .check:hover svg {
+    stroke: #d1b159;
+  }
+
+  #ContactFormHotPot:checked + .check svg, #ContactFormSukiyaki:checked + .check svg, #ContactFormBuadeJjigae:checked + .check svg, #ContactFormBBQ:checked + .check svg {
+    stroke: #d1b159;
+    stroke-width: 2.5px;
+  }
+
+  #ContactFormHotPot:checked + .check svg path, #ContactFormSukiyaki:checked + .check svg path, #ContactFormBuadeJjigae:checked + .check svg path, #ContactFormBBQ:checked + .check svg path {
+    stroke-dashoffset: 60;
+    transition: all 0.5s linear;
+  }
+
+  #ContactFormHotPot:checked + .check svg polyline, #ContactFormSukiyaki:checked + .check svg polyline, #ContactFormBuadeJjigae:checked + .check svg polyline, #ContactFormBBQ:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+    transition: all 0.2s linear;
+    transition-delay: 0.15s;
+  }
+</style>

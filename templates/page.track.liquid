@@ -1,0 +1,44 @@
+<!-- /templates/page.liquid -->
+<div class="page-width">
+  <br/><br/>
+  
+  <div class="faq-left">
+    <img src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/Track_5d0ad69b-7a08-4650-af9f-338c71bed10f.jpg?v=1578990578" style="display:block;height:680px" alt="trackorder" alt="Track order" title="Tack Order | Eatoo UK" />
+  </div>
+   <div class="faq-right">
+   	<header class="section-header" style="margin-bottom:0px;">
+    	<h2 style="font-weight: bold; font-size: 2em;" class="section-header__title"><b>{{ page.title }}</b></h2>
+  	</header>
+    <form id="tracktorOrderForm" method="GET" action="/apps/tracktor">{% comment%}/apps/tracktor{%endcomment%}
+      <div style="padding: 0 0 12px 0;">  
+      	<a style="font-size:14px;">Enter your email and order number to track the package</a>
+      </div>
+		  <div>
+        <label for="tracktorOrderName" style="font-weight: bold; font-style: normal;">Order Number</label>
+        <p>
+          <input id="tracktorOrderName" type="text" name="order" style="border: 1px solid #ccc; border-radius: 4px; width:480px;" placeholder="#1001">
+        </p>
+      </div>
+      <div>
+       	<label for="tracktorOrderEmail" style="font-weight: bold; font-style: normal;">Email</label>
+	       <p>
+          <input id="tracktorOrderEmail" type="text" name="email" style="border: 1px solid #ccc; border-radius: 4px; width:480px;" placeholder="email@gmail.com">
+        </p>
+   	  </div>
+      <button style="font-weight: bold;" id="tracktorTrack" class="button-enter btn styled-submit">Track</button>
+    </form>
+  </div>
+</div>
+<div style="clear:both">&nbsp;</div>
+
+<style>
+  .main-content {
+    margin-top: 30px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .main-content {
+    margin-top: 40px;
+    }
+  }
+</style>

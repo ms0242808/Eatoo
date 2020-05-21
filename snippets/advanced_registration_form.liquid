@@ -1,0 +1,23 @@
+{% comment %} 
+This snippet changes automatically with updates! Any modifications will be overwritten.
+{% endcomment %}
+            
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.1/iframeResizer.min.js"></script>
+    
+    <!--{% form 'customer_login' %}{% capture loginErrors %}{% if form.errors %}{% for field in form.errors %}{{form.errors.messages[field]}}|{% endfor %}{% endif %}{% endcapture %}{% endform %} -->
+    <div style="position:relative">
+    <div style="margin:30px 10px;">
+    <iframe id="advancedRegForm" onload="iFrameResize({log:false}, '#advancedRegForm')" 
+    src="https://taloncommerce.com/advanced_registration/api/registration_form/?id=1396&loginErrors={{loginErrors| url_encode }}&curUrl={{ canonical_url | url_encode }}" 
+   
+     style="min-width: 100%;border:none;  min-height:500px;overflow:hidden;" width="100%" height="100%" allowtransparency="true">
+      <p>Your browser does not support iframes.</p>
+    </iframe>
+    
+    
+<script src="https://taloncommerce.com/static/javascript/advanced-registration.js"></script>
+
+    </div>
+    </div>
+
+    

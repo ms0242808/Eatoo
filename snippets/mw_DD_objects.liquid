@@ -1,0 +1,26 @@
+{% assign cart_tags = '' %}
+{% for item in cart.items %}
+    {% assign tags = item.product.tags | join: ',' %}
+    {% assign cart_tags = cart_tags | append: ',' | append: tags %}
+{% endfor %}
+
+<script>
+    window.mwDeliveryDateObjects = {
+        template: {{ template.name | json}},
+        cart: {{ cart | json }},
+        cartTags: {{ cart_tags | remove_first: ',' | split: ',' | uniq | json }},
+        shop: {
+            domain: {{ shop.permanent_domain | json }},
+            money_format : {{ shop.money_format  | json }},
+            money_with_currency_format : {{ shop.money_with_currency_format | json }}
+        }
+    };
+</script>
+
+<!-- <style>
+  .tbtDiscountCombine {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  </style> -->
+<style>#mw-dd-container,.cart-form .right-col{float:left;margin-bottom:20px;margin-left:auto}.tbtDiscountCombine{margin-left:auto;margin-right:0}</style>

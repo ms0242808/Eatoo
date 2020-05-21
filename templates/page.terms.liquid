@@ -1,0 +1,43 @@
+<!-- /templates/page.liquid -->
+<div class="grid">
+	<div class="grid__item large--five-sixths push--large--one-twelfth">
+		<header class="section-header text-center">
+			<h2 style="font-size: 2em;">{{ page.title }}</h2>
+			<hr class="hr--small">
+		</header>
+
+		<div class="grid">
+			<div class="grid__item large--four-fifths push--large--one-tenth">
+				<div class="rte rte--nomargin rte--indented-images">
+					<div class="textarea">
+						{{ page.content }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.textarea {
+		height: 620px;
+		width: 840px;
+		overflow: auto;
+		font: 14px/26px Georgia, Garamond, Serif; 
+		overflow: auto;
+	}
+
+	.main-content {
+		margin-top: 110px;
+	}
+
+	@media screen and (max-width: 768px) {
+		.main-content {
+			margin-top: 140px;
+		}
+
+		.textarea {
+			max-width: 100%;
+		}
+	}
+</style>

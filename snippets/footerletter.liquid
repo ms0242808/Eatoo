@@ -1,0 +1,36 @@
+<div>
+  <a class="footera">Subscribe to our newsletter!</a>
+</div>
+{% form 'customer' %}
+  {{ form.errors | default_errors }}
+  {% if form.posted_successfully? %}
+    <div class="newsletter--form">
+      <div class="note form-success">
+        {{ 'general.newsletter_form.newsletter_confirmation' | t }}
+      </div>
+    </div>
+  {% else %}
+    <label for="Email" class="newsletter__label hidden-label">
+      {{ 'general.newsletter_form.newsletter_email' | t }}
+    </label>
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <div class="newsletter--form">
+      <div class="input-group">
+        <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="contact[email]" id="Email" class="input-group-field newsletter__input" autocorrect="off" autocapitalize="off">
+        <span class="input-group-btn">
+          <button id="Subscribe" type="submit"
+            class="btn newsletter__submit"
+            aria-label="{{ 'general.newsletter_form.submit' | t }}">
+            <span class="newsletter__submit-text--large">
+              <i class="far fa-envelope fa-lg"></i>
+            </span>
+            <span class="newsletter__submit-text--small">
+              <span class="far fa-envelope fa-lg" aria-hidden="true"></span>
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <style type="text/css">.footera{display:flex}.input-group-field{border-color:#fff;border-left-width:0;border-top-width:0;border-right-width:0;background-color:unset;color:#d1b159}.input-group-field.newsletter__input::placeholder{color:#fff5f5}.input-group-btn{padding-bottom:30px}.newsletter__submit{color:#d1b159;background-color:unset}@media only screen and (max-width:768px){.footera{display:unset}}</style>
+  {% endif %}
+{% endform %}

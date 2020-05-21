@@ -1,0 +1,423 @@
+{% if page_title == 'Alcohol | Eatoo UK' %}
+  {% render 'age-check' %}
+{% endif %}  
+
+<div style="margin-bottom: 110px;" class="grid">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+
+    <header class="section-header text-center">
+      <div class="line-1 anim-typewriter"></div>
+        <h2 style="font-size: 2em;">COMING SOON</h2> 
+        <hr class="hr--small">
+      
+    </header>
+  <div class="wrapper">
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
+        <div class="rte rte--nomargin rte--indented-images">
+          {% form 'customer' %}
+            {{ form.errors | default_errors }}
+            {% if form.posted_successfully? %}
+              <div class="newsletter--form">
+                <div class="note form-success">
+                  {{ 'general.newsletter_form.newsletter_confirmation' | t }}
+                </div>
+                <br><br><br><br><br><br>
+              </div>
+            {% else %}
+              <label for="Email" class="newsletter__label hidden-label">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="newsletter--form">
+                <div class="rte text-center">
+                  <div class="line-1 anim-typewriter">
+                    <span>Stay tuned!</span>
+                  </div>
+                </div>
+                <div class="anamatie-group">
+                  <!--<div class="logo">
+                    <img src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/food3.png?9208" />
+                  </div>
+
+                  <div class="wave-wrapper">
+                    <div class="wave">
+                      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/312465/Moby%20Wave_White%20Fill.svg" />
+                    </div>
+                    <div class="cover-up"></div>
+                  </div>-->
+                  <i class="bounce">
+                    <img style="height: 100px;" src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/moli2.png?9369" alt="Mooli" title="Mooli" />
+                  </i>
+                  <i class="bounce1">
+                    <img style="height: 100px;"  src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/cabbage.png?9366" alt="Cabbage" title="Cabbage" />
+                  </i>
+                  <i class="bounce2">
+                    <img style="height: 90px;"  src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/shroom.png?93676" alt="Mushroom" title="Mushroom" />
+                  </i>
+                  <i class="bounce3">
+                    <img style="height: 100px;"  src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/veg.png?9366" alt="Vegetable" title="Vegetable" />
+                  </i>
+                  <i class="bounce4">
+                    <img style="height: 100px;"  src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/meat.png?9366" alt="Meat" title="Meat" />
+                  </i>
+                </div>
+                <div class="input-group">
+                  <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="contact[email]" id="Email" class="input-group-field newsletter__input" autocorrect="off" autocapitalize="off" style="border-color: black; background-color: #222323; border-left-width: 1px; border-top-width: 1px; border-radius: 6px 0px 0px 6px;">
+                  <span class="input-group-btn">
+                    <button id="Subscribe" type="submit"
+                      class="btn newsletter__submit"
+                      aria-label="{{ 'general.newsletter_form.submit' | t }}" style="width: max-content;">
+                      <span class="newsletter__submit-text--large">
+                        {{ 'general.newsletter_form.submit' | t }}
+                      </span>
+                      <span class="newsletter__submit-text--small">
+                        <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                      </span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            {% endif %}
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .section-header.text-center {
+    margin-bottom: unset;
+  }
+  
+  .rte>div.line-1 {
+    margin-bottom: 0px;
+  }
+
+  .line-1 {
+    position: relative;
+    top: 50%;  
+    width: 5.7em;
+    margin: 0 auto;
+    border-right: 2px solid transparent;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .anim-typewriter {
+    animation: typewriter 4s steps(44) 1s 1 normal both,
+              blinkTextCursor 500ms steps(44) infinite normal;
+  }
+  
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 5.7em;
+    }
+  }
+  @keyframes blinkTextCursor {
+    from,
+    to {
+      border-right-color: transparent;
+    }
+    50% {
+      border-right-color: black;
+    }
+  }
+
+  .anamatie-group {
+    margin: auto;
+    display: table;
+    padding: 10px;
+  }
+
+  .bounce {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 2s infinite linear;
+    -o-animation: bounce 2s infinite linear;
+    -webkit-animation: bounce 2s infinite linear;
+    animation: bounce 2s infinite linear;
+    colr:000;
+  }
+
+  .bounce1 {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 2s infinite linear;
+    -o-animation: bounce 2s infinite linear;
+    -webkit-animation: bounce 2s infinite linear;
+    animation: bounce 2s infinite linear;
+    -webkit-animation-delay: .2s;
+    animation-delay: .2s;
+    colr:000;
+  }
+
+  .bounce2 {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 2s infinite linear;
+    -o-animation: bounce 2s infinite linear;
+    -webkit-animation: bounce 2s infinite linear;
+    animation: bounce 2s infinite linear;
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s;
+    colr:000;
+  }
+
+  .bounce3 {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 2s infinite linear;
+    -o-animation: bounce 2s infinite linear;
+    -webkit-animation: bounce 2s infinite linear;
+    animation: bounce 2s infinite linear;
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s;
+    colr:000;
+  }
+
+  .bounce4 {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 2s infinite linear;
+    -o-animation: bounce 2s infinite linear;
+    -webkit-animation: bounce 2s infinite linear;
+    animation: bounce 2s infinite linear;
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s;
+    colr:000;
+  }
+
+  @-webkit-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  
+  @-moz-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  
+  @-o-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  
+  @-ms-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  
+  @keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": {
+    "da": "Nyhedsbrev",
+    "de": "Newsletter",
+    "en": "Newsletter",
+    "es": "Boletín",
+    "fi": "Uutiskirje",
+    "fr": "Newsletter",
+    "hi": "न्यूज़लेटर",
+    "it": "Newsletter",
+    "ja": "メールマガジン",
+    "ko": "뉴스레터",
+    "ms": "Surat berita",
+    "nb": "Nyhetsbrev",
+    "nl": "Nieuwsbrief",
+    "pt-BR": "Newsletter",
+    "pt-PT": "Newsletter",
+    "sv": "Nyhetsbrev",
+    "th": "จดหมายข่าว",
+    "zh-CN": "新闻通讯",
+    "zh-TW": "電子報"
+  },
+  "class": "index-newsletter-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": {
+        "da": "Overskrift",
+        "de": "Überschrift",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "Titre",
+        "hi": "शीर्षक",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "ms": "Tajuk",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+      },
+      "default": {
+        "da": "Tilmeld dig vores nyhedsbrev",
+        "de": "Unseren Newsletter abonnieren",
+        "en": "Subscribe to our newsletter",
+        "es": "Suscríbete a nuestro boletín de noticias",
+        "fi": "Tilaa uutiskirjeemme",
+        "fr": "Inscription à notre newsletter",
+        "hi": "हमारे न्यूज़लेटर की सदस्यता लें",
+        "it": "Iscriviti alla nostra newsletter",
+        "ja": "ストアからのお知らせを受け取る",
+        "ko": "뉴스 레터 구독",
+        "ms": "Langgan surat berita kami",
+        "nb": "Abonner på nyhetsbrevet vårt",
+        "nl": "Abonneren op onze nieuwsbrief",
+        "pt-BR": "Receber nosso newsletter",
+        "pt-PT": "Subscreva a nossa newsletter",
+        "sv": "Prenumerera på vårt nyhetsbrev",
+        "th": "สมัครรับจดหมายข่าวของเรา",
+        "zh-CN": "订阅我们的新闻通讯",
+        "zh-TW": "訂閱我們的電子報"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": {
+        "da": "Underoverskrift",
+        "de": "Untertitel",
+        "en": "Subheading",
+        "es": "Subtítulo",
+        "fi": "Alaotsikko",
+        "fr": "Sous-titre",
+        "hi": "उपशीर्षक",
+        "it": "Sottotitolo",
+        "ja": "小見出し",
+        "ko": "소제목",
+        "ms": "Sub tajuk",
+        "nb": "Underoverskrift",
+        "nl": "Subkop",
+        "pt-BR": "Subtítulo",
+        "pt-PT": "Subtítulo",
+        "sv": "Underrubrik",
+        "th": "หัวเรื่องย่อย",
+        "zh-CN": "副标题",
+        "zh-TW": "子標題"
+      },
+      "default": {
+        "da": "<p>En kort sætning, der beskriver, hvad folk får ud af at tilmelde sig</p>",
+        "de": "<p>Ein kurzer Satz, der beschreibt, was jemand abonniert</p>",
+        "en": "<p>A short sentence describing what someone will receive by subscribing</p>",
+        "es": "<p>Una frase corta que describe lo que alguien recibirá al suscribirse</p>",
+        "fi": "<p>Lyhyt lause, jossa kuvataan, mitä käyttäjä saa tilaamalla</p>",
+        "fr": "<p>Une courte phrase décrivant ce que quelqu'un recevra en s'abonnant</p>",
+        "hi": "<p>किसी को सदस्यता लेने से क्या प्राप्त होगा, यह बताने वाला एक छोटा वाक्य</p>",
+        "it": "<p>Una breve frase che descrive ciò che qualcuno riceverà effettuando l'iscrizione</p>",
+        "ja": "<p>メルマガ購読者に向けたメッセージを入れましょう</p>",
+        "ko": "<p>구독을 통해 받을 것을 설명해주는 짧은 문장</p>",
+        "ms": "<p>Satu perkataan pendek yang menerangkan apa yang seseorang akan terima dengan melanggan</p>",
+        "nb": "<p>En kort setning som beskriver hva man får ved å abonnere</p>",
+        "nl": "<p>Een korte beschrijving van wat iemand ontvangt door zich te abonneren</p>",
+        "pt-BR": "<p>Uma frase curta que descreve o que alguém receberá ao assinar</p>",
+        "pt-PT": "<p>Uma frase curta que descreve o que será recebido ao subscrever</p>",
+        "sv": "<p>En kort mening som beskriver vad som erhålls med prenumeration</p>",
+        "th": "<p>ประโยคสั้นๆ ที่อธิบายถึงสิ่งที่บางคนจะได้รับจากการสมัครรับข้อมูล</p>",
+        "zh-CN": "<p>一个简短的句子，用于描述订阅者将收到的内容</p>",
+        "zh-TW": "<p>簡短說明訂閱者可收到之內容</p>"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": {
+        "da": "Alle kunder, der tilmelder sig, får oprettet en konto i Shopify. [Se kunder](/admin/customers?query=&accepts_marketing=1)",
+        "de": "Für alle Kunden, die sich anmelden, wird in Shopify ein Konto erstellt. [Kunden anzeigen](/admin/customers?query=&accepts_marketing=1)",
+        "en": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)",
+        "es": "Todos los clientes que se registren tendrán una cuenta creada para ellos en Shopify. [Ver clientes](/admin/customers?query=&accepts_marketing=1)",
+        "fi": "Tilaaville asiakkaille luodaan tili Shopify-palvelussa. [Näytä asiakkaat](/admin/customers?query=&accepts_marketing=1)",
+        "fr": "Les clients qui s'inscrivent auront un compte créé pour eux dans Shopify. [Afficher les clients](/admin/customers?query=&accepts_marketing=1)",
+        "hi": "साइन अप करने वाले कोई भी ग्राहक के पास Shopify में खाता बनाया जाएगा. [ग्राहक देखें](/admin/customers?query=&accepts_marketing=1)",
+        "it": "Qualsiasi cliente che si iscrive avrà un account creato appositamente per lui su Shopify. [Visualizza clienti](/admin/customers?query=&accepts_marketing=1)",
+        "ja": "サインアップしたお客様は、Shopifyでアカウントが作成されます。[お客様を表示](/admin/customers?query=&accepts_marketing=1)",
+        "ko": "가입한 고객은 Shopify에서 생성된 계정을 보유하게 됩니다. [고객보기](/admin/customers? query=& accepts_marketing=1)",
+        "ms": "Mana-mana pelanggan yang mendaftar akan mempunyai akaun yang dicipta untuk mereka di Shopify. [Lihat pelanggan](/admin/pelanggan?Query=&accepts_marketing=1)",
+        "nb": "Alle kunder som melder seg på, vil få opprettet en konto i Shopify. [Se kunder](/admin/customers?query=&accepts_marketing=1)",
+        "nl": "Voor alle klanten die zich aanmelden, wordt een Shopify-account gemaakt. [Klanten weergeven](/admin/customers?query=&accepts_marketing=1)",
+        "pt-BR": "Todos os clientes que se inscreverem terão uma conta criada para eles na Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)",
+        "pt-PT": "Será criada uma conta na Shopify para todos os clientes que se registarem. [Ver clientes](/admin/customers?query=&accepts_marketing=1)",
+        "sv": "Alla kunder som registrerar sig kommer att få ett konto skapat i Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)",
+        "th": "ระบบจะสร้างบัญชีผู้ใช้ใน Shopify ให้แก่ลูกค้ารายใดก็ตามที่ลงทะเบียน [ดูลูกค้า](/admin/customers?query=&accepts_marketing=1)",
+        "zh-CN": "任何注册用户都将在 Shopify 中拥有一个为他们创建的帐户。[查看客户](/admin/customers?query=&accepts_marketing=1)",
+        "zh-TW": "客戶註冊後就可以擁有 Shopify 的帳號。[檢視客戶](/admin/customers?query=&accepts_marketing=1)"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "da": "Tilmelding til nyhedsbrev",
+        "de": "Newsletter-Anmeldung",
+        "en": "Newsletter signup",
+        "es": "Inscríbete en el boletín",
+        "fi": "Uutiskirjeen tilaus",
+        "fr": "Inscription à la newsletter",
+        "hi": "न्यूज़लेटर साइनअप",
+        "it": "Iscrizione alla Newsletter",
+        "ja": "メールマガジンの登録",
+        "ko": "뉴스레터 신청",
+        "ms": "Pendaftaran surat berita",
+        "nb": "Registrering for nyhetsbrev",
+        "nl": "Nieuwsbriefaanmelding",
+        "pt-BR": "Assinatura da newsletter",
+        "pt-PT": "Registo na newsletter",
+        "sv": "Nyhetsbrevsregistrering",
+        "th": "การสมัครรับจดหมายข่าว",
+        "zh-CN": "新闻通讯注册",
+        "zh-TW": "訂閱電子報"
+      },
+      "category": {
+        "da": "Kampagne",
+        "de": "Promotional",
+        "en": "Promotional",
+        "es": "Promocional",
+        "fi": "Mainonnallinen",
+        "fr": "Promotionnel",
+        "hi": "प्रमोशनल",
+        "it": "Promozionale",
+        "ja": "プロモーション用",
+        "ko": "프로모션",
+        "ms": "Promosi",
+        "nb": "Kampanjer",
+        "nl": "Promotioneel",
+        "pt-BR": "Promocional",
+        "pt-PT": "Promocional",
+        "sv": "Kampanjer",
+        "th": "ส่งเสริมการขาย",
+        "zh-CN": "促销",
+        "zh-TW": "宣傳活動"
+      }
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}
