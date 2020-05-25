@@ -44,13 +44,15 @@
         {% endunless %}
 
         <div class="grid__item large--two-tenths push--large--one-tenth">
-          <time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ article.published_at | date: "%b ,%Y" }}</time>
-          <hr class="hr--small hr--left small--hide">
           {% if article.tags.size > 0 %}
-            <ul class="tags tags--article inline-list">
-              {% include 'tags-article' %}
-            </ul>
+            <span class="article_tag">
+              {% for tag in article.tags %}
+                {{ tag }}
+              {% endfor %}
+            </span>
           {% endif %}
+          <time style="float: right; margin-right: 10px;" datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ article.published_at | date: "%b ,%Y" }}</time>
+          <hr class="hr--small hr--left small--hide">
         </div>
         <div class="grid__item large--six-tenths push--large--one-tenth">
           <h2 class="h3"><a class="article__heading-link" href="{{ article.url }}" style="margin:20px 20px 20px 0px;">{{ article.title }}</a></h2>
@@ -135,6 +137,10 @@
     /*padding-left: 20px;*/
   }
 
+  .article_tag{
+    font-style: italic;
+  }
+
   @media screen and (max-width: 768px) {
     .main-content {
       margin-top: 140px;
@@ -163,6 +169,11 @@
       padding-left: 0;
       margin-left: 0;
     }
+
+    .article_tag{
+      float: left;
+      margin-left: 25px;
+    }
   }
 
   @media screen and (max-width: 590px) {
@@ -185,6 +196,11 @@
       width: 100%;
       padding-left: 0;
       margin-left: 0;
+    }
+
+    .article_tag{
+      float: left;
+      margin-left: 25px;
     }
   }
 </style>
