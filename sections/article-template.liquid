@@ -34,6 +34,13 @@
       <h2 style="font-weight: bold; font-size: 2em;">{{ article.title }}</h2>
       <hr class="hr--small">
       <p>
+        {% if article.tags.size > 0 %}
+            <span class="article_tag">
+              {% for tag in article.tags %}
+                {{ tag }} - 
+              {% endfor %}
+            </span>
+          {% endif %}
         <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}">{{ article.published_at | date: "%b, %Y" }}</time></span>
       </p>
     </header>
@@ -44,10 +51,6 @@
         <div class="rte rte--indented-images" itemprop="articleBody">
           {{ article.content }}
         </div>
-
-        <ul class="tags tags--article inline-list">
-          {% include 'tags-article' %}
-        </ul>
 
         {% if blog.comments_enabled? %}
 
