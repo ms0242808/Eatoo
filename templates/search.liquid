@@ -39,7 +39,10 @@
 
             {% if item.object_type == 'product' %}
               {% assign product = item %}
-              {% include 'product-grid-item' %}
+              {% if product.title == 'Chili Oil' or product.title == 'Chili Powder' or product.title == 'Chopped Green Onion' or product.title == 'Chopped Peanuts' or product.title == 'Coriander' or product.title == 'Fermented Bean Curd Sauce' or product.title == 'Oyster Sauce' or product.title == 'Sesame Oil' or product.title == 'Sesame Sauce' or product.title == 'Thai Red Pepper' %}
+              {% else %}
+                {% include 'product-grid-item' %}
+              {% endif %}
             {% else %}
               <div class="grid__item grid-search large--one-third medium--one-half">
                 <div class="grid-search__page">
