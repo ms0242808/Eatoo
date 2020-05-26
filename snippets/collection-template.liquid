@@ -136,12 +136,15 @@
             {% endif %}
 
             {% assign tag = 'Equipment' %}
-            {% if current_tags contains tag %}
-              <li class="tag--active">
-                {{ tag | link_to_remove_tag: tag }}
-              </li>
+            {% if request.path contains '/collections/bbq' %}
             {% else %}
-              <li class="tag-list">{{ tag | link_to_tag: tag}} {{tag_coll}}</li>
+              {% if current_tags contains tag %}
+                <li class="tag--active">
+                  {{ tag | link_to_remove_tag: tag }}
+                </li>
+              {% else %}
+                <li class="tag-list">{{ tag | link_to_tag: tag}} {{tag_coll}}</li>
+              {% endif %}
             {% endif %}
           {% else %}
             {% if request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
@@ -221,10 +224,13 @@
             {% endif %}
 
             {% assign tag = 'Equipment' %}
-            {% if current_tags contains tag %}
-              <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+            {% if request.path contains '/collections/bbq' %}
             {% else %}
-              <option value="{{ tag | handle }}">{{ tag }}</option>
+              {% if current_tags contains tag %}
+                <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+              {% else %}
+                <option value="{{ tag | handle }}">{{ tag }}</option>
+              {% endif %}
             {% endif %}
           {% else %}
             {% if request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
