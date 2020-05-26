@@ -107,7 +107,7 @@
             {% else %}
               {% if tag == 'Equipment' or tag == 'Set' or tag == 'Broth' or tag == 'Drink' %}
                 <li style="display: none;"> {{ tag | link_to_tag: tag }} </li>
-              {% elsif request.path contains '/collections/sukiyaki' or request.path contains '/collections/budae-jjigae' or request.path contains '/collections/hot-pot' or request.path contains '/collections/bbq' %}
+              {% elsif request.path contains '/collections/sukiyaki' or request.path contains '/collections/budae-jjigae' or request.path contains '/collections/hot-pot' or request.path contains '/collections/bbq' or request.path contains '/collections/hot-deal' or request.path contains '/collections/by-air' %}
                 {% if tag == 'Leaves' or tag == 'Milk & Egg' or tag == 'Herbs' or tag == 'Rice & Noodle' or tag == 'Roots' %}
                   <li style="display: none;"> {{ tag | link_to_tag: tag }} </li>
                 {% else %}
@@ -203,7 +203,7 @@
             {% else %}
               {% if tag == 'Equipment' or tag == 'Set' or tag == 'Broth' or tag == 'Drink' %}
                 <option value="{{ tag | handle }}" style="display: none;">{{ tag }}</option>
-              {% elsif request.path contains '/collections/sukiyaki' or request.path contains '/collections/budae-jjigae' or request.path contains '/collections/hot-pot' or request.path contains '/collections/bbq' %}
+              {% elsif request.path contains '/collections/sukiyaki' or request.path contains '/collections/budae-jjigae' or request.path contains '/collections/hot-pot' or request.path contains '/collections/bbq' or request.path contains '/collections/hot-deal' or request.path contains '/collections/by-air' %}
                 {% if tag == 'Leaves' or tag == 'Milk & Egg' or tag == 'Herbs' or tag == 'Rice & Noodle' or tag == 'Roots' %}
                   <option value="{{ tag | handle }}" style="display: none;">{{ tag }}</option>
                 {% else %}
