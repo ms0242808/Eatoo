@@ -16,6 +16,31 @@
     {%- if pageUrl contains "view=36" -%}{%- assign limit = 36 -%}{%- endif -%}
 {%- endfor -%}
 
+{% unless request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
+    {% assign unsortedProducts = collection.products | reverse | reverse %}
+    {% for product in unsortedProducts %}
+      {% assign sliceIndex = forloop.index0 %}
+      {% assign aProduct = unsortedProducts | slice: sliceIndex, 1 %}
+      {% if product.available == true %}
+        {% if availableProducts.size == 0 %}
+          {% assign availableProducts = aProduct %}
+        {% else %}
+          {% assign availableProducts = availableProducts | concat:aProduct %}
+        {% endif %}
+      {% else %}
+        {% if unavailableProducts.size == 0 %}
+          {% assign unavailableProducts = aProduct %}
+        {% else %}
+          {% assign unavailableProducts = unavailableProducts | concat: aProduct %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign sortedProducts = collection.products %}
+    {% if unavailableProducts.size > 0 and availableProducts.size > 0 %}
+      {% assign sortedProducts = availableProducts | concat:unavailableProducts %}
+    {% endif %}
+{% endunless %}
 {% paginate collection.products by limit %}
 
 <div class="collbanner"  style="background-image: url('{{ collection.image | img_url: '1024x1024' }}');">
@@ -25,7 +50,7 @@
 
   <h2 style="font-weight: bold; font-size: 2em;">{{ collection.title }}</h2>
   <hr class="hr--small">
-  
+
   <div class="desktop_tag">
     <div class="sort-per-page" style="width: fit-content; float: right; margin-top: -50px;">
       <label for="sel1">per page:</label>
@@ -257,6 +282,7 @@
             {% else %}
           {% endif %}
         </select>
+        
         <div class="sort-per-page">
           <label for="sel1">per page:</label>
           <select id="sel1" class="num">
@@ -272,6 +298,7 @@
             });
           </script>
         </div>
+        
       </div>
     {% endif %}
   {% endif %}
@@ -317,23 +344,30 @@
 {% elsif section.settings.collection_products_grid == 'grid' %}
   <div class="grid-uniform">
     {% assign grid_item_width = 'small--one-half medium--one-half large--one-quarter' %}
-    {% for product in collection.products %}
-      {% include 'product-grid-item' %}
+    {% if request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
+      {% for product in collection.products %}
+        {% include 'product-grid-item' %}
+      {% endfor %}
     {% else %}
-      {% if collection.handle == 'all' %}
-        {% comment %}
-          Add default products to help with onboarding for collections/all only
-        {% endcomment %}
-        {% include 'onboarding-featured-products' %}
+      {% for product in collection.products %}
+        {% assign sortedProductsIndex = paginate.current_offset | plus: forloop.index0 %}
+        {% include 'product-grid-item', product: sortedProducts[sortedProductsIndex] %}
       {% else %}
-        {% comment %}
-          If collection exists but is empty, display message
-        {% endcomment %}
-        <div class="grid__item text-center">
-          <p>{{ 'collections.general.no_matches' | t }}</p>
-        </div>
-      {% endif %}
-    {% endfor %}
+        {% if collection.handle == 'all' %}
+          {% comment %}
+            Add default products to help with onboarding for collections/all only
+          {% endcomment %}
+          {% include 'onboarding-featured-products' %}
+        {% else %}
+          {% comment %}
+            If collection exists but is empty, display message
+          {% endcomment %}
+          <div class="grid__item text-center">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 {% endif %}
 
