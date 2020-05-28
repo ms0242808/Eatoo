@@ -316,7 +316,7 @@
   </div>
 {% elsif section.settings.collection_products_grid == 'grid' %}
   <div class="grid-uniform">
-    {% assign grid_item_width = 'medium--one-half large--one-quarter' %}
+    {% assign grid_item_width = 'small--one-half medium--one-half large--one-quarter' %}
     {% for product in collection.products %}
       {% include 'product-grid-item' %}
     {% else %}
