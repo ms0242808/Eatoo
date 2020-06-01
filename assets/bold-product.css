@@ -1,0 +1,18 @@
+#choice-actions.sticky {    
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    height: 140px !important;
+}
+
+.bold-ro__choice-header{
+	padding-bottom: 0 !important;
+	margin-top: 67px !important;
+}
+
+span.bold-product__quantity-decrease, span.bold-product__quantity-increase{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.manage-subscription-page{
+	margin: 100px 0;
+}
