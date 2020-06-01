@@ -313,7 +313,7 @@
               {% endif %}
 
               <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
-                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %} style="padding: 8px 10px 8px 10px; width: 161.55px; height: 44px;">
+                <button type="submit" name="add" id="AddToCart--{{ section.id }}" class="addtocart btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %} style="padding: 8px 10px 8px 10px; width: 161.55px; height: 44px;">
                   <span style="font-weight: bold;" class="btn__text">
                   <style type="text/css">.ajaxified-cart-feedback{display: none}</style>
                     {% if current_variant.available %}
@@ -330,6 +330,8 @@
             {% endform %}
 
           </div>
+
+          <div class="ro_widget"></div>
 
           <div class="product-single__description rte" style="margin-top:20px;" itemprop="description">
             {{ product.description }}
