@@ -67,9 +67,12 @@
                       <p class="cart__product-meta">{{ item.vendor }}</p>
                     {% endif %}
 
-                    {% assign property_size = item.properties | size %}
+                    <span class="bold_ro_desc" data-product-id="{{ item.id }}-{{ forloop.index0 }}"></span>
+{% assign property_size = item.properties | size %}
                     <div class='' data-key='{{item.key}}'></div>{% if property_size > 0 %}
-                      {%- comment -%}{% for p in item.properties %}
+                      {%- comment -%}
+{%- comment -%}
+{% for p in item.properties %}
                         {% assign first_character_in_key = p.first | truncate: 1, '' %}
                         {% unless p.last == blank or first_character_in_key == '_' %}
                           {{ p.first }}:
@@ -82,7 +85,11 @@
 
                           <br>
                         {% endunless %}
-                      {% endfor %}{%- endcomment -%}{%- for p in item.properties -%}
+                      {% endfor %}
+{%- endcomment -%}
+<span class="bold_load_cart_item_properties"></span>{%- endcomment -%}
+{%- comment -%}
+{%- for p in item.properties -%}
             {%- unless p.last == blank -%}
               <li class="product-details__item product-details__item--property{%if property_size == 0%} hide{% endif %}" data-cart-item-property>
                 <span class="product-details__item-label" data-cart-item-property-name>{{ p.first }}: </span>
@@ -100,6 +107,8 @@
               </li>
             {%- endunless -%}
           {%- endfor -%}
+{%- endcomment -%}
+<span class="bold_load_cart_item_properties"></span>
             <button type="button" class="edit_cart_option btn btn--primary button" data-product_id="{{item.product_id}}" data-key="{{item.key}}" data-variant_id="{{item.variant_id}}" data-quantity="{{item.quantity}}">Edit Options</button>
                     {% endif %}
 
@@ -126,11 +135,11 @@
 
                     {%- if item.original_line_price != item.final_line_price -%}
                       <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-                      <del class="cart__price"><span class='' data-key='{{item.key}}'>{{ item.original_line_price | money }}</span></del>
+                      <del class="cart__price"><span class='' data-key='{{item.key}}'><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.original_line_price | money }}</span></del>
                       <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-                      <span class="order-discount cart__price">{{ item.final_line_price | money }}</span>
+                      <span class="order-discount cart__price"><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total_3" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.final_line_price | money }}</span>
                     {%- else -%}
-                      <span class="cart__price"><span class='booster-cart-item-line-price' data-key='{{item.key}}'><span class='' data-key='{{item.key}}'>{{ item.original_line_price | money }}</span></span></span>
+                      <span class="cart__price"><span class='booster-cart-item-line-price' data-key='{{item.key}}'><span class='' data-key='{{item.key}}'><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total_2" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.original_line_price | money }}</span></span></span>
                     {%- endif -%}
 
                     {%- if item.unit_price_measurement -%}
@@ -259,7 +268,7 @@
                   <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
                 </div>
                 <div class="grid__item one-half large--one-third">
-                  <p class="cart__subtotal"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
+                  <p class="cart__subtotal"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
                 </div>
               </div>
 
@@ -534,6 +543,10 @@
     margin-right: 10px;
     margin-top: 10px;
     vertical-align: -webkit-baseline-middle;
+  }
+
+  .product_rp_cart_div{
+    display: none;
   }
 
   @media only screen and (max-width: 720px) {
