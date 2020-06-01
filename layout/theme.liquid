@@ -114,6 +114,11 @@
 {{ 'loading-bar.js' | asset_url | script_tag }}
 <link rel="alternate" hreflang ="zh-CN" href="http://zh-cn.www.eatoo.co.uk/" />
 <link rel="alternate" hreflang ="zh-TW" href="http://zh-tw.www.eatoo.co.uk/" />
+
+<!-- Bold Subscription -->
+{{ 'bold-product.css' | asset_url | stylesheet_tag }}
+{%- render 'bold-common' -%}
+{%- render 'bold-ro-init' -%}
 </head>
 
 {% comment %}
