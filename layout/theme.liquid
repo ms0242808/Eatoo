@@ -112,8 +112,8 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 {{ 'loading-bar.css' | asset_url | stylesheet_tag }}
 {{ 'loading-bar.js' | asset_url | script_tag }}
-<link rel="alternate" hreflang ="zh-CN" href="http://zh-cn.www.eatoo.co.uk/" />
-<link rel="alternate" hreflang ="zh-TW" href="http://zh-tw.www.eatoo.co.uk/" />
+<link rel="alternate" hreflang ="zh-CN" href="https://zh-cn.eatoo.co.uk/" />
+<link rel="alternate" hreflang ="zh-TW" href="https://zh-tw.eatoo.co.uk/" />
 
 <!-- Bold Subscription -->
 {{ 'bold-product.css' | asset_url | stylesheet_tag }}
@@ -211,6 +211,7 @@
  {% include 'ajaxify-cart' %}
  {% include 'flits_snippet' %}
  {% include 'mw_DD_objects' %}
+ {% include 'customer-shipping-rules-theme' %}
  {{ '//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' | stylesheet_tag }}
  {{ '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css' | stylesheet_tag }}
  {{ 'quickview.scss.css' | asset_url | stylesheet_tag }}
