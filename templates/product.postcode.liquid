@@ -1,0 +1,120 @@
+<!-- /templates/product-postcode.liquid -->
+{% comment %}
+  The contents of the product-postcode.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+
+<div class="productPass" id="protected" style="display: block;">
+	<title>Top Secret</title>
+	<div class="form">
+		<form>
+	    	<h2><img src="https://img.icons8.com/ios/76/000000/marker.png"/></h2>
+	    	<br>
+	    	<input type="text" id="pswd">
+	    	<input class="passSubmit" type="button" value="Submit" onclick="checkPswd();" />
+		</form>
+	</div>
+</div>
+
+<div id="passed" style="display: none;">
+	{% section 'product-template' %}
+</div>
+
+<script type="text/javascript">
+    var postRules = new Array();
+	$.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/20200603.txt?v=1591163789', function(data){
+        postRules = data.split('\n');
+    });
+    
+	function removeSpace() {
+	  for(i = 0; i < postRules.length; i++){
+	  	postRules[i] = postRules[i].split(" ").join("");
+	  }
+	}
+    
+    function checkPswd() {
+        removeSpace();
+        var postcode = document.getElementById("pswd").value;
+        postcode = postcode.split(" ").join("").toUpperCase();
+		
+        if(postRules.indexOf(postcode) !== -1){
+	        $("#passed").css("display","block");
+            $("#protected").css("display","none");
+	    } else{
+	        alert("Not in range.");
+	    }
+    }
+
+	var stopSubmission = false;
+	jQuery('#pswd').keydown(function(e){
+	   if(e.keyCode == 13){
+	       checkPswd();
+	       stopSubmission = true;
+	   }else{
+	    	stopSubmission = false;
+	   }
+	});
+
+	jQuery('form').submit(function(){
+	    if(stopSubmission){
+	        return false;
+	    }
+	});
+
+    
+</script>
+
+<style>
+	.main-content {
+	 	margin-top: 110px;
+	}
+
+	.productPass {
+		padding: 150px 300px;
+		vertical-align: middle;
+		text-align: center;
+	}
+
+	.form {
+	  position: relative;
+	  z-index: 1;
+	  max-width: 360px;
+	  margin: 0 auto 100px;
+	  padding: 45px;
+	  text-align: center;
+	  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	  border-radius: 10px;
+	}
+
+	.form input {
+	  outline: 0;
+	  background: #dcdcdc;
+	  width: 100%;
+	  border: 0;
+	  margin: 0 0 15px;
+	  padding: 15px;
+	  box-sizing: border-box;
+	  font-size: 16px;
+	  border-radius: 30px;
+	}
+
+	.passSubmit {
+		background-color: #d2b259 !important;
+		font-style: normal;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	@media screen and (max-width: 768px) {
+	  .main-content {
+	  	margin-top: 100px;
+	  }
+	  
+	  .text-left {
+	  	display:none;
+	  }
+
+	  .productPass {
+		padding: 100px 30px;
+	  }
+	}
+</style>
