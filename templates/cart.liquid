@@ -109,7 +109,7 @@
           {%- endfor -%}
 {%- endcomment -%}
 <span class="bold_load_cart_item_properties"></span>
-            <button type="button" class="edit_cart_option btn btn--primary button" data-product_id="{{item.product_id}}" data-key="{{item.key}}" data-variant_id="{{item.variant_id}}" data-quantity="{{item.quantity}}">Edit Options</button>
+            {%comment%}<button type="button" class="edit_cart_option btn btn--primary button" data-product_id="{{item.product_id}}" data-key="{{item.key}}" data-variant_id="{{item.variant_id}}" data-quantity="{{item.quantity}}">Edit Options</button>            {%endcomment%}
                     {% endif %}
 
                     <p class="cart__product-meta" style="font-style: italic; font-size: 14px;">
