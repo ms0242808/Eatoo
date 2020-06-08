@@ -7,14 +7,14 @@
 	<title>Top Secret</title>
 	<div class="form">
 		<div class="tooltip">
-          <i class="fas fa-info-circle"></i>
-          <span class="tooltiptext">Currently Eatoo Prime is only available within 5 miles from our location.</span>
-        </div>
+		  <i class="fas fa-info-circle"></i>
+		  <span class="tooltiptext">Currently Eatoo Prime is only available within 5 miles from our location.</span>
+		</div>
 		<form>
-	    	<h2><img src="https://img.icons8.com/ios/66/000000/place-marker.png"/></h2>
-	    	<br>
-	    	<input type="text" id="pswd" placeholder="Enter your postcode...">
-	    	<input class="passSubmit" type="button" value="Submit" onclick="checkPswd();" />
+			<h2 style="margin-left: 18px;"><img src="https://img.icons8.com/ios/66/000000/place-marker.png"/></h2>
+			<br>
+			<input type="text" id="pswd" placeholder="Enter your postcode...">
+			<input class="passSubmit" type="button" value="Submit" onclick="checkPswd();" />
 		</form>
 	</div>
 </div>
@@ -24,50 +24,50 @@
 </div>
 
 <script type="text/javascript">
-    var postRules = new Array();
+	var postRules = new Array();
 	$.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/20200603.txt?v=1591163789', function(data){
-        postRules = data.split('\n');
-    });
-    
+		postRules = data.split('\n');
+	});
+	
 	function removeSpace() {
-	  for(i = 0; i < postRules.length; i++){
-	  	postRules[i] = postRules[i].split(" ").join("");
-	  }
+		for(i = 0; i < postRules.length; i++){
+			postRules[i] = postRules[i].split(" ").join("");
+		}
 	}
-    
-    function checkPswd() {
-        removeSpace();
-        var postcode = document.getElementById("pswd").value;
-        postcode = postcode.split(" ").join("").toUpperCase();
+	
+	function checkPswd() {
+		removeSpace();
+		var postcode = document.getElementById("pswd").value;
+		postcode = postcode.split(" ").join("").toUpperCase();
 		
-        if(postRules.indexOf(postcode) !== -1){
-	        $("#passed").css("display","block");
-            $("#protected").css("display","none");
-	    } else{
-	        alert("Not in range.");
-	    }
-    }
+		if(postRules.indexOf(postcode) !== -1){
+			$("#passed").css("display","block");
+			$("#protected").css("display","none");
+		} else{
+			alert("Not in range.");
+		}
+	}
 
 	var stopSubmission = false;
 	jQuery('#pswd').keydown(function(e){
 	   if(e.keyCode == 13){
-	       checkPswd();
-	       stopSubmission = true;
+		   checkPswd();
+		   stopSubmission = true;
 	   }else{
-	    	stopSubmission = false;
+			stopSubmission = false;
 	   }
 	});
 
 	jQuery('form').submit(function(){
-	    if(stopSubmission){
-	        return false;
-	    }
+		if(stopSubmission){
+			return false;
+		}
 	});
 </script>
 
 <style>
 	.main-content {
-	 	margin-top: 110px;
+		margin-top: 110px;
 	}
 
 	.productPass {
@@ -77,26 +77,26 @@
 	}
 
 	.form {
-	  position: relative;
-	  z-index: 1;
-	  max-width: 360px;
-	  margin: 0 auto 100px;
-	  padding: 45px;
-	  text-align: center;
-	  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	  border-radius: 10px;
+		position: relative;
+		z-index: 1;
+		max-width: 360px;
+		margin: 0 auto 100px;
+		padding: 45px;
+		text-align: center;
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+		border-radius: 10px;
 	}
 
 	.form input {
-	  outline: 0;
-	  background: #dcdcdc;
-	  width: 100%;
-	  border: 0;
-	  margin: 0 0 15px;
-	  padding: 15px;
-	  box-sizing: border-box;
-	  font-size: 16px;
-	  border-radius: 30px;
+		outline: 0;
+		background: #dcdcdc;
+		width: 100%;
+		border: 0;
+		margin: 0 0 15px;
+		padding: 15px;
+		box-sizing: border-box;
+		font-size: 16px;
+		border-radius: 30px;
 	}
 
 	.passSubmit {
@@ -107,45 +107,47 @@
 	}
 
 	.tooltip {
-    	float: right;
-    	left: 30px !important;
-    	bottom: 30px !important;
-  	}
+		float: right;
+		left: 30px !important;
+		bottom: 30px !important;
+		font-size: 24px !important;
+	}
 
-  	.tooltiptext {
-  		top: -18px !important;
-  		left: 130% !important;
-  		width: 300px !important;
-  	}
+	.tooltiptext {
+		top: -12px !important;
+		left: 119% !important;
+		width: 300px !important;
+		font-size: 16px !important;
+	}
 
 	@media screen and (max-width: 768px) {
-	  .main-content {
-	  	margin-top: 100px;
-	  }
-	  
-	  .text-left {
-	  	display:none;
-	  }
+		.main-content {
+			margin-top: 100px;
+		}
 
-	  .productPass {
-		padding: 100px 30px;
-	  }
+		.text-left {
+			display:none;
+		}
 
-	  .tooltip {
-    	float: right;
-    	left: 30px;
-    	bottom: 30px;
-	  }
+		.productPass {
+			padding: 100px 30px;
+		}
 
-	  .tooltiptext {
-	 	left: -262px !important;
-	 	top: -60px !important;
-	  }
+		.tooltip {
+			float: right;
+			left: 30px;
+			bottom: 30px;
+		}
 
-	  .tooltiptext::after{
-	  	top: 107% !important;
-	  	right: 8.5% !important;
-	  	border-color: black transparent transparent transparent !important;
-	  }
+		.tooltiptext {
+			left: -258px !important;
+			top: -58px !important;
+		}
+
+		.tooltiptext::after{
+			top: 107% !important;
+			right: 8.5% !important;
+			border-color: black transparent transparent transparent !important;
+		}
 	}
 </style>
