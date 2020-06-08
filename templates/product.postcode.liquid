@@ -6,10 +6,14 @@
 <div class="productPass" id="protected" style="display: block;">
 	<title>Top Secret</title>
 	<div class="form">
+		<div class="tooltip">
+          <i class="fas fa-info-circle"></i>
+          <span class="tooltiptext">Currently Eatoo Prime is only available within 5 miles from our location.</span>
+        </div>
 		<form>
-	    	<h2><img src="https://img.icons8.com/ios/76/000000/marker.png"/></h2>
+	    	<h2><img src="https://img.icons8.com/ios/66/000000/place-marker.png"/></h2>
 	    	<br>
-	    	<input type="text" id="pswd">
+	    	<input type="text" id="pswd" placeholder="Enter your postcode...">
 	    	<input class="passSubmit" type="button" value="Submit" onclick="checkPswd();" />
 		</form>
 	</div>
@@ -59,8 +63,6 @@
 	        return false;
 	    }
 	});
-
-    
 </script>
 
 <style>
@@ -104,6 +106,18 @@
 		text-transform: uppercase;
 	}
 
+	.tooltip {
+    	float: right;
+    	left: 30px !important;
+    	bottom: 30px !important;
+  	}
+
+  	.tooltiptext {
+  		top: -18px !important;
+  		left: 130% !important;
+  		width: 300px !important;
+  	}
+
 	@media screen and (max-width: 768px) {
 	  .main-content {
 	  	margin-top: 100px;
@@ -115,6 +129,23 @@
 
 	  .productPass {
 		padding: 100px 30px;
+	  }
+
+	  .tooltip {
+    	float: right;
+    	left: 30px;
+    	bottom: 30px;
+	  }
+
+	  .tooltiptext {
+	 	left: -262px !important;
+	 	top: -60px !important;
+	  }
+
+	  .tooltiptext::after{
+	  	top: 107% !important;
+	  	right: 8.5% !important;
+	  	border-color: black transparent transparent transparent !important;
 	  }
 	}
 </style>
