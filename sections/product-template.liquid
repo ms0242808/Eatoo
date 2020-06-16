@@ -327,12 +327,11 @@
                   {{ form | payment_button }}
                 {% endif %}
               </div>
-              {% include 'customer-shipping-rules' %}
             {% endform %}
 
           </div>
 
-          <div class="ro_widget"></div>
+          <div class="ro_widget" style="display: none;"></div>
 
           <div class="product-single__description rte" style="margin-top:20px;" itemprop="description">
             {{ product.description }}
