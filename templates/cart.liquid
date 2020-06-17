@@ -426,7 +426,7 @@
       var today = new Date();
       var now = today.getHours();
       var nowDay = today.getDay();
-      if( 18 > now && nowDay != 0){
+      if( 19 > now && nowDay != 0){
         if($('.mw-flatpickr-day').hasClass('today')){
           $('.today').removeClass('disabled');
         }
@@ -434,16 +434,34 @@
     };
 
     setTimeout(function() {
-      checkDT();
+      //checkDT();
     },5000);
     
     $(document).on("click",".mw-dd-picker",function(){
-      checkDT();
+      //checkDT();
     });
     
+    $(document).on("change",".mw-dd-picker",function(){ 
+      var today = new Date();
+      var time = today.getHours();
+      if(time >= 11){
+        $('.mw-dd-time option[value="12:00 - 14:00"]').remove();
+      }  
+      if(time >= 15){
+        $('.mw-dd-time option[value="16:00 - 18:00"]').remove();
+      }  
+    });
+
+    /*
+      $('.mw-dd-time option[value="12:00 - 14:00"]').remove();
+      $('.mw-dd-time option[value="16:00 - 18:00"]').remove();
+      $('.mw-dd-time option[value="20:00 - 22:00"]').remove();
+      $('.mw-dd-time').append($('<option>').val("18:00 - 21:00").text("18:00 - 21:00"));
+    */
+
     /*$(document).on("change",".mw-dd-picker",function(){      
-      var slots = [11,16,20];
-      var optSlots  = ["11:00 - 13:30","15:00 - 18:30","20:00 - 22:00"];
+      var slots = [12,16,20];
+      var optSlots  = ["12:00 - 14:00","20:00 - 22:00"];
       var today = new Date();
       var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
       var time = today.getHours(); //testing to add value
@@ -457,7 +475,7 @@
         $("#expressD").css("display","none");
       } else if(x == date.toString()){
         $("#expressD").css("display","block");
-        if(time <= 9){//Keep all option
+        if(time <= 11){//Keep all option
         } else {
           for(var i=0; i<=2; i++){
             $('.mw-dd-time option[value="'+optSlots[i]+'"]').remove();//remove first two option if time is greater than them
@@ -593,6 +611,10 @@
     .note-cart {
       margin-top: 50px;
     }
+
+    #mw-dd-container .mw-dd-time-wrapper label {
+      display: none;
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -639,6 +661,10 @@
 
     .note-cart {
       margin-top: 50px;
+    }
+
+    #mw-dd-container .mw-dd-time-wrapper label {
+      display: none;
     }
   }
 </style>
