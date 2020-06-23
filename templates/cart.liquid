@@ -426,7 +426,7 @@
       var today = new Date();
       var now = today.getHours();
       var nowDay = today.getDay();
-      if( 19 > now && nowDay != 0){
+      if( 16 > now && nowDay != 0){
         if($('.mw-flatpickr-day').hasClass('today')){
           $('.today').removeClass('disabled');
         }
@@ -444,12 +444,12 @@
     $(document).on("change",".mw-dd-picker",function(){ 
       var today = new Date();
       var time = today.getHours();
-      if(time >= 11){
-        $('.mw-dd-time option[value="12:00 - 14:00"]').remove();
+      if(time >= 10){
+        $('.mw-dd-time option[value="11:00 - 15:00"]').remove();
       }  
-      if(time >= 15){
+      /*if(time >= 15){
         $('.mw-dd-time option[value="16:00 - 18:00"]').remove();
-      }  
+      } */ 
     });
 
     /*
