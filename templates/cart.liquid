@@ -443,8 +443,10 @@
     
     $(document).on("change",".mw-dd-picker",function(){ 
       var today = new Date();
+      var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
       var time = today.getHours();
-      if(time >= 10){
+      var x = document.getElementsByClassName("mw-dd-picker")[0].value;
+      if(x == date.toString() && time >= 10){
         $('.mw-dd-time option[value="11:00 - 15:00"]').remove();
       }  
       /*if(time >= 15){
