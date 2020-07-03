@@ -16,7 +16,7 @@
     {%- if pageUrl contains "view=36" -%}{%- assign limit = 36 -%}{%- endif -%}
 {%- endfor -%}
 
-{% unless request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
+{% unless request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' or request.path contains '/collections/food-cupboard'%}
     {% assign unsortedProducts = collection.products | reverse | reverse %}
     {% for product in unsortedProducts %}
       {% assign sliceIndex = forloop.index0 %}
@@ -344,7 +344,7 @@
 {% elsif section.settings.collection_products_grid == 'grid' %}
   <div class="grid-uniform">
     {% assign grid_item_width = 'small--one-half medium--one-half large--one-quarter' %}
-    {% if request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
+    {% if request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' or request.path contains '/collections/food-cupboard' %}
       {% for product in collection.products %}
         {% include 'product-grid-item' %}
       {% endfor %}
