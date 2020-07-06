@@ -1,0 +1,197 @@
+<style>
+.flickity-slider{
+  padding-top: 8px;
+}
+
+/* position dots in carousel */
+.flickity-page-dots {
+  bottom: 3px;
+}
+/* white circles */
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+  background: #ffffff;
+  /*border: 2px solid #2d2d2d;*/
+}
+/* fill-in selected dot */
+.flickity-page-dots .dot.is-selected {
+  background: #c65a17;
+}
+</style>
+
+<div id="CollectionSection" data-section-id="{{ section.id }}" data-section-type="collection-template">
+ <div style="margin-top: 30px;"class="wrapper">
+    {% if section.settings.title != blank %}
+      <div class="section-header text-center">
+        <h2 class="h1 section-header__title">{{ section.settings.title | escape }}</h2>
+        <hr class="hr--small">
+      </div>
+    {% endif %}
+   <div class="grid-uniform">
+      <div class="main-carousel">
+        {% assign grid_item_width = 'small--one-half large--one-third' %}
+        {% for product in collections[section.settings.home_featured_products].products %}
+          {% include 'product-grid-item' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$('.main-carousel').flickity({
+  // options
+  cellAlign: 'left',
+  groupCells: true,
+  contain: true,
+  prevNextButtons: false
+});
+</script>
+
+{% schema %}
+{
+  "name": {
+    "da": "Udvalgt kollektion",
+    "de": "Featured Kategorie",
+    "en": "Product Slide",
+    "es": "colección destacada",
+    "fi": "Esittelyssä oleva kokoelma",
+    "fr": "Collection en vedette",
+    "hi": "फ़ीचर्ड कलेक्शन",
+    "it": "Collezione in evidenza",
+    "ja": "特集コレクション",
+    "ko": "추천 컬렉션",
+    "ms": "Koleksi yang ditampilkan",
+    "nb": "Utvalgt samling",
+    "nl": "Uitgelichte collectie",
+    "pt-BR": "Coleção em destaque",
+    "pt-PT": "Coleção em destaque",
+    "sv": "Utvald kollektion",
+    "th": "คอลเลกชันแนะนำ",
+    "zh-CN": "特色产品系列",
+    "zh-TW": "精選商品系列"
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "da": "Overskrift",
+        "de": "Überschrift",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "Titre",
+        "hi": "शीर्षक",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "ms": "Tajuk",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+      },
+      "default": {
+        "da": "Udvalgt kollektion",
+        "de": "Featured Kategorie",
+        "en": "Featured collection Slide",
+        "es": "colección destacada",
+        "fi": "Esittelyssä oleva kokoelma",
+        "fr": "Collection en vedette",
+        "hi": "फ़ीचर्ड कलेक्शन",
+        "it": "Collezione in evidenza",
+        "ja": "特集コレクション",
+        "ko": "추천 컬렉션",
+        "ms": "Koleksi yang ditampilkan",
+        "nb": "Fremhevet samling",
+        "nl": "Uitgelichte collectie",
+        "pt-BR": "Coleção em destaque",
+        "pt-PT": "Coleção em destaque",
+        "sv": "Utvald kollektion",
+        "th": "คอลเลกชันแนะนำ",
+        "zh-CN": "特色产品系列",
+        "zh-TW": "精選商品系列"
+      }
+    },
+    {
+      "type": "collection",
+      "id": "home_featured_products",
+      "label": {
+        "da": "Samling",
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "colección",
+        "fi": "Kokoelma",
+        "fr": "Collection",
+        "hi": "कलेक्शन",
+        "it": "collezione",
+        "ja": "コレクション",
+        "ko": "컬렉션",
+        "ms": "Koleksi",
+        "nb": "Samling",
+        "nl": "Collectie",
+        "pt-BR": "Coleção",
+        "pt-PT": "Coleção",
+        "sv": "Produktserie",
+        "th": "คอลเลกชัน",
+        "zh-CN": "收藏",
+        "zh-TW": "商品系列"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "da": "Udvalgt kollektion",
+        "de": "Featured Kategorie",
+        "en": "Product Slide",
+        "es": "colección destacada",
+        "fi": "Esittelyssä oleva kokoelma",
+        "fr": "Collection en vedette",
+        "hi": "फ़ीचर्ड कलेक्शन",
+        "it": "Collezione in evidenza",
+        "ja": "特集コレクション",
+        "ko": "추천 컬렉션",
+        "ms": "Koleksi yang ditampilkan",
+        "nb": "Utvalgt samling",
+        "nl": "Uitgelichte collectie",
+        "pt-BR": "Coleção em destaque",
+        "pt-PT": "Coleção em destaque",
+        "sv": "Utvald kollektion",
+        "th": "คอลเลกชันแนะนำ",
+        "zh-CN": "特色产品系列",
+        "zh-TW": "精選商品系列"
+      },
+      "category": {
+        "da": "Samling",
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fi": "Kokoelma",
+        "fr": "Collection",
+        "hi": "कलेक्शन",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "ko": "컬렉션",
+        "ms": "Koleksi",
+        "nb": "Samling",
+        "nl": "Collectie",
+        "pt-BR": "Coleção",
+        "pt-PT": "Coleção",
+        "sv": "Produktserie",
+        "th": "คอลเลกชัน",
+        "zh-CN": "收藏",
+        "zh-TW": "商品系列"
+      }
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}
