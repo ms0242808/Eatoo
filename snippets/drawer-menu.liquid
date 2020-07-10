@@ -122,7 +122,34 @@
         <li class="mobile-nav__item mobile-nav__item--secondary"><a href="{{ link.url }}">{{ link.title }}</a></li>
       {% endfor %}
       <li class="mobile-nav__item">{% include 'gtranslate' %}</li> {%comment%}{%endcomment%}
+      <div class="drawerbot">
+        <ul>
+          <li class="mobile-nav__item">
+            <a style="all:unset" href="/pages/contact-us"><img class="cfr" alt="Email | Eatoo UK" title="contact@eatoo.co.uk" src="https://img.icons8.com/ios-glyphs/22/ffffff/new-post.png"></a>
+            <a style="all:unset" href="tel:+447729926273"><img class="cfr" alt="Telephone | Eatoo UK" title="07729926273" src="https://img.icons8.com/ios-glyphs/22/ffffff/phone--v1.png"></a>
+            <a style="all:unset" href="/pages/contact-us"><img class="cfr" alt="WeChat | Eatoo UK" title="eatoouk01" src="https://img.icons8.com/ios-glyphs/22/ffffff/weixing.png"/></a>
+            <a style="all:unset" href="/pages/contact-us"><img class="cfr" alt="WhatsApp | Eatoo UK" title="07729926273" src="https://img.icons8.com/ios-glyphs/22/ffffff/whatsapp.png"/></a>
+            <a style="all:unset" href="https://www.instagram.com/eatoo.uk"><img class="cfr" alt="Instagram | Eatoo UK" title="eatoo.uk" src="https://img.icons8.com/ios-glyphs/22/ffffff/instagram-new.png"/></a>
+            <a style="all:unset" href="https://www.facebook.com/EATOO.UK/"><img class="cfr" alt="Facebook | Eatoo UK" title="eatoouk" src="https://img.icons8.com/ios-glyphs/22/ffffff/facebook-new.png"/></a>
+            <a style="all:unset" href="https://twitter.com/eatoouk"><img class="cfr" alt="Twitter | Eatoo UK" title="eatoouk" src="https://img.icons8.com/ios-glyphs/22/ffffff/twitter.png"/></a>
+          </li>
+          <li class="mobile-nav__spacer"></li>
+            <div class="text-center">
+              <p style="color:white;">&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}</p>
+            </div>
+        </ul>
+      </div>
     </ul>
     <!-- //mobile-nav -->
   </div>
 
+  <style>  
+    .drawerbot{
+      padding: 150px 15px 0px 15px; 
+      display: none;
+    }
+    
+    .cfr{
+      padding-right: 10px;
+    }
+  </style>
