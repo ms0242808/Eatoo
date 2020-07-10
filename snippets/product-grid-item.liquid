@@ -112,6 +112,16 @@
           {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}{% endcapture %}
           <p style="font-weight: bold;">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
         </div>
+      {% else %}
+        {% assign days = 14 %}
+        {% assign period_time = days | times: 24 | times: 60 | times: 60 %}
+        {% assign date_now = 'now' | date:'%s' %}
+        {% assign date_finished = product.published_at | date:'%s' | plus: period_time | date:'%s' %}
+        {% if date_finished > date_now %}
+          <div class="grid-product__new-product grid-product__on-sale">
+            <p style="font-weight: bold;">NEW</p>
+          </div>
+        {% endif %}
       {% endif %}
     </div>
 
