@@ -2,7 +2,6 @@
 .flickity-slider{
   padding-top: 8px;
 }
-
 /* position dots in carousel */
 .flickity-page-dots {
   bottom: 3px;
@@ -12,12 +11,17 @@
   width: 12px;
   height: 12px;
   opacity: 1;
-  background: #ffffff;
+  background: #eaeaea;
   /*border: 2px solid #2d2d2d;*/
 }
 /* fill-in selected dot */
 .flickity-page-dots .dot.is-selected {
   background: #c65a17;
+}
+@media only screen and (max-width: 768px) {
+  .flickity-page-dots {
+    bottom: -30px;
+  }
 }
 </style>
 
@@ -31,7 +35,7 @@
     {% endif %}
    <div class="grid-uniform">
       <div class="main-carousel">
-        {% assign grid_item_width = 'small--one-half large--one-third' %}
+        {%comment%}{% assign grid_item_width = 'small--one-half large--one-third' %}{%endcomment%}
         {% for product in collections[section.settings.home_featured_products].products %}
           {% include 'product-grid-item' %}
         {% endfor %}
@@ -44,6 +48,7 @@
 $('.main-carousel').flickity({
   // options
   cellAlign: 'left',
+  autoPlay: 7000,
   groupCells: true,
   contain: true,
   prevNextButtons: false
