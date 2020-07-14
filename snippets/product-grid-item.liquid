@@ -109,8 +109,8 @@
         </div>
       {% elsif on_sale %}
         <div class="grid-product__on-sale">
-          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}{% endcapture %}
-          <p style="font-weight: bold;">{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%" }}</p><!--'products.general.save_html' | t: saved_amount: saved_amount-->
+          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%" }}{% endcapture %}
+          <p style="font-weight: bold;">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p><!--product.compare_at_price | minus: product.price | money_without_trailing_zeros-->
         </div>
       {% else %}
         {% assign days = 14 %}
