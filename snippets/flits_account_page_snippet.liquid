@@ -104,11 +104,11 @@
     </div>
     <div class="flits-page">
         <div class="flits-nav-bar">
-            <div class="flits-nav flits-h-full">
+            <div class="flits-nav flits-h-full" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">
                 <div class="flits-list-group">
-                    <a disabled data-type="flits" data-href="#flits-page-profile" data-toggle='page' class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.profile' | t }}</a>
-                    <a disabled data-type="flits" data-href="#flits-page-orders" data-toggle='page' class="flits-list-group-item active flits-bg-theme">{{ 'flits.navigation.my_orders' | t }}</a>
-                    <a disabled data-type="flits" data-href="#flits-page-address" data-toggle='page' class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.delivery_address' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-profile" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.profile' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-orders" data-toggle='page' class="flits-list-group-item active flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.my_orders' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-address" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.delivery_address' | t }}</a>
                     {% if shop.metafields.Flits.is_store_credit_enable == 0 or shop.metafields.Flits.IS_STORE_CREDIT_PAID == 0 %}
 
                     {% else %}
@@ -134,17 +134,17 @@
 
                     {% if shop.metafields.Flits.is_recently_view_enable == 0 %}
                     {% else %}
-                    <a disabled data-type="flits" data-href="#flits-page-recently-view" data-toggle='page' class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.recently_viewed_products' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-recently-view" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.recently_viewed_products' | t }}</a>
                     {% endif %}
-                    <a disabled data-type="flits" data-href="#flits-page-security" data-toggle='page' class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.change_password' | t }}</a>
-                    <a href="account/logout" class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.log_out' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-security" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.change_password' | t }}</a>
+                    <a href="account/logout" class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.log_out' | t }}</a>
                 </div>
             </div>
         </div>
         <div class="flits-page-content">
             <div class="flits-pages flits-h-full">
                 <div id="flits-page-profile" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -220,7 +220,7 @@
                     </form>
                 </div>
                 <div id="flits-page-orders" data-type="page">
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -296,7 +296,7 @@
                                                                                                   data-line-item-id="{{ item.id }}"
                                                                                                   data-order-id = "{{ order.id }}"
                                                                                                   data-tracking-number="{{ item.fulfillment.tracking_number }}"
-                                                                                                  target="_blank">{{ item.fulfillment.tracking_number }}</a>	                                                
+                                                                                                  target="_blank">{{ item.fulfillment.tracking_number }}</a>                                                    
                                             </div>
                                         </div>
                                         {% if shop.metafields.Flits.IS_ORDER_TRACKING_ENABLE and shop.metafields.Flits.IS_ORDER_TRACKING_ENABLE == 1 %}
@@ -448,7 +448,7 @@
                     {% endif %}
                 </div>
                 <div id="flits-page-address" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -685,7 +685,7 @@
                     </div>
                 </div>
                 <div id="flits-page-credits" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -771,7 +771,7 @@
                     <style>
                         .flits-recently-products-ul{margin:0;text-align:left;list-style:none!important}.flits-recently-products-ul li{text-align:center;display:inline-block;vertical-align:middle;margin-top:10px;margin-right:5px;position:relative;-moz-transition:all .2s;-o-transition:all .2s;-webkit-transition:all .2s;transition:all .2s}.flits-recently-products-ul li.flits-card-box{padding:10px;border-color:#d3d3d3}.flits-recently-products-ul li:hover.flits-card-box{border-color:#000}@media (min-width:768px){.flits-recently-products-ul li{width:48%}}@media (min-width:992px){.flits-recently-products-ul li{width:32%}}@media (min-width:1200px){.flits-recently-products-ul li{width:23%}}@media only screen and (max-width:768px){.flits-recently-products-ul li{width:100%}}.flits-recently-products-ul li .flits-product-img-div .flits-product-img{width:100%;height:150px;margin:auto}.flits-product-quantity{position:relative;margin-bottom:1em;overflow:visible;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;backface-visibility:hidden}.flits-product-quantity input[type=text]{display:block;background:0 0;text-align:center;width:100%;padding:5px 25px;margin:0;border:1px solid #dedede}.flits-product-quantity-adjuster{cursor:pointer;position:absolute;display:block;top:0;bottom:0;padding:5px 0;width:20px;text-align:center;overflow:hidden;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;-webkit-transition:all .2s ease-out;-moz-transition:all .2s ease-out;-ms-transition:all .2s ease-out;-o-transition:all .2s ease-out;transition:all .2s ease-out}.flits-product-quantity-minus{left:0;border-right:1px solid #dedede}.flits-product-quantity-add{right:0;border-left:1px solid #dedede}.flits-product-variant-options{margin:0 0 20px;padding:8px 10px}.flits-product-variant-title{white-space:nowrap;overflow:hidden!important;text-overflow:ellipsis}
                     </style>
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -845,7 +845,7 @@
                                         <div class="flits-col-md-12 flits-col-sm-12">
                                             <button type="submit" class="flits-btn flits-btn-default flits-btn-custom flits-btn-block flits-add-to-cart"
                                                     data-flits-sold-out-text="{{ 'flits.buttons.sold_out' | t }}"
-                                                    data-flits-add-to-cart-text="{{ 'flits.buttons.add_to_cart' | t }}">	
+                                                    data-flits-add-to-cart-text="{{ 'flits.buttons.add_to_cart' | t }}">    
                                                 {{ 'flits.buttons.add_to_cart' | t }}
                                             </button>
                                         </div>
@@ -856,7 +856,7 @@
                     </div>
                 </div>
                 <div id="flits-page-security" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -899,7 +899,7 @@
 
                 {% endif %}
                 <div id="flits-page-{{ url }}" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading">
+                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
                         <span class="flits-back-icon flits-return-to-menu">{{ 'flits.buttons.back' | t }}</span>
                         <span class="flits-heading">{{ title }}</span>
                     </div>
@@ -1013,7 +1013,7 @@
                                 <div class="flits-col-md-12 flits-col-sm-12">
                                     <button type="submit" class="flits-btn flits-btn-default flits-btn-custom flits-btn-block flits-add-to-cart"
                                             data-flits-sold-out-text="{{ 'flits.buttons.sold_out' | t }}"
-                                            data-flits-add-to-cart-text="{{ 'flits.buttons.add_to_cart' | t }}">	
+                                            data-flits-add-to-cart-text="{{ 'flits.buttons.add_to_cart' | t }}">    
                                         {{ 'flits.buttons.add_to_cart' | t }}
                                     </button>
                                 </div>
@@ -1030,9 +1030,9 @@
                     </form>
                 </li>
             </div>
-            <input type="hidden" name='flits-wishlist-current-page' value="1" id="flits-wishlist-current-page"/>	
-            <input type="hidden" name='flits-wishlist-size' value="0" id="flits-wishlist-size"/>	
-            <input type="hidden" name='flits-wishlist-limit' value="8" id="flits-wishlist-limit"/>	
+            <input type="hidden" name='flits-wishlist-current-page' value="1" id="flits-wishlist-current-page"/>    
+            <input type="hidden" name='flits-wishlist-size' value="0" id="flits-wishlist-size"/>    
+            <input type="hidden" name='flits-wishlist-limit' value="8" id="flits-wishlist-limit"/>  
             <input type="hidden" name='flits-wishlist-total-page' value="0" id="flits-wishlist-total-page"/>
             <div class="flits-pagination-div flits-m-t-10" style="display:none;">
                 <div class="flits-pagination">
