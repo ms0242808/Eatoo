@@ -1,7 +1,7 @@
 <footer class="site-footer small--text-center" role="contentinfo">
   <div class="wrapper"  >
 
-    <div class="grid-uniform">
+    <div class="grid-uniform" style="padding: 0 50px;">
 
       {% comment %}
         Default to 1 footer column (copyright/powered_by/payment_types)
@@ -96,20 +96,32 @@
       {% endif %}
 
       {% if footer_social_enable %}
-        <div class="grid__item {{ footer_column_width }}">
+        <div class="grid__item {{ footer_column_width }} social">
             <ul class="no-bullets social-icons">
+              {% if settings.social_instagram_link != blank %}
+                <li>
+                  <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                    <span class="fab fa-instagram" aria-hidden="true"></span>
+                    Instagram
+                  </a>
+                </li>
+              {% endif %}
               {% if settings.social_facebook_link != blank %}
                 <li>
                   <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
-                    <span class="icon icon-facebook" aria-hidden="true"></span>
+                    <span class="fab fa-facebook" aria-hidden="true"></span>
                     Facebook
                   </a>
                 </li>
               {% endif %}
+              <li>
+                <a href="/pages/contact-us"><span class="fab fa-whatsapp" aria-hidden="true"></span>
+                    WhatsApp</a>
+              </li>
               {% if settings.social_twitter_link != blank %}
                 <li>
                   <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
-                    <span class="icon icon-twitter" aria-hidden="true"></span>
+                    <span class="fab fa-twitter" aria-hidden="true"></span>
                     Twitter
                   </a>
                 </li>
@@ -119,14 +131,6 @@
                   <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
                     <span class="icon icon-pinterest" aria-hidden="true"></span>
                     Pinterest
-                  </a>
-                </li>
-              {% endif %}
-              {% if settings.social_instagram_link != blank %}
-                <li>
-                  <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
-                    <span class="icon icon-instagram" aria-hidden="true"></span>
-                    Instagram
                   </a>
                 </li>
               {% endif %}
@@ -182,7 +186,7 @@
         </div>
       {% endif %}
 
-      <div class="grid__item {{ footer_column_width }} {% if num_footer_columns == 1 %}text-center{% else %}large--text-right{% endif %}">
+      <div class="grid__item {{ footer_column_width }} {% if num_footer_columns == 1 %}text-center{% else %}large--text-right{% endif %} footlet">
         {% include 'footerletter' %}
         <p style="color:white;">&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}<br>{{ powered_by_link }}</p>
           {%- if section.settings.show_payment_icons -%}
@@ -197,13 +201,27 @@
               </ul>
             {%- endunless -%}
           {%- endif -%}
-        }
+        
       </div>
     </div>
-	
+  
   </div>
 </footer>
-
+<style>
+  .footlet{
+    padding-left: 0;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .social{
+      display: none;
+    }
+    .footlet{
+      padding-left: 30px;
+    }
+  }
+  
+</style>
 
 
 {% schema %}
