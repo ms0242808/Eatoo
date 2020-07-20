@@ -40,6 +40,13 @@
     z-index: 1 !important;
   }
 </style>
+{% if customer.tags contains 'Eatoo Prime'%} 
+<style> 
+  .site-header__logo img{
+  max-width: 130px !important;
+  }
+</style>
+{%endif%}
 
 <div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ template.name }}">
   <div id="NavDrawer" class="drawer drawer--left">
@@ -103,30 +110,38 @@
                   {% assign image_size = "180x" %}
                 {% endif %}
 
+                {% if customer.tags contains 'Eatoo Prime'%}
+                  {% assign logo-url = section.settings.prime-logo %}
+                  {% assign logo-url-inverted = section.settings.prime-logo %}
+                {% else %}
+                  {% assign logo-url = section.settings.logo %}
+                  {% assign logo-url-inverted = section.settings.logo-inverted %}
+                {% endif %}
+
                 {% if section.settings.logo-inverted and template.name == 'index' %}
                   <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                    <img src="{{ section.settings.logo-inverted | img_url: image_size }}"
-                    srcset="{{ section.settings.logo-inverted | img_url: image_size }} 1x, {{ section.settings.logo-inverted | img_url: image_size, scale: 2 }} 2x"
-                    alt="{{ section.settings.logo-inverted.alt | default: shop.name }}"
-                    title="{{ section.settings.logo-inverted.alt | default: shop.name }}" 
+                    <img src="{{ logo-url-inverted | img_url: image_size }}"
+                    srcset="{{ logo-url-inverted | img_url: image_size }} 1x, {{ logo-url-inverted | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ logo-url-inverted.alt | default: shop.name }}"
+                    title="{{ logo-url-inverted.alt | default: shop.name }}" 
                     itemprop="logo">
                   </a>
                 {% elsif section.settings.logo %}
                   <div class="blacklogo" >
                     <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                       <img src="{{ section.settings.logo | img_url: image_size }}"
-                       srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
-                       alt="{{ section.settings.logo.alt | default: shop.name }}"
-                       title="{{ section.settings.logo.alt | default: shop.name }}" 
+                       <img src="{{ logo-url | img_url: image_size }}"
+                       srcset="{{ logo-url | img_url: image_size }} 1x, {{ logo-url | img_url: image_size, scale: 2 }} 2x"
+                       alt="{{ logo-url.alt | default: shop.name }}"
+                       title="{{ logo-url.alt | default: shop.name }}" 
                        itemprop="logo">
                     </a>
                   </div>
                   <div class="whitelogo">
                     <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                      <img src="{{ section.settings.logo-inverted | img_url: image_size }}"
-                      srcset="{{ section.settings.logo-inverted | img_url: image_size }} 1x, {{ section.settings.logo-inverted | img_url: image_size, scale: 2 }} 2x"
-                      alt="{{ section.settings.logo-inverted.alt | default: shop.name }}"
-                      title="{{ section.settings.logo-inverted.alt | default: shop.name }}" 
+                      <img src="{{ logo-url-inverted | img_url: image_size }}"
+                      srcset="{{ logo-url-inverted | img_url: image_size }} 1x, {{ logo-url-inverted | img_url: image_size, scale: 2 }} 2x"
+                      alt="{{ logo-url-inverted.alt | default: shop.name }}"
+                      title="{{ logo-url-inverted.alt | default: shop.name }}" 
                       itemprop="logo">
                   </div>
                 {% else %}
@@ -380,6 +395,31 @@
         "da": "Logo",
         "de": "Logo",
         "en": "Logo",
+        "es": "Logo",
+        "fi": "Logo",
+        "fr": "Logo",
+        "hi": "लोगो",
+        "it": "Logo",
+        "ja": "ロゴ",
+        "ko": "로고",
+        "ms": "Logo",
+        "nb": "Logo",
+        "nl": "Logo",
+        "pt-BR": "Logotipo",
+        "pt-PT": "Logótipo",
+        "sv": "Logotyp",
+        "th": "โลโก้",
+        "zh-CN": "logo",
+        "zh-TW": "商標"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "prime-logo",
+      "label": {
+        "da": "Logo",
+        "de": "Logo",
+        "en": "Prime-Logo",
         "es": "Logo",
         "fi": "Logo",
         "fr": "Logo",
