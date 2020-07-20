@@ -9,40 +9,36 @@
       <hr class="hr--small">
     </header>
 
-    <div class="grid">
-      <div class="grid__item large--four-fifths push--large--one-tenth">
+    <div class="grid grid--small">
+      <div class="grid__item large--one-half">
         <div class="rte rte--nomargin rte--indented-images">
-          <span><img alt="Contact | Eatoo UK" title="Contact | Eatoo UK" class="Cicon" src="https://img.icons8.com/pastel-glyph/18/000000/time.png">Customer service hour: Mon - Sat, 10.00 a.m - 08.00 p.m</span>
-          <br class="mbr">
-          <span class="mtel"><img alt="Emaill | Eatoo UK" title="Emaill | Eatoo UK" class="Cicon" src="https://img.icons8.com/material-outlined/18/000000/new-post.png">Email: contact@eatoo.co.uk</span>
-          
-          <br class="mbr">
-          <span class="mtel"><img alt="Telephone | Eatoo UK" title="Telephone | Eatoo UK" class="Cicon" src="https://img.icons8.com/ios/18/000000/phone.png">Tel: 07729926273</span>
-          <br class="mobile">
-          <br class="mbr">
-          <span><img alt="WhatsApp | Eatoo UK" title="WhatsApp | Eatoo UK" class="Cicon" src="https://img.icons8.com/ios/18/000000/whatsapp.png"/>WhatsApp: 07729926273</span>
-          <br class="mbr">
-          <span class="mtel"><img alt="Instagram | Eatoo UK" title="Instagram | Eatoo UK" class="Cicon" src="https://img.icons8.com/ios/18/000000/instagram-new.png"/>Instagram: <a href="https://www.instagram.com/eatoo.uk">eatoo.uk</a></span>
-          <br class="mbr">
-          <span class="mtel"><img alt="Facebook | Eatoo UK" title="Facebook | Eatoo UK" class="Cicon" src="https://img.icons8.com/ios/18/000000/facebook-new.png"/>Facebook: eatoouk</span>
-          <br class="mbr">
-          <span class="mtel"><img alt="Twitter | Eatoo UK" title="Twitter | Eatoo UK" class="Cicon" src="https://img.icons8.com/ios/18/000000/twitter.png"/>Twitter: eatoouk</span>
-          <br class="mobile">
-          <br class="mbr">
-          <span><img alt="WeChat | Eatoo UK" title="WeChat | Eatoo UK" class="Cicon" src="https://img.icons8.com/ios/18/000000/weixing.png"/>WeChat: eatoouk01 & eatoouk02 & eatoouk03</span>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="far fa-clock"></i></span><span class="details">Customer service hour: Mon - Sat, 10.00 a.m - 08.00 p.m</span></a>
           <br>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="far fa-envelope"></i></span><span class="details">contact@eatoo.co.uk</span></a>
+          <br>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fab fa-whatsapp"></i></span><span class="details">07729926273</span></a>
+          <br>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fas fa-phone"></i></span><span class="details">07729926273</span></a>
+          <br>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fab fa-weixin"></i></span><span class="details">eatoouk01 & eatoouk02 & eatoouk03 </span></a>
+          <br>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fas fa-map-marker-alt"></i></span><span class="details">Eatoo Ltd, 4 Harbour Exchange Square, London, E14 9GE</span></a>
           
-          <span><img alt="Address | Eatoo UK" title="Address | Eatoo UK" class="Cicon" src="https://img.icons8.com/material-outlined/18/000000/address.png">Address: Eatoo Ltd, 4 Harbour Exchange Square, London, E14 9GE</span>
+          <h4 style="margin-bottom:30px;">FOLLOW US</h4>          
+          <a class="Cicon" style="all:unset" href="https://www.instagram.com/eatoo.uk"><span style="font-size: 36px;"><i class="fa fa-instagram"></i></span><span class="fdetails" href="https://www.instagram.com/eatoo.uk">eatoo.uk</span></a>
+          <a class="Cicon" style="all:unset" href="https://www.facebook.com/EATOO.UK/"><span style="font-size: 36px; color: #3b5998;"><i class="fab fa-facebook"></i></span><span class="fdetails" href="https://www.facebook.com/EATOO.UK/">eatoouk</span></a>
+          <a class="Cicon" style="all:unset" href="https://twitter.com/eatoouk"><span style="font-size: 36px; color: #00acee;"><i class="fab fa-twitter"></i></span><span class="fdetails" href="https://twitter.com/eatoouk">@eatoouk</span></a>
           {{ page.content }}
           <br><br>
+        </div>
+  </div>
+      <div class="grid__item large--one-half">
+        <div class="form-vertical">
           <span>
             Fill our form below and we will get back to you as soon as possible.
           </span>
           <p></p>
           <p></p>
-        </div>
-
-        <div class="form-vertical">
           {% form 'contact' %}
 
             {% comment %}
@@ -95,13 +91,33 @@
   }
 
   .Cicon {
-    margin: 0px 2px -3px 2px !important;
+    margin: 0px 2px -3px 0px !important;
+    cursor: pointer;
   }
 
+  .fdetails {
+    padding-left: 5px;
+    padding-right: 30px;
+    cursor: pointer;
+  }
   .mbr {
     display: none;
   }
 
+  .details {
+    padding-left: 5px;
+  }
+  .fa.fa-instagram, .fab.fa-facebook,.fab .fa-twitter{
+    cursor: pointer;
+  }
+  .fa.fa-instagram {
+    color: transparent;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  
   @media screen and (max-width: 768px) {
     .main-content {
       margin-top: 100px;
