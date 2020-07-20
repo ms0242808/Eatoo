@@ -1,0 +1,72 @@
+<div class="flex-w p-l-15 p-r-15">
+  {% if section.blocks.size > 0 %}
+  {% for block in section.blocks limit:3 %}
+  <div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 {% cycle '','bo2','' %} respon1">
+    <h3 class="text-center">
+      {{ block.settings.feature_service_title }}
+    </h3>
+    <span class="text-center">
+      {{ block.settings.feature_service_description }}
+    </span>
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+
+<style>
+.flex-w {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+  
+.p-l-15 {padding-left: 15px;}
+.p-r-15 {padding-right: 15px;}
+.p-t-16 {padding-top: 16px;}
+.p-b-16 {padding-bottom: 16px;}
+
+.flex-col-c {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	-ms-align-items: center;
+	align-items: center;
+}
+  
+.w-size5 {
+	width: calc(100% / 3);
+}
+  
+.bo2 {
+	border-left: 1px solid #d9d9d9;
+	border-right: 1px solid #d9d9d9;
+}
+  
+@media (max-width: 576px) {
+	.respon1 {
+		width: 100%;
+	}
+
+	.bo2 {
+		border-left: unset;
+		border-right: unset;
+		border-top: 1px solid #d9d9d9;
+		border-bottom: 1px solid #d9d9d9;
+		padding-bottom: 16px;
+	}
+}
+</style>
