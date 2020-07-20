@@ -1,8 +1,8 @@
 <style>
-.flickity-slider{
-  padding-top: 8px;
-}
 /* position dots in carousel */
+.flickity-slider{
+  padding-top:8px;
+}
 .flickity-page-dots {
   bottom: 3px;
 }
@@ -26,7 +26,7 @@
 </style>
 
 <div id="CollectionSection" data-section-id="{{ section.id }}" data-section-type="collection-template">
- <div style="margin-top: 30px;"class="wrapper">
+ <div style="margin: 50px 0;"class="wrapper">
     {% if section.settings.title != blank %}
       <div class="section-header text-center">
         <h2 class="h1 section-header__title">{{ section.settings.title | escape }}</h2>
@@ -34,13 +34,36 @@
       </div>
     {% endif %}
    <div class="grid-uniform">
-      <div class="main-carousel">
-        {%comment%}{% assign grid_item_width = 'small--one-half large--one-third' %}{%endcomment%}
-        {% for product in collections[section.settings.home_featured_products].products %}
+
+  <div class="main-carousel">
+      {% for product in collections[section.settings.home_featured_products].products%}
+        {%comment%}assign date_published = product.published_at | date:'%s'
+      assign date_now = 'now' | date:'%s'
+      assign date_difference = date_now | minus: date_published
+      if date_difference<1209600% {%endcomment%}
+        {% assign date_published = product.published_at | date:'%Y%m%d' %}
+        {% assign date_now = 'now' | date:'%Y%m%d' %}
+        {% assign date_difference = date_now | minus: date_published %}
+        {%if date_difference<=14%}
           {% include 'product-grid-item' %}
-        {% endfor %}
-      </div>
+        {%endif%}
+      {% endfor %}
     </div>
+     <!--<div class="main-carousel1">
+  {%comment%}
+    {% for product in collections[section.settings.home_featured_products].products %}
+      {% include 'product-grid-item' %}
+    {% endfor %}{%endcomment%}
+  </div>
+      <div class="main-carousel1">
+       <div><h3>1</h3></div>
+        <div><h3>2</h3></div>
+        <div><h3>3</h3></div>
+        <div><h3>4</h3></div>
+        <div><h3>5</h3></div>
+        <div><h3>6</h3></div>
+      </div>-->
+  </div>
   </div>
 </div>
 
@@ -60,7 +83,7 @@ $('.main-carousel').flickity({
   "name": {
     "da": "Udvalgt kollektion",
     "de": "Featured Kategorie",
-    "en": "Product Slide",
+    "en": "Featured collection Slide",
     "es": "colección destacada",
     "fi": "Esittelyssä oleva kokoelma",
     "fr": "Collection en vedette",
@@ -156,7 +179,7 @@ $('.main-carousel').flickity({
       "name": {
         "da": "Udvalgt kollektion",
         "de": "Featured Kategorie",
-        "en": "Product Slide",
+        "en": "Featured collection Slide",
         "es": "colección destacada",
         "fi": "Esittelyssä oleva kokoelma",
         "fr": "Collection en vedette",
