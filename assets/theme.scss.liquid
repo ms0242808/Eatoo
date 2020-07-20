@@ -2897,7 +2897,7 @@ $slick-dot-character: '\2022';
   > a.nav-focus,
   &.nav-hover > a {
     color: $colorNavText;
-    background-color: $colorNav;
+    background-color: $colorNav;/* background-color: rgba(0,0,0,0.1);*/
     opacity: 1;
     @include transition(none);
 
@@ -2976,7 +2976,7 @@ $slick-dot-character: '\2022';
   &:active,
   &:focus {
     background-color: transparent;
-    color: $colorSecondary;
+    color: $colorSecondary; /*!important*/
   }
 }
 
@@ -2990,6 +2990,10 @@ $slick-dot-character: '\2022';
     padding-right: $gutter * 1.5;
   }
 }
+
+/*.site-nav__dropdown-grandchild ul>li:hover{
+  background-color: #F4F4F4;
+} */
 
 /*================ Compressed nav if too many links ================*/
 .site-nav--compress {
