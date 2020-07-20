@@ -2,9 +2,11 @@
 {% comment %}
   The contents of the collection.liquid template can be found in /sections/collection-template.liquid
 {% endcomment %}
-
-{% section 'collection-template' %}
-
+{% if collection.handle == 'all' %}
+	<script>window.location.replace("/");</script>
+{% else %}
+	{% section 'collection-template' %}
+{% endif %}
 <style>
 	.main-content {
 	 	margin-top: 80px;
