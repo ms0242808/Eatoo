@@ -56,6 +56,14 @@
     width:fit-content;
   }
   
+  .site-nav__dropdown-grandchild li:hover{
+    cursor:pointer;
+  }
+
+  .site-nav__dropdown-grandchild li:hover a{
+      color: #D1B159 !important;
+  }
+
   .column {
     float: left;
     width: 16.66%;
@@ -272,7 +280,7 @@
                                   id="MenuChildren-{{ parent_index }}-{{ child_index }}"
                                   data-meganav-dropdown >
                                   {% for grandchildlink in childlink.links %}
-                                    <li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
+                                    <li onclick="location.href='{{ grandchildlink.url }}';" {% if grandchildlink.active %} class="site-nav--active"{% endif %}>
                                       <a
                                         href="{{ grandchildlink.url }}"
                                         class="site-nav__dropdown-link"
