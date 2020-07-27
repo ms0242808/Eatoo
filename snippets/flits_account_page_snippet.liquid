@@ -1,6 +1,7 @@
 
 {{ 'flits.css' | asset_url | stylesheet_tag }}
 {% include 'flits_snippet' with 'style_css' %}
+{% if customer.tags contains 'Eatoo Prime'%}<style>.flits-list-group-item.flits-bg-theme, .flits-nav, .flits-page-heading{background-color:#bcac6d !important;}</style>{%endif%}
 <div class="page-width flits-container">
     <div class="flits-hidden">
         <input type="hidden" name="token" value="{{ shop.metafields.Flits.SHOP_TOKEN }}" id="flits-token">
@@ -104,11 +105,11 @@
     </div>
     <div class="flits-page">
         <div class="flits-nav-bar">
-            <div class="flits-nav flits-h-full" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">
+            <div class="flits-nav flits-h-full">
                 <div class="flits-list-group">
-                    <a disabled data-type="flits" data-href="#flits-page-profile" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.profile' | t }}</a>
-                    <a disabled data-type="flits" data-href="#flits-page-orders" data-toggle='page' class="flits-list-group-item active flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.my_orders' | t }}</a>
-                    <a disabled data-type="flits" data-href="#flits-page-address" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.delivery_address' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-profile" data-toggle='page' class="flits-list-group-item flits-bg-theme" >{{ 'flits.navigation.profile' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-orders" data-toggle='page' class="flits-list-group-item active flits-bg-theme" >{{ 'flits.navigation.my_orders' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-address" data-toggle='page' class="flits-list-group-item flits-bg-theme" >{{ 'flits.navigation.delivery_address' | t }}</a>
                     {% if shop.metafields.Flits.is_store_credit_enable == 0 or shop.metafields.Flits.IS_STORE_CREDIT_PAID == 0 %}
 
                     {% else %}
@@ -134,17 +135,17 @@
 
                     {% if shop.metafields.Flits.is_recently_view_enable == 0 %}
                     {% else %}
-                    <a disabled data-type="flits" data-href="#flits-page-recently-view" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.recently_viewed_products' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-recently-view" data-toggle='page' class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.recently_viewed_products' | t }}</a>
                     {% endif %}
-                    <a disabled data-type="flits" data-href="#flits-page-security" data-toggle='page' class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.change_password' | t }}</a>
-                    <a href="account/logout" class="flits-list-group-item flits-bg-theme" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">{{ 'flits.navigation.log_out' | t }}</a>
+                    <a disabled data-type="flits" data-href="#flits-page-security" data-toggle='page' class="flits-list-group-item flits-bg-theme" >{{ 'flits.navigation.change_password' | t }}</a>
+                    <a href="account/logout" class="flits-list-group-item flits-bg-theme">{{ 'flits.navigation.log_out' | t }}</a>
                 </div>
             </div>
         </div>
         <div class="flits-page-content">
             <div class="flits-pages flits-h-full">
                 <div id="flits-page-profile" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">
+                    <div class="flits-page-heading">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -220,7 +221,7 @@
                     </form>
                 </div>
                 <div id="flits-page-orders" data-type="page">
-                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#bcac6d !important;{%endif%}">
+                    <div class="flits-page-heading">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -291,12 +292,11 @@
                                         {% if item.fulfillment and item.fulfillment.tracking_number != blank %}
                                         <div class="flits-row flits-m-t-10">
                                             <div class="flits-col-md-12 flits-line-item-track">
-                                                {{ 'flits.order_page.tracking_number' | t }} : <a href="{{ item.fulfillment.tracking_url }}" 
-                                                                                                  class="flits-order-tracking"
-                                                                                                  data-line-item-id="{{ item.id }}"
-                                                                                                  data-order-id = "{{ order.id }}"
-                                                                                                  data-tracking-number="{{ item.fulfillment.tracking_number }}"
-                                                                                                  target="_blank">{{ item.fulfillment.tracking_number }}</a>                                                    
+                                                {{ 'flits.order_page.tracking_number' | t }} : <a href="{{ item.fulfillment.tracking_url }}"class="flits-order-tracking"
+                                            data-line-item-id="{{ item.id }}"
+                                            data-order-id = "{{ order.id }}"
+                                            data-tracking-number="{{ item.fulfillment.tracking_number }}"
+                                            target="_blank">{{ item.fulfillment.tracking_number }}</a>                 
                                             </div>
                                         </div>
                                         {% if shop.metafields.Flits.IS_ORDER_TRACKING_ENABLE and shop.metafields.Flits.IS_ORDER_TRACKING_ENABLE == 1 %}
@@ -448,7 +448,7 @@
                     {% endif %}
                 </div>
                 <div id="flits-page-address" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
+                    <div class="flits-page-heading">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -685,7 +685,7 @@
                     </div>
                 </div>
                 <div id="flits-page-credits" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
+                    <div class="flits-page-heading">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -856,7 +856,7 @@
                     </div>
                 </div>
                 <div id="flits-page-security" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
+                    <div class="flits-page-heading">
                         <span class="flits-back-icon flits-return-to-menu">
                             {{ 'flits.buttons.back' | t }}
                         </span>
@@ -899,7 +899,7 @@
 
                 {% endif %}
                 <div id="flits-page-{{ url }}" data-type="page" class="flits-hidden">
-                    <div class="flits-page-heading" style="{% if customer.tags contains 'Eatoo Prime'%}background-color:#d1b159 !important;{%endif%}">
+                    <div class="flits-page-heading">
                         <span class="flits-back-icon flits-return-to-menu">{{ 'flits.buttons.back' | t }}</span>
                         <span class="flits-heading">{{ title }}</span>
                     </div>
