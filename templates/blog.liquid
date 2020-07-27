@@ -20,7 +20,7 @@
 
       {% assign article_content = article.excerpt_or_content %}
 
-      <article class="article grid small--text-center">
+      <article class="article grid small--text-center" onclick="location.href='{{ article.url }}';">
 
         {% unless article.image == blank %}
           <div class="grid__item" id="postImg">
@@ -153,6 +153,10 @@
     font-style: normal;
     font-weight: bold;
     text-transform: uppercase !important;
+  }
+
+  .article {
+    cursor:pointer;
   }
 
   @media screen and (max-width: 768px) {
