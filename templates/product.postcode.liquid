@@ -3,151 +3,366 @@
   The contents of the product-postcode.liquid template can be found in /sections/product-template.liquid
 {% endcomment %}
 
-<div class="productPass" id="protected" style="display: block;">
-	<title>Top Secret</title>
-	<div class="form">
-		<div class="tooltip">
-		  <i class="fas fa-info-circle"></i>
-		  <span class="tooltiptext">Currently Eatoo Prime is only available within 5 miles from our location.</span>
-		</div>
-		<form>
-			<h2 style="margin-left: 18px;"><img src="https://img.icons8.com/ios/66/000000/place-marker.png"/></h2>
-			<br>
-			<input type="text" id="pswd" placeholder="Enter your postcode...">
-			<input class="passSubmit" type="button" value="Submit" onclick="checkPswd();" />
-		</form>
-	</div>
-</div>
+<div class="grid">
 
-<div id="passed" style="display: none;">
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+	
+    <div id="card" style="display: block;">
+      <header class="section-header text-center" style="margin-bottom: 0px;">
+        <h2 style="font-weight: bold; font-size: 2em;">EATOO PLAN</h2>
+        <hr class="hr--small">
+      </header>
+      <div class="ecolumns grid__item large--one-half" onclick="location.href='/account/register';">
+        <ul class="eprice ebasic">
+          <li class="eheader"><span class="currency">£</span>0<span class="period">/month</span></li>
+          <li class="grey">BASIC <hr class="hr--basic"></li>
+          <li>Delivery fee up to £8.00/order</li>
+          <div class="basic">
+            <li><i class="fas fa-times bf"></i>Mysterious festival gift</li>
+            <li><i class="fas fa-times bf"></i>Private events invitation</li>
+            <li><i class="fas fa-times bf"></i>Priority on new product purchase</li>
+            <li><i class="fas fa-times bf"></i>Monthly exclusively discount code</li>
+          </div>
+          <li class="grey"><a href="/account/register" class="button">SIGN UP</a></li>
+        </ul>
+       </div>
+
+      <div class="ecolumns grid__item large--one-half" onclick="joinPrime();">
+        <ul class="eprice eprime">
+          <li class="eheader"><span class="currency">£</span>14.99<span class="period">/month</span></li>
+          <li class="grey" style="color:#c65a17;">
+            EATOO PRIME 
+            <hr class="hr--prime">
+            <!--<div class="tooltip"style="right: 100px;bottom: 14px !important;font-size: 18px !important;left:unset;">
+              <i class="fas fa-info-circle"></i>
+              <span class="tooltiptext" style="top:-28px !important;">Currently Eatoo Prime is only available within 5 miles from our location. Click Join to check eligibility.</span>
+            </div>-->
+          </li>
+          <li><i class="fas fa-gift pf"></i> Mysterious festival gift</li>
+          <li><i class="far fa-calendar-alt pf"></i> Private events invitation</li>
+          <li><i class="fas fa-percentage pf"></i> Monthly exclusively discount code</li>
+          <li><i class="fas fa-star pf"></i> Priority on new product purchase</li>
+          <li><i class="fas fa-infinity pf"></i> Unlimited free delivery over £30.00/order</li>
+          <li class="grey"><a onclick="joinPrime();" class="button" style="background-color: #c65a17; color:white;">JOIN</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="animate-bottom" id="protected" style="display:none; margin-top:50px;">   
+      <header class="section-header text-center" style="margin-bottom: 0px;">
+        <h2 style="font-weight: bold; font-size: 2em;">VERIFY POSTCODE</h2>
+        <hr class="hr--small">
+      </header>
+        <div class="form"  >
+          <div class="tooltip">
+            <i class="fas fa-info-circle"></i>
+            <span class="tooltiptext">Currently Eatoo Prime is only available within 5 miles from our location.</span>
+          </div>
+          <form>
+              <h2 style="margin-left: 18px;"><img src="https://img.icons8.com/ios/66/000000/place-marker.png"/></h2>
+              <br>
+              <input type="text" id="pswd" placeholder="Enter your postcode...">
+              <input class="passSubmit" type="button" value="Submit" onclick="showloader();" />
+            <div class="loader" id="loader" style="display:none;">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                  <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="1.6s" repeatCount="indefinite" />
+                </rect>
+                <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                  <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="1.6s" repeatCount="indefinite" />
+                </rect>
+                <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                  <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="1.6s" repeatCount="indefinite" />
+                  <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="1.6s" repeatCount="indefinite" />
+                </rect>
+              </svg>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  
+<div id="passed" style="display: none;" class="animate-bottom">
 	{% section 'product-template' %}
 </div>
 
 <script type="text/javascript">
-	var postRules = new Array();
+  	function joinPrime(){
+      $("#protected").css("display","block");
+      $("#card").css("display","none");
+  	}
+  
+  	var postRules = new Array();
 	$.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/20200603.txt?v=1591163789', function(data){
 		postRules = data.split('\n');
 	});
 	
 	function removeSpace() {
-		for(i = 0; i < postRules.length; i++){
-			postRules[i] = postRules[i].split(" ").join("");
-		}
+      for(i = 0; i < postRules.length; i++){
+        postRules[i] = postRules[i].split(" ").join("");
+      }
 	}
-	
-	function checkPswd() {
-		removeSpace();
-		var postcode = document.getElementById("pswd").value;
-		postcode = postcode.split(" ").join("").toUpperCase();
-		
-		if(postRules.indexOf(postcode) !== -1){
-			$("#passed").css("display","block");
-			$("#protected").css("display","none");
-		} else{
-			alert("Not in range.");
-		}
-	}
+ 
+    function showloader(){
+      $("#loader").css("display","block");
+      setTimeout(function checkPswd() {
+        removeSpace();
+        var postcode = document.getElementById("pswd").value;
+        postcode = postcode.split(" ").join("").toUpperCase();
+        if(postRules.indexOf(postcode) !== -1){
+          $("#passed").css("display","block");
+          $("#protected").css("display","none");
+          $("#loader").css("display","none");
+          $(".ProductPassBg").css("display","none");
+        } else{
+          $("#loader").css("display","none");
+          alert("Currently Eatoo Prime is only available within 5 miles from our location (WC1B 4HH).");
+        }
+      },2000);
+    }
 
 	var stopSubmission = false;
 	jQuery('#pswd').keydown(function(e){
-	   if(e.keyCode == 13){
-		   checkPswd();
-		   stopSubmission = true;
-	   }else{
-			stopSubmission = false;
-	   }
+     if(e.keyCode == 13){
+       showloader();
+       stopSubmission = true;
+     }else{
+        stopSubmission = false;
+     }
 	});
 
 	jQuery('form').submit(function(){
-		if(stopSubmission){
-			return false;
-		}
+      if(stopSubmission){
+        return false;
+      }
 	});
+  
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+  	}
 </script>
 
-<style>
-	.main-content {
-		margin-top: 110px;
-	}
+<style>  
+  .main-content {
+    margin-top: 100px;
+  }
 
-	.productPass {
-		padding: 150px 300px;
-		vertical-align: middle;
-		text-align: center;
-	}
+  .form {
+    position: relative;
+    z-index: 1;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+  }
 
-	.form {
-		position: relative;
-		z-index: 1;
-		max-width: 360px;
-		margin: 0 auto 100px;
-		padding: 45px;
-		text-align: center;
-		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-		border-radius: 10px;
-	}
+  .form input {
+    outline: 0;
+    background: #dcdcdc;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    border-radius: 30px;
+  }
 
-	.form input {
-		outline: 0;
-		background: #dcdcdc;
-		width: 100%;
-		border: 0;
-		margin: 0 0 15px;
-		padding: 15px;
-		box-sizing: border-box;
-		font-size: 16px;
-		border-radius: 30px;
-	}
+  .passSubmit {
+    cursor:pointer;
+    background-color: #d2b259 !important;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 
-	.passSubmit {
-		background-color: #d2b259 !important;
-		font-style: normal;
-		font-weight: bold;
-		text-transform: uppercase;
-	}
+  .tooltip {
+    float: right;
+    left: 30px;
+    bottom: 30px !important;
+    font-size: 24px !important;
+  }
+  
+  .tooltiptext {
+    top: -12px !important;
+    left: 119% !important;
+    width: 300px !important;
+    font-size: 16px !important;
+  }
 
-	.tooltip {
-		float: right;
-		left: 30px !important;
-		bottom: 30px !important;
-		font-size: 24px !important;
-	}
+  .ecolumns {
+    cursor:pointer;
+    width: 50%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .eprice {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 10px;
+  }
 
-	.tooltiptext {
-		top: -12px !important;
-		left: 119% !important;
-		width: 300px !important;
-		font-size: 16px !important;
-	}
+  .eprice:hover {
+    transform: scale(1.05);
+    -webkit-box-shadow: 0 20px 35px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 35px 0 rgba(0, 0, 0, 0.08);
+  }
 
-	@media screen and (max-width: 768px) {
-		.main-content {
-			margin-top: 100px;
-		}
+  .eprice .eheader {
+    color: #2d2d2d;
+  }
 
-		.text-left {
-			display:none;
-		}
+  .eprice li {
+    /*border-bottom: 1px solid #eee;"background-color:#c65a17*/
+    padding: 20px;
+    text-align: center;
+  }
 
-		.productPass {
-			padding: 100px 30px;
-		}
+  .eprice .grey {
+    /*background-color: #eee;*/
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .ebasic {
+    border: 1px solid #2d2d2d;
+  }
+  
+  .eprime {
+    border: 1px solid #c65a17;
+  }
+  
+  .button {
+    cursor:pointer;
+    color: #2d2d2d;
+    border-radius: 0;
+    padding: 0.75rem 1.25rem;
+    letter-spacing: 1px;
+  }
+  
+  .button:hover {
+    color: white;
+    background-color: #2d2d2d;
+  }
+  
+  .eheader, .currency {
+    font-size: 44px;
+    position: relative;
+    font-weight: 400;
+    letter-spacing: 0px;
+  }
+  
+  .period {
+    font-size: 1rem;
+    color: #b3b3b3;
+    letter-spacing: 0px;
+  }
+  
+  .basic {
+  	color: #eaeaea;
+  }
+  
+  .laoder svg path, .loader svg rect{
+    fill: #c65a17;
+  }
+  
+  .pf {
+  	color: #c65a17;
+  }
+  
+  .fa, .fas, .far {
+    padding-right: 3px;
+  }
+  .animate-bottom {
+    margin-top: 150px;
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s;
+  }
 
-		.tooltip {
-			float: right;
-			left: 30px;
-			bottom: 30px;
-		}
+  @-webkit-keyframes animatebottom {
+    from { bottom:-100px; opacity:0 } 
+    to { bottom:0px; opacity:1 }
+  }
 
-		.tooltiptext {
-			left: -258px !important;
-			top: -58px !important;
-		}
+  @keyframes animatebottom { 
+    from{ bottom:-100px; opacity:0 } 
+    to{ bottom:0; opacity:1 }
+  }
+  
+  .hr--prime, .hr--basic {
+    margin: 0px auto;
+    border-radius: 5px;
+  }
+  
+  .hr--prime {
+    border: 2px solid #c65a17;
+    width: 50px;
+  }
+  
+  .hr--basic {
+    border: 2px solid #2d2d2d;
+    width: 25px;
+  }
+  @media screen and (max-width: 768px) {
+    .main-content {
+      margin-top: 100px;
+    }
 
-		.tooltiptext::after{
-			top: 107% !important;
-			right: 8.5% !important;
-			border-color: black transparent transparent transparent !important;
-		}
-	}
+    .text-left {
+      display:none;
+    }
+
+    .productPass {
+      padding: 100px 30px;
+    }
+
+    .tooltip {
+      float: right;
+      left: 30px;
+      bottom: 30px;
+    }
+
+    .tooltiptext {
+      left: -258px !important;
+      top: -58px !important;
+    }
+
+    .tooltiptext::after{
+      top: 107% !important;
+      right: 8.5% !important;
+      border-color: black transparent transparent transparent !important;
+    }
+    
+    .animate-bottom {
+      margin-top: 105px;
+    }
+
+    .ecolumns {
+      width: 100%;
+    }
+  }
+  
+  /*.ProductPassBg{
+    background-image: url('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/tasting.svg?v=1595836938');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-position: 500px 700px;
+    background-size: 50%;
+  }*/
 </style>
