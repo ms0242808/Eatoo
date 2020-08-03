@@ -16,3 +16,13 @@ span.bold-product__quantity-decrease, span.bold-product__quantity-increase{
 .manage-subscription-page{
 	margin: 100px 0;
 }
+
+.ro_widget {
+	margin: 0 auto;
+}
+
+.bold-ro__recurring-text, .bold-ro__subscription-only {
+	font-weight: bold;
+	font-style: normal;
+	text-transform: uppercase;
+}
