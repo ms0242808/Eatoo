@@ -41,13 +41,17 @@
       assign date_now = 'now' | date:'%s'
       assign date_difference = date_now | minus: date_published
       if date_difference<1209600% {%endcomment%}
-        {% assign days = 30 %}
-        {% assign period_time = days | times: 24 | times: 60 | times: 60 %}
-        {% assign date_now = 'now' | date:'%s' %}
-        {% assign date_finished = product.published_at | date:'%s' | plus: period_time | date:'%s' %}
-        {%if date_finished > date_now %}
-          {% include 'product-grid-item' %}
-        {%endif%}
+        {% if section.settings.home_featured_products == "best-seller" %}
+            {% include 'product-grid-item' %}
+        {%else%}
+          {% assign days = 30 %}
+          {% assign period_time = days | times: 24 | times: 60 | times: 60 %}
+          {% assign date_now = 'now' | date:'%s' %}
+          {% assign date_finished = product.published_at | date:'%s' | plus: period_time | date:'%s' %}
+          {%if date_finished > date_now %}
+            {% include 'product-grid-item' %}
+          {%endif%}
+        {% endif %}
       {% endfor %}
     </div>
      <!--<div class="main-carousel1">
