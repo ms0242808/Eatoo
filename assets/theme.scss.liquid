@@ -3408,7 +3408,7 @@ button.mfp-arrow {
 }
 
 .grid-product__sold-out,
-.grid-product__on-sale,
+.grid-product__on-sale, .grid-product__deal,
 {
   @include accentFontStack;
   font-size: em(11px);
@@ -3454,6 +3454,14 @@ button.mfp-arrow {
   line-height: 1.6;
   background-color: rgba(198,90,23,.9);
   box-shadow: 0.9px 0.9px grey;
+}
+
+.grid-product__deal {
+  border: 1px solid #900;
+  line-height: 2.3;
+  color: #900;
+  right: 1px;
+  left: unset;
 }
 
 @include keyframes(placeholder-background-loading) {
