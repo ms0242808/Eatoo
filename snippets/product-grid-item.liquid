@@ -42,6 +42,13 @@
   {% endif %}
 {% endfor %}
 
+{% assign best_sell = false %}
+{% for collection in product.collections %}
+    {% if collection.title == "BEST SELLING" %}
+    {% assign best_sell = true %}
+  {% endif %}
+{% endfor %}
+
 {%- assign variant = product.selected_or_first_available_variant -%}
 
 {% capture img_id_class %}ProductImage-{{ product.featured_image.id }}{% endcapture %}
@@ -114,6 +121,14 @@
         <div class="grid-product__sold-out">
           <p style="font-weight: bold;">{{ 'products.product.sold_out_html' | t }}</p>
         </div>
+      {% elsif best_sell and on_sale%}
+        <div class="grid-product__best-sell grid-product__sold-out">
+          <p style="font-weight: bold;">Best <br> Seller</p>
+        </div>
+        <div class="grid-product__on-sale"><!--product.compare_at_price | minus: product.price | money_without_trailing_zeros-->
+          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%"}}{% endcapture %}
+          <p style="font-weight: bold;">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+        </div>
       {% elsif on_sale %}
         <div class="grid-product__on-sale">
           {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%" }}{% endcapture %}
@@ -122,6 +137,10 @@
       {% elsif deal %}
         <div class="grid-product__deal">
           <p style="font-weight: bold;">DEAL</p>
+        </div>
+      {% elsif best_sell %}
+        <div class="grid-product__best-sell grid-product__sold-out">
+          <p style="font-weight: bold;">Best <br> Seller</p>
         </div>
       {% else %}
         {% assign days = 30 %}
