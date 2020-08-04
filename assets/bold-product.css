@@ -19,10 +19,21 @@ span.bold-product__quantity-decrease, span.bold-product__quantity-increase{
 
 .ro_widget {
 	margin: 0 auto;
+	padding-right: 30px;
 }
 
 .bold-ro__recurring-text, .bold-ro__subscription-only {
 	font-weight: bold;
 	font-style: normal;
 	text-transform: uppercase;
+}
+
+.bold-ro__recurring-title{
+	display: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+	.ro_widget {
+		padding-right: 0;
+	}
 }
