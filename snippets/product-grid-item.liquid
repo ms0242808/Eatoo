@@ -35,6 +35,13 @@
   {% assign sold_out = false %}
 {% endif %}
 
+{% assign deal = false %}
+{% for collection in product.collections %}
+  {% if collection.title == 'Deal' %}
+    {% assign deal = true %}
+  {% endif %}
+{% endfor %}
+
 {%- assign variant = product.selected_or_first_available_variant -%}
 
 {% capture img_id_class %}ProductImage-{{ product.featured_image.id }}{% endcapture %}
@@ -112,8 +119,12 @@
           {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%" }}{% endcapture %}
           <p style="font-weight: bold;">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p><!--product.compare_at_price | minus: product.price | money_without_trailing_zeros-->
         </div>
+      {% elsif deal %}
+        <div class="grid-product__deal">
+          <p style="font-weight: bold;">DEAL</p>
+        </div>
       {% else %}
-        {% assign days = 14 %}
+        {% assign days = 30 %}
         {% assign period_time = days | times: 24 | times: 60 | times: 60 %}
         {% assign date_now = 'now' | date:'%s' %}
         {% assign date_finished = product.published_at | date:'%s' | plus: period_time | date:'%s' %}
