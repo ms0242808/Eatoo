@@ -12,6 +12,22 @@
         <h2 style="font-weight: bold; font-size: 2em;">EATOO PLAN</h2>
         <hr class="hr--small">
       </header>
+      <div class="ecolumns grid__item large--one-half emobile" onclick="joinPrime();">
+        <ul class="eprice eprime">
+          <li class="eheader"><span class="currency">£</span>9.99<span class="period">/month</span></li>
+          <li class="grey" style="color:#c65a17;">
+            EATOO PRIME 
+            <hr class="hr--prime">
+          </li>
+          <li><i class="fas fa-infinity pf"></i> Unlimited free delivery over £30.00/order</li>
+          <li><i class="fas fa-percentage pf"></i> Monthly exclusively discount code</li>
+          <li><i class="fas fa-star pf"></i> Priority on new product purchase</li>
+          <li><i class="fas fa-gift pf"></i> Mysterious festival gift</li>
+          <li><i class="far fa-calendar-alt pf"></i> Private events invitation</li>
+          <li class="grey"><a onclick="joinPrime();" class="button" style="background-color: #c65a17; color:white;">JOIN</a></li>
+        </ul>
+      </div>
+
       <div class="ecolumns grid__item large--one-half" onclick="location.href='/account/register';">
         <ul class="eprice ebasic">
           <li class="eheader"><span class="currency">£</span>0<span class="period">/month</span></li>
@@ -27,7 +43,7 @@
         </ul>
        </div>
 
-      <div class="ecolumns grid__item large--one-half" onclick="joinPrime();">
+      <div class="ecolumns grid__item large--one-half edesktop" onclick="joinPrime();">
         <ul class="eprice eprime">
           <li class="eheader"><span class="currency">£</span>9.99<span class="period">/month</span></li>
           <li class="grey" style="color:#c65a17;">
@@ -319,6 +335,11 @@
     border: 2px solid #2d2d2d;
     width: 25px;
   }
+
+  .emobile {
+    display: none;
+  }
+
   @media screen and (max-width: 768px) {
     .main-content {
       margin-top: 100px;
@@ -355,6 +376,14 @@
 
     .ecolumns {
       width: 100%;
+    }
+
+    .emobile {
+      display: block;
+    }
+
+    .edesktop {
+      display: none;
     }
   }
   
