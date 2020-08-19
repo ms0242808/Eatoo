@@ -104,7 +104,7 @@
       {% if shop.customer_accounts_enabled %}
         {% if customer %}
           <li class="mobile-nav__item mobile-nav__item--secondary">
-            <a href="{{ routes.account_url }}">{{ 'layout.customer.account' | t }}</a>
+            <a href="{{ routes.account_url }}"> <img src="https://img.icons8.com/ios-glyphs/16/eaeaea/user--v1.png"/> {{ 'layout.customer.account' | t }}</a>
           </li>
           <li class="mobile-nav__item mobile-nav__item--secondary">
             {{ 'layout.customer.log_out' | t | customer_logout_link }}
