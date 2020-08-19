@@ -9,36 +9,20 @@
       <hr class="hr--small">
     </header>
 
-    <div class="grid grid--small">
-      <div class="grid__item large--one-half">
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
         <div class="rte rte--nomargin rte--indented-images">
-          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="far fa-clock"></i></span><span class="details">Customer service hour: Mon - Sat, 10.00 a.m - 08.00 p.m</span></a>
-          <br>
-          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="far fa-envelope"></i></span><span class="details">contact@eatoo.co.uk</span></a>
-          <br>
-          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fab fa-whatsapp"></i></span><span class="details">07729926273</span></a>
-          <br>
-          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fas fa-phone"></i></span><span class="details">07729926273</span></a>
-          <br>
-          <!--<a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fab fa-weixin"></i></span><span class="details">eatoouk01 & eatoouk02 & eatoouk03 </span></a>
-          <br>-->
-          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fas fa-map-marker-alt"></i></span><span class="details">Eatoo Ltd, 4 Harbour Exchange Square, London, E14 9GE</span></a>
-          
-          <h4 style="margin-bottom:30px;">FOLLOW US</h4>          
-          <a class="Cicon" style="all:unset" href="https://www.instagram.com/eatoo.uk"><span style="font-size: 36px;"><i class="fa fa-instagram"></i></span><span class="fdetails" href="https://www.instagram.com/eatoo.uk">eatoo.uk</span></a>
-          <a class="Cicon" style="all:unset" href="https://www.facebook.com/EATOO.UK/"><span style="font-size: 36px; color: #3b5998;"><i class="fab fa-facebook"></i></span><span class="fdetails" href="https://www.facebook.com/EATOO.UK/">eatoouk</span></a>
-          <a class="Cicon" style="all:unset" href="https://twitter.com/eatoouk"><span style="font-size: 36px; color: #00acee;"><i class="fab fa-twitter"></i></span><span class="fdetails" href="https://twitter.com/eatoouk">@eatoouk</span></a>
-          {{ page.content }}
-          <br><br>
-        </div>
-  </div>
-      <div class="grid__item large--one-half">
-        <div class="form-vertical">
           <span>
-            Fill our form below and we will get back to you as soon as possible.
+            Once we receive the messages we will contact you as soon as possible.
           </span>
           <p></p>
-          <p></p>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="far fa-envelope"></i></span><span class="details">contact@eatoo.co.uk</span></a>
+          <br>
+          <a class="Cicon" style="all:unset"><span style="font-size: 18px;"><i class="fas fa-phone"></i></span><span class="details">02080500060 (Mon - Sat, 10am - 8pm)</span></a>
+          <br><br>
+        </div>
+
+        <div class="form-vertical">
           {% form 'contact' %}
 
             {% comment %}
@@ -64,9 +48,27 @@
               </div>
             </div>
 
-            <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
-            <input type="tel" id="ContactFormPhone" class="input-full" name="contact[phone]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            <div class="grid grid--small">
+              <div class="grid__item large--one-half">
+                <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
+                <input type="tel" id="ContactFormPhone" class="input-full" name="contact[phone]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+              </div>
 
+              <div class="grid__item large--one-half">
+                <label for="ContactFormOrderNumber" class="hidden-label">Order Number</label>
+                <input type="text" id="ContactFormOrderNumber" class="input-full" name="contact[Order Number]" placeholder="Order Number">
+              </div>
+            </div>
+            <label for="ContactFormMessage" class="hidden-label">CATEGORY</label>
+            <select required class="input-full" id="ContactFormCategory" name="contact[category]">
+              <option value="" disabled selected>Choose a category</option>
+              <option value="General Information">General Information</option>
+              <option value="Order Query">Order Query</option>
+              <option value="Stockist Enquiry">Stockist Enquiry</option>
+              <option value="Specialist Enquiry">Specialist Enquiry</option>
+              <option value="My Account">My Account</option>
+              <option value="Other">Other</option>
+            </select>
             <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
             <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
 
