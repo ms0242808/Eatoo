@@ -109,60 +109,60 @@
 </div>
 
 <script type="text/javascript">
-  	function joinPrime(){
-      $("#protected").css("display","block");
-      $("#card").css("display","none");
-  	}
+	function joinPrime(){
+    $("#protected").css("display","block");
+    $("#card").css("display","none");
+	}
   
   	var postRules = new Array();
-	$.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/20200603.txt?v=1591163789', function(data){
+	$.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/0-5.txt?v=1598336126', function(data){
 		postRules = data.split('\n');
 	});
 	
 	function removeSpace() {
-      for(i = 0; i < postRules.length; i++){
-        postRules[i] = postRules[i].split(" ").join("");
-      }
+    for(i = 0; i < postRules.length; i++){
+      postRules[i] = postRules[i].split(" ").join("");
+    }
 	}
  
-    function showloader(){
-      $("#loader").css("display","block");
-      setTimeout(function checkPswd() {
-        removeSpace();
-        var postcode = document.getElementById("pswd").value;
-        postcode = postcode.split(" ").join("").toUpperCase();
-        if(postRules.indexOf(postcode) !== -1){
-          $("#passed").css("display","block");
-          $("#protected").css("display","none");
-          $("#loader").css("display","none");
-          $(".ProductPassBg").css("display","none");
-        } else{
-          $("#loader").css("display","none");
-          alert("Sorry! Our Eatoolectric ⚡️ vehicles can not reach to your address yet. Stay tuned!");
-        }
-      },2000);
-    }
+  function showloader(){
+    $("#loader").css("display","block");
+    setTimeout(function checkPswd() {
+      removeSpace();
+      var postcode = document.getElementById("pswd").value;
+      postcode = postcode.split(" ").join("").toUpperCase();
+      if(postRules.indexOf(postcode) !== -1){
+        $("#passed").css("display","block");
+        $("#protected").css("display","none");
+        $("#loader").css("display","none");
+        $(".ProductPassBg").css("display","none");
+      } else{
+        $("#loader").css("display","none");
+        alert("Sorry! Our Eatoolectric ⚡️ vehicles can not reach to your address yet. Stay tuned!");
+      }
+    },2000);
+  }
 
 	var stopSubmission = false;
 	jQuery('#pswd').keydown(function(e){
-     if(e.keyCode == 13){
-       showloader();
-       stopSubmission = true;
-     }else{
-        stopSubmission = false;
-     }
+   if(e.keyCode == 13){
+     showloader();
+     stopSubmission = true;
+   }else{
+      stopSubmission = false;
+   }
 	});
 
 	jQuery('form').submit(function(){
-      if(stopSubmission){
-        return false;
-      }
+    if(stopSubmission){
+      return false;
+    }
 	});
   
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-  	}
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+	}
 </script>
 
 <style>  
