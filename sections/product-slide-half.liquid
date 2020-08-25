@@ -1,0 +1,314 @@
+<div class="wrapper">
+  <!--<div class="bg">-->
+
+    <div class="grid collection-grid" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true">
+
+      {% assign collection_limit = section.blocks.size %}
+
+      {% assign divisible_by_two = collection_count | modulo: 2 %}
+
+      {% comment %}
+        Loop through the collections to display
+      {% endcomment %}
+      {% for block in section.blocks limit: collection_limit %}
+      <div class="grid__item large--one-half gridMobile">    
+        <div class="section-header text-center">
+        <h2 class="h1 section-header__title" style="padding-top:20px;">{{ block.settings.title | escape }}</h2>
+        <hr class="hr--small">
+      </div>
+      <div class="main-carousel2">
+          {% for product in collections[block.settings.collection].products%}
+            {%comment%}assign date_published = product.published_at | date:'%s'
+            assign date_now = 'now' | date:'%s'
+            assign date_difference = date_now | minus: date_published
+            if date_difference<1209600% {%endcomment%}
+            {% if collections[block.settings.collection].handle == "best-seller" %}
+              {% include 'product-grid-item' %}
+            {% else %}
+              {% assign days = 30 %}
+              {% assign period_time = days | times: 24 | times: 60 | times: 60 %}
+              {% assign date_now = 'now' | date:'%s' %}
+              {% assign date_finished = product.published_at | date:'%s' | plus: period_time | date:'%s' %}
+              {%if date_finished > date_now %}
+                {% include 'product-grid-item' %}
+              {%endif%}
+            {% endif %}
+          {% endfor %}
+      </div>
+        </div>
+      {% endfor %}
+
+      {% if isEmpty %}
+        <div class="wrapper">
+          <div class="grid">
+            <div class="grid__item">
+              <div class="rte text-center">
+                {{ 'home_page.onboarding.no_content' | t }}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  <!--</div>-->
+</div>
+
+<style>
+  .bg {
+    background-image: url(https://cdn.shopify.com/s/files/1/0093/0306/4631/files/home_5_bg_c7afc094-c8b7-45bd-a2b9-49cf88198b4c.png?5449);
+    background-size: cover;
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: center; 
+  }
+  .flickity-slider{
+  padding-top:8px;
+}
+.flickity-page-dots {
+  bottom: 3px;
+}
+/* white circles */
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+  background: #eaeaea;
+  /*border: 2px solid #2d2d2d;*/
+}
+/* fill-in selected dot */
+.flickity-page-dots .dot.is-selected {
+  background: #c65a17;
+}
+  
+  .flickity-slider{
+  	width: 150%;
+  }
+@media only screen and (max-width: 768px) {
+  .flickity-page-dots {
+    bottom: -30px;
+  }
+  .flickity-slider{
+  	width: 100%;
+  }
+  .gridMobile{
+  	height: 600px;
+  }
+}
+</style>
+
+  <script>
+$('.main-carousel2').flickity({
+  // options
+  cellAlign: 'left',
+  autoPlay: 7000,
+  groupCells: true,
+  groupCells: 2,
+  contain: true,
+  prevNextButtons: false
+});
+  </script>
+{% schema %}
+{
+  "name": {
+    "da": "Kollektionsliste",
+    "de": "Kategorieliste",
+    "en": "Product slides half",
+    "es": "Lista de colecciones",
+    "fi": "Kokoelmaluettelo",
+    "fr": "Liste des collections",
+    "hi": "कलेक्शन सूची",
+    "it": "Elenco delle collezioni",
+    "ja": "コレクションリスト",
+    "ko": "컬렉션 목록",
+    "ms": "Senarai koleksi",
+    "nb": "Samlingsliste",
+    "nl": "Collectielijst",
+    "pt-BR": "Lista de coleções",
+    "pt-PT": "Lista de coleções",
+    "sv": "Kollektionslista",
+    "th": "รายการคอลเลกชัน",
+    "zh-CN": "产品系列列表",
+    "zh-TW": "商品系列清單"
+  },
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "da": "Overskrift",
+        "de": "Überschrift",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "Titre",
+        "hi": "शीर्षक",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "ms": "Tajuk",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+      },
+      "default": {
+        "da": "Kollektionsliste",
+        "de": "Kategorieliste",
+        "en": "Product slides half",
+        "es": "Lista de colecciones",
+        "fi": "Kokoelmaluettelo",
+        "fr": "Liste des collections",
+        "hi": "कलेक्शन सूची",
+        "it": "Elenco delle collezioni",
+        "ja": "コレクションリスト",
+        "ko": "컬렉션 목록",
+        "ms": "Senarai koleksi",
+        "nb": "Samlingsliste",
+        "nl": "Collectielijst",
+        "pt-BR": "Lista de coleções",
+        "pt-PT": "Lista de coleções",
+        "sv": "Kollektionslista",
+        "th": "รายการคอลเลกชัน",
+        "zh-CN": "产品系列列表",
+        "zh-TW": "商品系列清單"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "da": "Kollektionsliste",
+        "de": "Kategorieliste",
+        "en": "Collection list",
+        "es": "Lista de colecciones",
+        "fi": "Kokoelmaluettelo",
+        "fr": "Liste des collections",
+        "hi": "कलेक्शन सूची",
+        "it": "Elenco delle collezioni",
+        "ja": "コレクションリスト",
+        "ko": "컬렉션 목록",
+        "ms": "Senarai koleksi",
+        "nb": "Samlingsliste",
+        "nl": "Collectielijst",
+        "pt-BR": "Lista de coleções",
+        "pt-PT": "Lista de coleções",
+        "sv": "Kollektionslista",
+        "th": "รายการคอลเลกชัน",
+        "zh-CN": "产品系列列表",
+        "zh-TW": "商品系列清單"
+      },
+      "category": {
+        "da": "Samling",
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fi": "Kokoelma",
+        "fr": "Collection",
+        "hi": "कलेक्शन",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "ko": "컬렉션",
+        "ms": "Koleksi",
+        "nb": "Samling",
+        "nl": "Collectie",
+        "pt-BR": "Coleção",
+        "pt-PT": "Coleção",
+        "sv": "Produktserie",
+        "th": "คอลเลกชัน",
+        "zh-CN": "收藏",
+        "zh-TW": "商品系列"
+      },
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": {
+        "da": "Samling",
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "colección",
+        "fi": "Kokoelma",
+        "fr": "Collection",
+        "hi": "कलेक्शन",
+        "it": "collezione",
+        "ja": "コレクション",
+        "ko": "컬렉션",
+        "ms": "Koleksi",
+        "nb": "Samling",
+        "nl": "Collectie",
+        "pt-BR": "Coleção",
+        "pt-PT": "Coleção",
+        "sv": "Produktserie",
+        "th": "คอลเลกชัน",
+        "zh-CN": "收藏",
+        "zh-TW": "商品系列"
+      },
+      "settings": [
+        {
+          "id": "collection",
+          "type": "collection",
+          "label": {
+            "da": "Samling",
+            "de": "Kategorie",
+            "en": "Collection",
+            "es": "colección",
+            "fi": "Kokoelma",
+            "fr": "Collection",
+            "hi": "कलेक्शन",
+            "it": "collezione",
+            "ja": "コレクション",
+            "ko": "컬렉션",
+            "ms": "Koleksi",
+            "nb": "Samling",
+            "nl": "Collectie",
+            "pt-BR": "Coleção",
+            "pt-PT": "Coleção",
+            "sv": "Produktserie",
+            "th": "คอลเลกชัน",
+            "zh-CN": "收藏",
+            "zh-TW": "商品系列"
+          }
+        },{
+      "type": "text",
+      "id": "title",
+      "label": {
+        "da": "Overskrift",
+        "de": "Überschrift",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "Titre",
+        "hi": "शीर्षक",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "ms": "Tajuk",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+      }}
+      ]
+    }
+  ]
+}
+{% endschema %}
