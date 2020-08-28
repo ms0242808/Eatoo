@@ -2195,7 +2195,14 @@ $slideshow-indicator-size: 1.25rem;
 
 .hero[data-adapt="false"],
 .hero[data-adapt="false"] .slideshow__overlay:before {
-  height: 100vh;
+  height: 70vh;
+}
+
+@media screen and (max-width: 768px) {
+  .hero[data-adapt="false"],
+  .hero[data-adapt="false"] .slideshow__overlay:before {
+      height: 100vh;
+  }
 }
 
 .hero[data-adapt="true"] .slideshow__overlay:before {
@@ -2206,7 +2213,14 @@ $slideshow-indicator-size: 1.25rem;
 
 .hero[data-adapt="false"],
 .hero[data-adapt="false"] .slideshow__overlay:before {
-  height: 100vh;
+  height: 70vh;
+}
+
+@media screen and (max-width: 768px) {
+  .hero[data-adapt="false"],
+    .hero[data-adapt="false"] .slideshow__overlay:before {
+      height: 100vh;
+    }
 }
 
 .hero[data-adapt="true"] .slideshow__overlay:before {
