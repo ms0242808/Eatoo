@@ -446,7 +446,7 @@
       var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
       var time = today.getHours();
       var x = document.getElementsByClassName("mw-dd-picker")[0].value;
-      if(x == date.toString() && time >= 10){
+      if(x == date.toString() && time >= 11){
         $('.mw-dd-time option[value="11:00 - 15:00"]').remove();
       }  
       /*if(time >= 15){
