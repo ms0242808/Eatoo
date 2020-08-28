@@ -16,7 +16,7 @@
     {%- if pageUrl contains "view=36" -%}{%- assign limit = 36 -%}{%- endif -%}
 {%- endfor -%}
 
-{% unless request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' or request.path contains '/collections/food-cupboard'%}
+{% unless collection.all_products_count >= 50 %}
     {% assign unsortedProducts = collection.products | reverse | reverse %}
     {% for product in unsortedProducts %}
       {% assign sliceIndex = forloop.index0 %}
