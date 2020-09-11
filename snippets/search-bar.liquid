@@ -75,7 +75,7 @@ $(function() {
           } else {
             // If we have results.
             $.each(data.results, function(index, item) {
-              if(item.category !== "Sauce" && item.category !== "Fee" && item.category !== "Testing"){
+              if(item.category !== "Sauce" && item.category !== "Fee" && item.category !== "Testing" && item.titile !== "EATOO Prime"){
                 var link = $('<a></a>').attr('href', item.url);
                 link.append('<span class="thumbnail"><img src="' + item.thumbnail + '" /></span>');
                 link.append('<span class="title">' + item.title + '</span>');
