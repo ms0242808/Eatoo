@@ -3,9 +3,25 @@
     max-width: 90px;
   }
 
+  .h-logo{
+    margin: 0 auto;
+  }
+  
+  .site-nav__link{
+    color: black !important;  
+  }
+  
+  .burger-icon{
+    background: black !important;
+   }
+
   @media screen and (max-width: 768px) {
     .site-header__logo img {
         max-width: 60%;
+    }
+
+    .burger-icon{
+      background: black !important;
     }
   }
 
@@ -167,66 +183,7 @@
                 </button>
               </div>
             </div>
-            <div class="grid__item large--one-third medium-down--one-half">
-              {% comment %}
-                Use the uploaded logo from theme settings if enabled.
-                Site name gets precedence with H1 tag on homepage, div on other pages.
-              {% endcomment %}
-              {% if template.name == 'index' %}
-                <h2 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization" title="Eatoo UK">
-              {% else %}
-                <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
-              {% endif %}
-                {% if section.settings.logo_max_width != blank %}
-                  {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
-                {% else %}
-                  {% assign image_size = "180x" %}
-                {% endif %}
-
-                {% if customer.tags contains 'Eatoo Prime'%}
-                  {% assign logo-url = section.settings.prime-logo %}
-                  {% assign logo-url-inverted = section.settings.prime-logo1 %}
-                {% else %}
-                  {% assign logo-url = section.settings.logo %}
-                  {% assign logo-url-inverted = section.settings.logo-inverted %}
-                {% endif %}
-
-                {% if section.settings.logo-inverted and template.name == 'index' %}
-                  <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                    <img src="{{ logo-url-inverted | img_url: image_size }}"
-                    srcset="{{ logo-url-inverted | img_url: image_size }} 1x, {{ logo-url-inverted | img_url: image_size, scale: 2 }} 2x"
-                    alt="{{ logo-url-inverted.alt | default: shop.name }}"
-                    title="{{ logo-url-inverted.alt | default: shop.name }}" 
-                    itemprop="logo">
-                  </a>
-                {% elsif section.settings.logo %}
-                  <div class="blacklogo" >
-                    <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                       <img src="{{ logo-url | img_url: image_size }}"
-                       srcset="{{ logo-url | img_url: image_size }} 1x, {{ logo-url | img_url: image_size, scale: 2 }} 2x"
-                       alt="{{ logo-url.alt | default: shop.name }}"
-                       title="{{ logo-url.alt | default: shop.name }}" 
-                       itemprop="logo">
-                    </a>
-                  </div>
-                  <div class="whitelogo">
-                    <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
-                      <img src="{{ logo-url-inverted | img_url: image_size }}"
-                      srcset="{{ logo-url-inverted | img_url: image_size }} 1x, {{ logo-url-inverted | img_url: image_size, scale: 2 }} 2x"
-                      alt="{{ logo-url-inverted.alt | default: shop.name }}"
-                      title="{{ logo-url-inverted.alt | default: shop.name }}" 
-                      itemprop="logo">
-                  </div>
-                {% else %}
-                  <a style="font-weight: bold;" href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
-                {% endif %}
-              {% if template.name == 'index' %}
-                </h2>
-              {% else %}
-                </div>
-              {% endif %}
-            </div>
-            <nav class="grid__item large--two-thirds large--text-right medium-down--hide" role="navigation">
+            <nav class="grid__item medium-up-one-quarter large--text-left medium-down--hide" role="navigation">
               {% comment %}
                 List out your main-menu linklist (default)
 
@@ -234,7 +191,7 @@
                   - http://docs.shopify.com/themes/liquid-variables/linklists
               {% endcomment %}
               <!-- begin site-nav -->
-              <ul class="site-nav" id="AccessibleNav">
+              <ul class="site-nav h-menu" id="AccessibleNav">
                 {% for link in linklists[section.settings.main_menu_link_list].links %}
                   {% if link.links != blank %}
                   {% assign parent_index = forloop.index %}
@@ -311,7 +268,7 @@
                       </ul>
                     </li>
                   {% else %}
-                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}" style="position: static;">
                       <a style="font-weight: bold;"
                         href="{{ link.url }}"
                         class="site-nav__link"
@@ -330,52 +287,121 @@
                     {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header' %}
                   </li>
                 {% endcomment %}
-                {% if shop.customer_accounts_enabled %}
-                  <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed">
-                    <a class="site-nav__link" style="font-weight:bold;" href="{{ routes.account_url }}">
-                      {% if customer %}
-                        Account
-                      {% else %}  
-                        Login
-                      {% endif %}
-                    </a>
-                  </li>
-                {% endif %}
-
-                {% if section.settings.search == 'page' or section.settings.search == 'modal' %}
-                  {% assign search_modal = true %}
-                  {% if section.settings.search == 'page' %}
-                    {% assign search_modal = false %}
-                  {% endif %}
-                  <li class="site-nav__item site-nav__item--compressed">
-                    <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
-                      <span class="icon-fallback-text">
-                        <span class="icon icon-search" aria-hidden="true"></span>
-                        <span class="fallback-text">{{ 'general.search.title' | t }}</span>
-                      </span>
-                    </a>
-                  </li>
-                {% endif %}
-
-                <li class="site-nav__item site-nav__item--compressed">
-                  <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer" style="top: 3px;">
-                    <span class="icon-fallback-text">
-                      <span class="icon icon-cart" aria-hidden="true" style="font-size: 24px;"></span>
-                      <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
-                      <span class="cart-link__count--visible" style="top: 24px;">{{ cart.item_count }}</span>
-                    </span>
-                    
-                  </a>
-                </li>
-                
-                <li class="site-nav__item site-nav__item--compressed" style="left: 12px;">
-                  {% include 'gtranslate' %}
-                </li>{%comment%}{%endcomment%}
-
               </ul>
               <!-- //site-nav 
                 [removed 286 after cart-link"js-drawer-open-button-right"]-->
             </nav>
+           
+            <div class="grid__item medium-down--one-half ">
+              {% comment %}
+                Use the uploaded logo from theme settings if enabled.
+                Site name gets precedence with H1 tag on homepage, div on other pages.
+              {% endcomment %}
+              {% if template.name == 'index' %}
+                <h2 class="h-logo text-center" itemscope itemtype="http://schema.org/Organization" title="Eatoo UK">
+              {% else %}
+                <div class="h1 site-header__logo large--center" itemscope itemtype="http://schema.org/Organization">
+              {% endif %}
+                {% if section.settings.logo_max_width != blank %}
+                  {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+                {% else %}
+                  {% assign image_size = "180x" %}
+                {% endif %}
+                  
+                {% if customer.tags contains 'Eatoo Prime'%}
+                  {% assign logo-url = section.settings.prime-logo %}
+                  {% assign logo-url-inverted = section.settings.prime-logo %}
+                {% else %}
+                  {% assign logo-url = section.settings.logo %}
+                  {% assign logo-url-inverted = section.settings.logo-inverted %}
+                {% endif %}
+
+                {% if section.settings.logo-inverted and template.name == 'index' %}
+                  <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+                    <img src="{{ logo-url-inverted | img_url: image_size }}"
+                    srcset="{{ logo-url-inverted | img_url: image_size }} 1x, {{ logo-url-inverted | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ logo-url-inverted.alt | default: shop.name }}"
+                    title="{{ logo-url-inverted.alt | default: shop.name }}" 
+                    itemprop="logo">
+                  </a>
+                {% elsif section.settings.logo %}
+                  <div class="blacklogo" >
+                    <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+                       <img src="{{ logo-url | img_url: image_size }}"
+                       srcset="{{ logo-url | img_url: image_size }} 1x, {{ logo-url | img_url: image_size, scale: 2 }} 2x"
+                       alt="{{ logo-url.alt | default: shop.name }}"
+                       title="{{ logo-url.alt | default: shop.name }}" 
+                       itemprop="logo">
+                    </a>
+                  </div>
+                  <div class="whitelogo">
+                    <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+                      <img src="{{ logo-url-inverted | img_url: image_size }}"
+                      srcset="{{ logo-url-inverted | img_url: image_size }} 1x, {{ logo-url-inverted | img_url: image_size, scale: 2 }} 2x"
+                      alt="{{ logo-url-inverted.alt | default: shop.name }}"
+                      title="{{ logo-url-inverted.alt | default: shop.name }}" 
+                      itemprop="logo">
+                  </div>
+                {% else %}
+                  <a style="font-weight: bold;" href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+                {% endif %}
+              {% if template.name == 'index' %}
+                </h2>
+              {% else %}
+                </div>
+              {% endif %}
+            </div>
+            
+              <nav class="grid__item medium-up-one-quarter large--text-right medium-down--hide"role="navigation">
+                <ul class="site-nav" id="AccessibleNav">
+                  {% if section.settings.search == 'page' or section.settings.search == 'modal' %}
+                      {% assign search_modal = true %}
+                      {% if section.settings.search == 'page' %}
+                        {% assign search_modal = false %}
+                      {% endif %}
+                      <li class="site-nav__item site-nav__item--compressed">
+                        <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
+                          <span class="icon-fallback-text">
+                            <span class="icon icon-search" aria-hidden="true"></span>
+                            <span class="fallback-text">{{ 'general.search.title' | t }}</span>
+                          </span>
+                        </a>
+                      </li>
+                    {% endif %}
+
+                    <li class="site-nav__item site-nav__item--compressed">
+                      <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer" style="top: 3px;">
+                        <span class="icon-fallback-text">
+                          <span class="icon icon-cart" aria-hidden="true" style="font-size: 24px;"></span>
+                          <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                          <span class="cart-link__count--visible" style="top: 24px;">{{ cart.item_count }}</span>
+                        </span>
+                        
+                      </a>
+                    </li>
+                    
+                    <li class="site-nav__item site-nav__item--compressed" style="left: 12px;">
+                      {% include 'gtranslate' %}
+                    </li>{%comment%}{%endcomment%}
+                  {% if shop.customer_accounts_enabled %}
+                      <li class="site-nav__item site-nav__item--compressed" style="margin-left:7px;">
+                        <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}">
+                          <span class="icon-fallback-text">
+                            <span class="icon icon-customer" aria-hidden="true"></span>
+                            <span class="fallback-text">
+                              {% if customer %}
+                                {{ 'layout.customer.account' | t }}
+                              {% else %}
+                                {{ 'layout.customer.log_in' | t }}
+                              {% endif %}
+                            </span>
+                          </span>
+                        </a>
+                      </li>
+                    {% endif %}
+                  </ul>
+              </nav>
+            
             <div class="grid__item large--hide one-quarter">
               <div class="site-nav--mobile text-right">
                 {% if section.settings.search == 'page' or section.settings.search == 'modal' %}
