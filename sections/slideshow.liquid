@@ -34,6 +34,12 @@
   {%- endstyle -%}
 {%- endif -%}
 
+<style>
+.slick-initialized .hero__slide:not(.slick-slide) {
+  display: none;
+}
+</style>
+
 <div data-section-id="{{ section.id }}"
      data-section-type="slideshow-section"{% if section.settings.home_hero_height == 'adapt' %} class="hero--adapt"{% endif %}>
   {%- if section.blocks.size > 0 -%}
@@ -102,7 +108,7 @@
             }
           {%- endstyle -%}
         {%- endif -%}
-        <div class="hero__slide slide--{{ block.id }}{% if block.settings.image == blank %} slide--placeholder{% endif %}"
+        <div class="hero__slide {{ block.settings.show_on }} slide--{{ block.id }}{% if block.settings.image == blank %} slide--placeholder{% endif %}"
               style="color: {{ block.settings.slide_text_color }};"
               {{ block.shopify_attributes }}>
           {%- if block.settings.image == blank -%}
@@ -232,7 +238,7 @@
     "zh-CN": "幻灯片",
     "zh-TW": "投影片輪播"
   },
-  "max_blocks": 6,
+  "max_blocks": 12,
   "settings": [
     {
       "type": "select",
@@ -457,6 +463,26 @@
             "zh-CN": "图片",
             "zh-TW": "圖片"
           }
+        },
+        {
+          "type":   "select",
+          "id":   "show_on",
+          "label":  "Show this slide:", 
+          "default":  "desktop mobile",
+          "options": [
+            {
+              "value":  "desktop mobile",
+              "label":  "Always"
+            },
+            {
+              "value":  "mobile",
+              "label":  "On Mobile"
+            },
+            {
+              "value":  "desktop",
+              "label":  "On Desktop"
+            }
+          ]
         },
         {
           "type": "select",
