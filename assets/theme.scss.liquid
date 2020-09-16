@@ -2195,7 +2195,7 @@ $slideshow-indicator-size: 1.25rem;
 
 .hero[data-adapt="false"],
 .hero[data-adapt="false"] .slideshow__overlay:before {
-  height: 76vh;
+  height: 87vh;
 }
 
 @media screen and (max-width: 768px) {
@@ -2207,13 +2207,13 @@ $slideshow-indicator-size: 1.25rem;
 
 .hero[data-adapt="true"] .slideshow__overlay:before {
   @include at-query($max, $siteWidth) {
-    min-height: 50vw;
+    min-height: 67vw;
   }
 }
 
 .hero[data-adapt="false"],
 .hero[data-adapt="false"] .slideshow__overlay:before {
-  height: 76vh;
+  height: 87vh;
 }
 
 @media screen and (max-width: 768px) {
@@ -2225,7 +2225,7 @@ $slideshow-indicator-size: 1.25rem;
 
 .hero[data-adapt="true"] .slideshow__overlay:before {
   @include at-query($max, $siteWidth) {
-    min-height: 50vw;
+    min-height: 67vw;
   }
 }
 
@@ -4474,6 +4474,7 @@ button.mfp-arrow {
 }
 
 .site-header {
+  background: white;
   //background: rgba( 255,255,255,.7);       
   padding-top:0;
   //margin-top:5px;
@@ -4482,7 +4483,8 @@ button.mfp-arrow {
 }
 
 .site-header.scrolled {
-  background: rgba(0,0,0,.7); 
+  background: white;//rgba(0,0,0,.7); 
+  box-shadow: 1px 0.5px #eaeaea;
 }
 
 .progress-container {
@@ -4508,17 +4510,17 @@ button.mfp-arrow {
 }
 
 .site-header.scrolled .site-nav__link  {
-  color: white;
+  color: black;
 }
 
 .site-header.scrolled a {
-  color: white;
+  color: black;
 }
 
 .site-header.scrolled .site-nav__dropdown a,
 .site-nav__grandchild-dropdown a {
   background-color: transparent;
-  color: white;
+  color: black;
 
   &:hover,
   &:active,
@@ -4533,7 +4535,7 @@ button.mfp-arrow {
 }
 
 .site-header.scrolled .burger-icon {
-  background: white;
+  background: black;
 }
 
 .site-header .blacklogo a {
