@@ -8,301 +8,322 @@
 {% endcomment %}
     <br><br><br><br>
 <div class="grid">
-  <div class="grid__item large--five-sixths push--large--one-twelfth">
+  <div class="grid__item medium-up--four-fifths medium-up--push-one-tenth cwidth">
     {% if cart.item_count > 0 %}
-      <header class="section-header text-center">
+      <header class="section-header text-center" style="padding-left:30px;">
         <h2 style="font-weight: bold; font-size: 2em;" class="text-center">{{ 'cart.general.title' | t }}</h2>
         <meta name="description" content="At here you will find the suitable ingredients for HOTPOT, BBQ, SUKIYAKI and BUDAE JJIGAE. Shop and get delivery fresh food with Eatoo">
-        <hr class="hr--small">
+        <hr class="hr--small cart_hr">
       </header>
 
       <form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
-
-        <div class="cart__row medium-down--hide cart__header-labels">
-          <div class="grid--full">
-            <div class="grid__item large--two-fifths push--large--three-fifths">
-              <div class="grid--full">
-                <div class="grid__item one-third medium-down--half text-center">
-                  {{ 'cart.label.quantity' | t }}
-                </div>
-                <div class="grid__item two-thirds medium-down--half text-right">
-                  {{ 'cart.label.total' | t }}
+        <div class="grid__item large--two-thirds" >
+          <div class="cart__row medium-down--hide cart__header-labels">
+            <div class="grid--full">
+              <div class="grid__item large--two-thirds push--large--three-fifths">
+                <div class="grid--full">
+                  <div class="grid__item one-half medium-down--half text-center boldf">
+                    {{ 'cart.label.quantity' | t }}
+                  </div>
+                  <div class="grid__item one-tenth medium-down--half text-right boldf">
+                    {{ 'cart.label.total' | t }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {% comment %}
-          Loop through products in the cart
-        {% endcomment %}
-        {% for item in cart.items %}
-          <div class="cart__row" style="margin-bottom: 20px;">
-            <div class="grid--full cart__row--table-large">
+          {% comment %}
+            Loop through products in the cart
+          {% endcomment %}
+          {% for item in cart.items %}
+            <div class="cart__row" style="margin-bottom: 20px;">
+              <div class="grid--full cart__row--table-large">
 
-              <div class="grid__item large--three-fifths">
-                <div class="grid">
-                  <div class="gridImg__item one-third">
-                    <a href="{{ item.url | within: collections.all }}" class="cart__image">
+                <div class="grid__item large--two-thirds">
+                  <div class="grid">
+                    <div class="gridImg__item one-third pimage">
+                      <a href="{{ item.url | within: collections.all }}" class="cart__image">
 
-                      {% comment %}
-                        More image size options at:
-                          - http://docs.shopify.com/themes/filters/product-img-url
-                      {% endcomment %}
-                      <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}" title="{{ item.title | escape }}" style="width: -webkit-fill-available;">
-                    </a>
-                  </div>
-                  <div class="grid__item two-thirds" style="width: 231px; height: 66px;">
-                    <a href="{{ item.url }}" class="h4 cart__product-name">
-                      {{ item.product.title }}
-                      <span class='booster-cart-item-success-notes' data-key='{{item.key}}'></span><span class='booster-cart-item-upsell-notes' data-key='{{item.key}}'></span>
-                    </a>
-                    {% unless item.variant.title contains 'Default' %}
-                      <p class="cart__product-meta">
-                        {{ item.variant.title }}
-                      </p>
-                    {% endunless %}
-
-                    {% if settings.product_vendor_enable %}
-                      <p class="cart__product-meta">{{ item.vendor }}</p>
-                    {% endif %}
-
-                    <span class="bold_ro_desc" data-product-id="{{ item.id }}-{{ forloop.index0 }}"></span>
-{% assign property_size = item.properties | size %}
-                    <div class='' data-key='{{item.key}}'></div>{% if property_size > 0 %}
-                      {%- comment -%}
-{%- comment -%}
-{% for p in item.properties %}
-                        {% assign first_character_in_key = p.first | truncate: 1, '' %}
-                        {% unless p.last == blank or first_character_in_key == '_' %}
-                          {{ p.first }}:
-
-                          {% if p.last contains '/uploads/' %}
-                            <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-                          {% else %}
-                            {{ p.last }}
-                          {% endif %}
-
-                          <br>
-                        {% endunless %}
-                      {% endfor %}
-{%- endcomment -%}
-<span class="bold_load_cart_item_properties"></span>{%- endcomment -%}
-{%- comment -%}
-{%- for p in item.properties -%}
-            {%- unless p.last == blank -%}
-              <li class="product-details__item product-details__item--property{%if property_size == 0%} hide{% endif %}" data-cart-item-property>
-                <span class="product-details__item-label" data-cart-item-property-name>{{ p.first }}: </span>
-
-                {%- comment -%}
-                  Check if there was an uploaded file associated
-                {%- endcomment -%}
-                <span data-cart-item-property-value>
-                  {%- if p.last contains "uploads" -%}
-                    <a href="{{ p.last }}">Uploaded File</a>
-                  {%- else -%}
-                    {{ p.last }}
-                  {%- endif -%}
-                </span>
-              </li>
-            {%- endunless -%}
-          {%- endfor -%}
-{%- endcomment -%}
-<span class="bold_load_cart_item_properties"></span>
-            {%comment%}<button type="button" class="edit_cart_option btn btn--primary button" data-product_id="{{item.product_id}}" data-key="{{item.key}}" data-variant_id="{{item.variant_id}}" data-quantity="{{item.quantity}}">Edit Options</button>            {%endcomment%}
-                    {% endif %}
-
-                    <p class="cart__product-meta" style="font-style: italic; font-size: 14px;">
-                      <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">
-                        {{ 'cart.general.remove' | t }}
+                        {% comment %}
+                          More image size options at:
+                            - http://docs.shopify.com/themes/filters/product-img-url
+                        {% endcomment %}
+                        <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}" title="{{ item.title | escape }}" style="width: -webkit-fill-available;">
                       </a>
-                    </p>
-                  </div>
+                    </div>
+                    <div class="grid__item two-thirds nwidth">
+                      <a href="{{ item.url }}" class="h4 cart__product-name">
+                        {{ item.product.title | truncate: 28}}
+                        <span class='booster-cart-item-success-notes' data-key='{{item.key}}'></span><span class='booster-cart-item-upsell-notes' data-key='{{item.key}}'></span>
+                      </a>
+                      {% unless item.variant.title contains 'Default' %}
+                        <p class="cart__product-meta">
+                          {{ item.variant.title }}
+                        </p>
+                      {% endunless %}
 
-                </div>
-              </div>
+                      {% if settings.product_vendor_enable %}
+                        <p class="cart__product-meta">{{ item.vendor }}</p>
+                      {% endif %}
 
-              <div class="grid__item large--two-fifths cart__pricing">
-                <div class="grid--full cart__row--table{% if item.line_level_discount_allocations != blank %} cart__row--table-with-discount{% endif %}">
+                      <span class="bold_ro_desc" data-product-id="{{ item.id }}-{{ forloop.index0 }}"></span>
+                      {% assign property_size = item.properties | size %}
+                      <div class='' data-key='{{item.key}}'></div>{% if property_size > 0 %}
+                        {%- comment -%}
+                        {%- comment -%}
+                        {% for p in item.properties %}
+                          {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                          {% unless p.last == blank or first_character_in_key == '_' %}
+                            {{ p.first }}:
 
-                  <div class="grid__item one-third text-center">
+                            {% if p.last contains '/uploads/' %}
+                              <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                            {% else %}
+                              {{ p.last }}
+                            {% endif %}
 
-                    <label for="updates_{{ item.key }}" class="visually-hidden">{{ 'cart.label.quantity' | t }}</label>
-                      <input type="number" name="updates[]" id="updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}">
-                  </div>
+                            <br>
+                          {% endunless %}
+                        {% endfor %}
+                        {%- endcomment -%}
+                        <span class="bold_load_cart_item_properties"></span>{%- endcomment -%}
+                        {%- comment -%}
+                        {%- for p in item.properties -%}
+                          {%- unless p.last == blank -%}
+                            <li class="product-details__item product-details__item--property{%if property_size == 0%} hide{% endif %}" data-cart-item-property>
+                              <span class="product-details__item-label" data-cart-item-property-name>{{ p.first }}: </span>
 
-                  <div class="grid__item two-thirds text-right">
-
-                    {%- if item.original_line_price != item.final_line_price -%}
-                      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
-                      <del class="cart__price"><span class='' data-key='{{item.key}}'><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.original_line_price | money }}</span></del>
-                      <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-                      <span class="order-discount cart__price"><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total_3" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.final_line_price | money }}</span>
-                    {%- else -%}
-                      <span class="cart__price"><span class='booster-cart-item-line-price' data-key='{{item.key}}'><span class='' data-key='{{item.key}}'><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total_2" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.original_line_price | money }}</span></span></span>
-                    {%- endif -%}
-
-                    {%- if item.unit_price_measurement -%}
-                      <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
-                      <span class="cart__unit-price">
-                        {%- capture unit_price_separator -%}
-                          <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
-                        {%- endcapture -%}
-                        {%- capture unit_price_base_unit -%}
-                          {%- if item.unit_price_measurement.reference_value != 1 -%}
-                            {{- item.unit_price_measurement.reference_value -}}
-                          {%- endif -%}
-                          {{ item.unit_price_measurement.reference_unit }}
-                        {%- endcapture -%}
-
-                        <span data-unit-price>{{ item.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
-                      </span>
-                    {%- endif -%}
-
-                    {%- if item.line_level_discount_allocations != blank -%}
-                      <ul class="order-discount order-discount--list order-discount--title order-discount--cart-list" aria-label="{{ 'customer.order.discount' | t }}">
-                        {%- for discount_allocation in item.line_level_discount_allocations -%}
-                          <li class="order-discount__item">
-                            <span class="icon icon-saletag" aria-hidden="true"></span>{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
-                          </li>
+                              {%- comment -%}
+                                Check if there was an uploaded file associated
+                              {%- endcomment -%}
+                              <span data-cart-item-property-value>
+                                {%- if p.last contains "uploads" -%}
+                                  <a href="{{ p.last }}">Uploaded File</a>
+                                {%- else -%}
+                                  {{ p.last }}
+                                {%- endif -%}
+                              </span>
+                            </li>
+                          {%- endunless -%}
                         {%- endfor -%}
-                      </ul>
-                    {%- endif -%}
+                        {%- endcomment -%}
+                    <span class="bold_load_cart_item_properties"></span>
+                    {%comment%}<button type="button" class="edit_cart_option btn btn--primary button" data-product_id="{{item.product_id}}" data-key="{{item.key}}" data-variant_id="{{item.variant_id}}" data-quantity="{{item.quantity}}">Edit Options</button>            {%endcomment%}
+                    {% endif %}
+
+                      <p class="cart__product-meta" style="font-style: italic; font-size: 14px;">
+                        <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">
+                          {{ 'cart.general.remove' | t }}
+                        </a>
+                      </p>
+                    </div>
 
                   </div>
                 </div>
-              </div>
 
+                <div class="grid__item large--one-third cart__pricing">
+                  <div class="grid--full cart__row--table{% if item.line_level_discount_allocations != blank %} cart__row--table-with-discount{% endif %}">
+
+                    <div class="grid__item one-third text-center qwidth">
+
+                      <label for="updates_{{ item.key }}" class="visually-hidden">{{ 'cart.label.quantity' | t }}</label>
+                        <input type="number" name="updates[]" id="updates_{{ item.key }}" class="cart__product-qty" value="{{ item.quantity }}" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}">
+                    </div>
+
+                    <div class="grid__item two-thirds text-right">
+
+                      {%- if item.original_line_price != item.final_line_price -%}
+                        <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                        <del class="cart__price"><span class='' data-key='{{item.key}}'><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.original_line_price | money }}</span></del>
+                        <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+                        <span class="order-discount cart__price"><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total_3" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.final_line_price | money }}</span>
+                      {%- else -%}
+                        <span class="cart__price"><span class='booster-cart-item-line-price' data-key='{{item.key}}'><span class='' data-key='{{item.key}}'><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total_2" data-item-key="{{item.key}}" style="display:none !important;"></span>{{ item.original_line_price | money }}</span></span></span>
+                      {%- endif -%}
+
+                      {%- if item.unit_price_measurement -%}
+                        <span class="visually-hidden">{{ 'products.general.unit_price' | t }}</span>
+                        <span class="cart__unit-price">
+                          {%- capture unit_price_separator -%}
+                            <span aria-hidden="true">/</span><span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                          {%- endcapture -%}
+                          {%- capture unit_price_base_unit -%}
+                            {%- if item.unit_price_measurement.reference_value != 1 -%}
+                              {{- item.unit_price_measurement.reference_value -}}
+                            {%- endif -%}
+                            {{ item.unit_price_measurement.reference_unit }}
+                          {%- endcapture -%}
+
+                          <span data-unit-price>{{ item.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                        </span>
+                      {%- endif -%}
+
+                      {%- if item.line_level_discount_allocations != blank -%}
+                        <ul class="order-discount order-discount--list order-discount--title order-discount--cart-list" aria-label="{{ 'customer.order.discount' | t }}">
+                          {%- for discount_allocation in item.line_level_discount_allocations -%}
+                            <li class="order-discount__item">
+                              <span class="icon icon-saletag" aria-hidden="true"></span>{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
-        {% endfor %}
-        
-        <!--Create a border-->
-        <div style="border-top: 1px solid #1C1D1D;"></div>
-
-        <div class=""> <!--class="cart__row cart__row--last"-->
-          <div class="dipping-sauce" style="margin-bottom: 10px;">
-            {% assign collection = collections.dipping-sauce %}
-            {% include 'cart-recommendations'%}
-          </div>
-          <!-- Delivery date and time picker & Discount Code -->
-          <div class="grid grid--small">
-            <div class="grid__item large--one-half">
-              <div class="cart-form">
-                <div class="right-col" id="right-column">
-                {%comment%}<span id="expressD">If you wish to receive the order within two hours when the time you placed order, <br> please select the express delivery at the checkout page.</span>{%endcomment%}
-                <span id="expressD">If you wish to pick up the oder by yourself, <br> please select the "Self-collection" at the checkout page. <br>Pick up time 3 PM. - 5 PM. at WC1B 4HH. <br> MORN THAN 7 MILES BUT WITHIN M25 PLEASE CONTACT US</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid__item large--one-half note-cart">
-              {% if settings.cart_notes_enable %}
-            <div class="cart__note" style="padding-right:0px;">
-                <label for="CartSpecialInstructions" style="display: block;">{{ 'cart.general.note' | t }}</label>
-                <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
-              </div>
-            {% endif %}
-              {%comment%}<div class="tbtDiscountCombine" data-brandcolor="#2d2d2d" data-boxtitle="Discount Code" data-boxdes="If you have multiple discount code please separating them using a comma" data-buttontext="Apply" data-maxcode="0" data-maxcodetext="We only allow this maximum codes per combination" data-placeholder="Enter discount codes here" data-enable="1">
-                <input type="date" id="cartFormDate" class="mw-dd-picker" name="cart[Date Return]">
-              </div> 
-              <div id="myItem1"></div>
-              <form method="post" action="/cart/add" id="AddToCartForm--product-template" accept-charset="UTF-8" class="
-              product-single__form
-" enctype="multipart/form-data" data-product-form=""><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
-                <div class="radio-wrapper js product-form__item">
-                  <label class="single-option-radio__label" for="ProductSelect-option-0">
-                    Pot Size
-                  </label>
-                    <fieldset class="single-option-radio" name="pot-size" id="ProductSelect-option-0">
-                          <input type="radio" checked="checked" value="Single Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Single Flavor">
-                          <label for="ProductSelect-option-pot-size-Single Flavor">Single Flavor</label>
-                          <input type="radio" value="Two Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Two Flavor">
-                          <label for="ProductSelect-option-pot-size-Two Flavor">Two Flavor</label>
-                    </fieldset>
-                </div>                
-                <select name="id" id="ProductSelect" class="product-single__variants no-js">
-                  <option selected="selected" data-sku="" value="30980678942775">
-                    Single Flavor - £40.00 GBP
-                  </option>       
-                  <option data-sku="" value="30980678975543">
-                    Two Flavor - £40.00 GBP
-                  </option>
-                </select>
-
-                <div class="product-single__add-to-cart">
-                            
-                </div>
-              </form>
-            </div>
-            <div class="tooltip" style="bottom:100px;">
-              <i class="fas fa-info-circle"></i>
-              <span class="tooltiptext">If you have multiple discount code please separating them using a comma</span>
-            </div>{%endcomment%}
-          </div>
-          
-          <div class="grid--full cart__row--table-large">
-            {%- comment -%}
-              Optional, add a textarea for special notes
-                - Your theme settings can turn this on or off. Default is on.
-                - Make sure you have name="note" for the message to be submitted properly
-                <div class="identixweb-order-delivery"></div>
-            {%- endcomment -%}
-            
-
-            <div class="grid__item large--five-twelfths text-center large--text-right{% if settings.cart_notes_enable %} cart__subtotal-container{% else %} push--large--seven-twelfths{% endif %}" style="float: right;">
-              {%- if cart.cart_level_discount_applications != blank -%}
-              <div class="grid--full cart__row--table">
-                <div class="cart__discounts">
-                  {%- for discount_application in cart.cart_level_discount_applications -%}
-                    <span class="order-discount order-discount--title order-discount--cart">
-                      <span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">{{ 'customer.order.discount' | t }}:</span>{{- discount_application.title -}}
-                    </span>
-                    <span class="order-discount order-discount--cart">-{{ discount_application.total_allocated_amount | money }}</span>
-                  {%- endfor -%}
-                </div>
-              </div>
-              {%- endif -%}
-              <div class="grid--full cart__row--table">
-                <div class="grid__item one-half large--two-thirds large--text-center">
-                  <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
-                </div>
-                <div class="grid__item one-half large--one-third">
-                  <p class="cart__subtotal"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
-                </div>
-              </div>
-
-              {%- capture taxes_shipping_checkout -%}
-                {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
-                  {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                {%- elsif shop.taxes_included -%}
-                  {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
-                {%- elsif shop.shipping_policy.body != blank -%}
-                  {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
-                {%- else -%}
-                  {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
-                {%- endif -%}
-              {%- endcapture -%}
-   
-              <p class="rte"><em>{{ taxes_shipping_checkout }}</em></p>
-              <p class="agree-box" style="float: none; text-align: right; clear: both; margin: 10px 0;">
-                <input style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="agree" />
-                  <label style="display:inline; float:none" for="agree">
-                    I agree with the <a href="/pages/legal">terms and conditions</a>
-                  </label>
-              </p>
-             <!--a class="cartitems" href="/cart/clear">Empty cart</a-->
-              <button type="submit" name="update" class="btn--secondary update-cart" style="margin-top: 10px;">{{ 'cart.general.update' | t }}</button>
-              <button id="checkout" type="submit" name="checkout" class="btn cart__checkout" style="margin-top: 10px;" disabled>
-                {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
-              </button>
-
-              {% if additional_checkout_buttons and settings.cart_type != 'drawer' %}
-                <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
-              {% endif %}
-            </div>
+          {% endfor %}
         </div>
 
+        <div class="grid__item large--one-third">
+          <!--Create a border
+          <div style="border-top: 1px solid #1C1D1D;"></div>-->
+
+          <div class="grid__item rightGrid">  <!--class="cart__row cart__row--last"-->
+            <div class="dipping-sauce" style="margin-bottom: 10px;">
+              {% assign collection = collections.dipping-sauce %}
+              {% include 'cart-recommendations'%}
+            </div>
+            <!-- Delivery date and time picker & Discount Code -->
+            <div class="grid grid--small">
+              <div class="grid__item large--one-half">
+                <div class="cart-form">
+                  <div class="right-col" id="right-column">
+                  {%comment%}<span id="expressD">If you wish to receive the order within two hours when the time you placed order, <br> please select the express delivery at the checkout page.</span>
+                  <span id="expressD">If you wish to pick up the oder by yourself, <br> please select the "Self-collection" at the checkout page. <br>Pick up time 3 PM. - 5 PM. at WC1B 4HH. <br> MORN THAN 7 MILES BUT WITHIN M25 PLEASE CONTACT US</span>{%endcomment%}
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid__item note-cart subs"><!-- substitution -->
+              <div class="cart__note" style="padding-right:0px;">
+                <p class="agree-box" style="float: none; clear: both; margin: 10px;">
+                  <div class="swaptooltip">
+                    <em class="boldf">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
+                    <span class="swaptooltiptext">If goods are out of stock or otherwise unavailable we’ll offer substitutes wherever we can unless you’ve asked us not to. We choose substitutes very carefully and offer what we believe is the most appropriate alternative to the product you’ve ordered.</span>
+                  </div><br>
+                  <input name="attributes[Accept swaps]" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="swap" checked/>
+                    <label style="display:inline; float:none; font-style:normal;" for="swap">
+                      Accept swaps
+                    </label>
+                  <input name="attributes[Ask to swaps]" value="Ask to swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="ask" />
+                    <label style="display:inline; float:none; font-style:normal;" for="ask">
+                      Ask me
+                    </label>
+                </p>
+              </div>
+            </div>
+
+              <div class="grid__item note-cart">
+                {% if settings.cart_notes_enable %}
+              <div class="cart__note" style="padding-right:0px;">
+                  <label for="CartSpecialInstructions" style="display: block;">{{ 'cart.general.note' | t }}</label>
+                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                </div>
+              {% endif %}
+                {%comment%}<div class="tbtDiscountCombine" data-brandcolor="#2d2d2d" data-boxtitle="Discount Code" data-boxdes="If you have multiple discount code please separating them using a comma" data-buttontext="Apply" data-maxcode="0" data-maxcodetext="We only allow this maximum codes per combination" data-placeholder="Enter discount codes here" data-enable="1">
+                  <input type="date" id="cartFormDate" class="mw-dd-picker" name="cart[Date Return]">
+                </div> 
+                <div id="myItem1"></div>
+                <form method="post" action="/cart/add" id="AddToCartForm--product-template" accept-charset="UTF-8" class="
+                product-single__form
+  " enctype="multipart/form-data" data-product-form=""><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
+                  <div class="radio-wrapper js product-form__item">
+                    <label class="single-option-radio__label" for="ProductSelect-option-0">
+                      Pot Size
+                    </label>
+                      <fieldset class="single-option-radio" name="pot-size" id="ProductSelect-option-0">
+                            <input type="radio" checked="checked" value="Single Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Single Flavor">
+                            <label for="ProductSelect-option-pot-size-Single Flavor">Single Flavor</label>
+                            <input type="radio" value="Two Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Two Flavor">
+                            <label for="ProductSelect-option-pot-size-Two Flavor">Two Flavor</label>
+                      </fieldset>
+                  </div>                
+                  <select name="id" id="ProductSelect" class="product-single__variants no-js">
+                    <option selected="selected" data-sku="" value="30980678942775">
+                      Single Flavor - £40.00 GBP
+                    </option>       
+                    <option data-sku="" value="30980678975543">
+                      Two Flavor - £40.00 GBP
+                    </option>
+                  </select>
+
+                  <div class="product-single__add-to-cart">
+                              
+                  </div>
+                </form>
+              </div>
+              <div class="tooltip" style="bottom:100px;">
+                <i class="fas fa-info-circle"></i>
+                <span class="tooltiptext">If you have multiple discount code please separating them using a comma</span>
+              </div>{%endcomment%}
+            </div>
+            
+            <div class="grid--full cart__row--table-large cart__sub-container">
+              {%- comment -%}
+                Optional, add a textarea for special notes
+                  - Your theme settings can turn this on or off. Default is on.
+                  - Make sure you have name="note" for the message to be submitted properly
+                  <div class="identixweb-order-delivery"></div>
+              {%- endcomment -%}
+              
+
+              <div class="grid__item  text-center large--text-center{% if settings.cart_notes_enable %} cart__subtotal-container{% else %} push--large--seven-twelfths{% endif %}">
+                {%- if cart.cart_level_discount_applications != blank -%}
+                <div class="grid--full cart__row--table">
+                  <div class="cart__discounts">
+                    {%- for discount_application in cart.cart_level_discount_applications -%}
+                      <span class="order-discount order-discount--title order-discount--cart">
+                        <span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">{{ 'customer.order.discount' | t }}:</span>{{- discount_application.title -}}
+                      </span>
+                      <span class="order-discount order-discount--cart">-{{ discount_application.total_allocated_amount | money }}</span>
+                    {%- endfor -%}
+                  </div>
+                </div>
+                {%- endif -%}
+                <div class="grid--full cart__row--table">
+                  <div class="grid__item large--text-center">
+                    <p class="cart__subtotal boldf">{{ 'cart.general.subtotal' | t }}</p>
+                  </div>
+                  <div class="grid__item">
+                    <p class="cart__subtotal boldf"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
+                  </div>
+                </div>
+
+                {%- capture taxes_shipping_checkout -%}
+                  {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                    {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- elsif shop.taxes_included -%}
+                    {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                  {%- elsif shop.shipping_policy.body != blank -%}
+                    {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                  {%- else -%}
+                    {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif -%}
+                {%- endcapture -%}
+     
+                <p class="rte"><em>{{ taxes_shipping_checkout }}</em></p>
+                <p class="agree-box" style="float: none; text-align: center; clear: both; margin: 10px 0;">
+                  <input style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="agree" />
+                    <label style="display:inline; float:none" for="agree">
+                      I agree with the <a href="/pages/legal">terms and conditions</a>
+                    </label>
+                </p>
+               <!--a class="cartitems" href="/cart/clear">Empty cart</a-->
+                <button type="submit" name="update" class="btn--secondary update-cart  large--one-third" style="margin-top: 10px;">{{ 'cart.general.update' | t }}</button>
+                <button id="checkout" type="submit" name="checkout" class="btn cart__checkout  large--one-third" style="margin-top: 10px;" disabled>
+                  {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                </button>
+
+                {% if additional_checkout_buttons and settings.cart_type != 'drawer' %}
+                  <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
+                {% endif %}
+              </div>
+          </div>
+        </div>
       </form>
 
     {% else %}
@@ -384,7 +405,17 @@
   });
 
   $(document).ready(function() {
-
+    $('#swap').change(function() {
+      if($(this).is(':checked')){
+          $("#ask").prop("checked", false);
+      }
+    });
+    
+    $('#ask').change(function() {
+      if($(this).is(':checked')){
+          $("#swap").prop("checked", false);
+      }
+    });
     /*setTimeout(function(){
       let og = $('.wh-original-price').text().slice(1);
         let prog = (og/200)* 100 ;
@@ -569,6 +600,101 @@
     display: none;
   }
 
+  .sub_grid{
+    padding-left: 10px;
+  }
+
+  .cart__row:first-child, .cart_date{
+    border-bottom: 1px solid #cacaca;
+  }
+  
+  .cart_hr{
+    border-top: 1px solid #cacaca;
+  }
+
+  .rightGrid {
+    padding-left: 0;
+  }
+  
+  .cart__sub-container{
+  padding-left: 10px;  
+  }
+  
+  .boldf{
+    font-weight: bold;
+    font-style:normal;
+  }
+  
+  .mw-dd-label-text{
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  .cart__note{
+    border-top: 1px solid #cacaca;
+  }
+  
+  .cart__note>label{
+    margin-top: 10px;
+  }
+
+  .swaptooltip, .dmethod {
+    position: relative;
+    display: inline-block;
+    /*border-bottom: 1px dotted black;*/
+    margin: 10px 0;
+  }
+
+  .swaptooltip .swaptooltiptext, .dmethod .swaptooltiptext1{
+    visibility: hidden;
+    width: 300px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 46%;
+    margin-left: -110px;
+  }
+  
+  .dmethod .swaptooltiptext1 {
+    bottom: 95%;
+    left: 38%;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+  }
+  
+  .swaptooltip:hover .swaptooltiptext, .mw-dd-label-text:hover .swaptooltiptext1 {
+    visibility: visible;
+  }
+
+  #mw-dd-container .mw-dd-time-wrapper{
+    margin-left: 0px;
+  }
+  
+  .qwidth{
+    width: 100%;
+  }
+  
+  .cwidth{
+    padding:0 30px;
+  }
+  
+  .pimage{
+    width: 20% !important;
+  }
+
+  #mw-dd-container .mw-dd-date-wrapper, #mw-dd-container .mw-dd-time-wrapper{
+    max-width: calc(100% - 10px);
+  }
+
   @media only screen and (max-width: 720px) {
     #mw-dd-container, .cart-form .right-col{
       float: none !important;
@@ -611,11 +737,28 @@
     }
 
     .note-cart {
-      margin-top: 50px;
+      margin-top: 10px;
     }
 
     #mw-dd-container .mw-dd-time-wrapper label {
       display: none;
+    }
+
+    .qwidth{
+      width: 33.333%;
+    }
+    
+    .nwidth{
+      width: 66.666%; 
+      height: auto;
+    }
+    
+    .cwidth{
+      padding:0;
+    }
+
+    .pimage{
+      width: 33.333% !important;
     }
   }
 
@@ -662,11 +805,28 @@
     }
 
     .note-cart {
-      margin-top: 50px;
+      margin-top: 10px;
     }
 
     #mw-dd-container .mw-dd-time-wrapper label {
       display: none;
+    }
+
+    .qwidth{
+      width: 33.333%;
+    }
+    
+    .nwidth{
+      width: 66.666%; 
+      height: auto;
+    }
+    
+    .cwidth{
+      padding:0;
+    }
+
+    .pimage{
+      width: 33.333% !important;
     }
   }
 </style>
