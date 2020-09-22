@@ -54,7 +54,7 @@
                     </div>
                     <div class="grid__item two-thirds nwidth">
                       <a href="{{ item.url }}" class="h4 cart__product-name">
-                        {{ item.product.title | truncate: 28}}
+                        {{ item.product.title | truncate: 35}}
                         <span class='booster-cart-item-success-notes' data-key='{{item.key}}'></span><span class='booster-cart-item-upsell-notes' data-key='{{item.key}}'></span>
                       </a>
                       {% unless item.variant.title contains 'Default' %}
@@ -203,7 +203,7 @@
                 <p class="agree-box" style="float: none; clear: both; margin: 10px;">
                   <div class="swaptooltip">
                     <em class="boldf">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
-                    <span class="swaptooltiptext">If goods are out of stock or otherwise unavailable we’ll offer substitutes wherever we can unless you’ve asked us not to. We choose substitutes very carefully and offer what we believe is the most appropriate alternative to the product you’ve ordered.</span>
+                    <span class="swaptooltiptext">When the goods are out of stock or otherwise unavailable, we shall offer substitutes wherever we can, unless you have told us not to do so. The substitutes has been choosen carefully and offer.</span>
                   </div><br>
                   <input name="attributes[Accept swaps]" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="swap" checked/>
                     <label style="display:inline; float:none; font-style:normal;" for="swap">
