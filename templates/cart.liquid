@@ -407,13 +407,17 @@
   $(document).ready(function() {
     $('#swap').change(function() {
       if($(this).is(':checked')){
-          $("#ask").prop("checked", false);
+        $("#ask").prop("checked", false);
+      }else{
+        $("#ask").prop("checked", true);
       }
     });
     
     $('#ask').change(function() {
       if($(this).is(':checked')){
-          $("#swap").prop("checked", false);
+        $("#swap").prop("checked", false);
+      }else{
+        $("#swap").prop("checked", true);
       }
     });
     /*setTimeout(function(){
