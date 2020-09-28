@@ -205,14 +205,8 @@
                     <em class="boldf">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
                     <span class="swaptooltiptext">When the goods are out of stock or otherwise unavailable, we shall offer substitutes wherever we can, unless you have told us not to do so. The substitutes has been choosen carefully and offer.</span>
                   </div><br>
-                  <input name="attributes[Accept swaps]" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="swap" checked/>
-                    <label style="display:inline; float:none; font-style:normal;" for="swap">
-                      Accept swaps
-                    </label>
-                  <input name="attributes[Do not swap]" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" type="checkbox" id="ask" />
-                    <label style="display:inline; float:none; font-style:normal;" for="ask">
-                      Do not swap
-                    </label>
+                  <input required class="required" type="radio" name="attributes[Selecet Substitution Preference]" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" checked> <span>Accept swaps</span>
+                  <input required class="required" type="radio" name="attributes[Selecet Substitution Preference]" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"> <span>Do not swap</span>
                 </p>
               </div>
             </div>
