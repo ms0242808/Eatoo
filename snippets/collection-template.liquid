@@ -44,11 +44,15 @@
 {% paginate collection.products by limit %}
 
 {% assign collbanner = collection.metafields.banner.banner_image%}
-{% if collbanner == null%}
+{% if collbanner == "paste-url-at-here"%}
   {% assign collbanner = collection.image | img_url:'1024x1024'%}
 {%endif%}
-<div class="collbanner"  style="background-image: url('{{ collection.image | img_url: '1024x1024' }}');">
+
+<div class="collbanner"  style="background-image: url('{{collbanner}}');">
 </div>
+
+<!--div class="collbanner"  style="background-image: url('{{ collection.image | img_url: '1024x1024' }}');">
+</div-->
 
 <header class="section-header text-center">
 
