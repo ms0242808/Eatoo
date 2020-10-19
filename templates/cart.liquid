@@ -271,11 +271,26 @@
               </div>
               <div class="cart__note" style="padding-right:0px;">
                 <p style="float: none; clear: both; margin: 10px 0;">
-                  <input class="required" type="checkbox" name="properties[Cutlery Request]" value="Require cutlery" style="float:none; vertical-align: middle; margin: 0 3px 0 0;">
                   <em class="boldf">Cutlery <i class="fab fa-pagelines" style="margin-left: 3px; color:green;"></i></em>
                   <br>
                   <a>Help us reduce plastic waste - only request cutlery when you need it.</a>
                 </p>
+                <form action="/cart" method="post">
+                  {% assign collection = collections.optional %}
+                  {% for product in collection.products %}
+                    {% if product.available and product.title == "Tableware Sets" %}
+                      {% for variant in product.variants %}
+                        {% if variant.available %}
+                          <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ item.key }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                  <div>
+                    <input type="submit" value="ADD" class="btn--secondary large--one-third boldf" style="float:right;"/>
+                      <br><br>
+                  </div>
+                </form>
               </div>
             </div>
 
