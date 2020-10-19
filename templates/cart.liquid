@@ -269,51 +269,23 @@
                 <a class="btn--secondary large--one-third boldf" style="float:right; background-color:#c65a17; margin-bottom: 10px;" href="/products/eatoo-prime">JOIN NOW</a>
                 <br>
               </div>
+              <div class="cart__note" style="padding-right:0px;">
+                <p style="float: none; clear: both; margin: 10px 0;">
+                  <input class="required" type="checkbox" name="properties[Cutlery Request]" value="Require cutlery" style="float:none; vertical-align: middle; margin: 0 3px 0 0;">
+                  <em class="boldf">Cutlery <i class="fab fa-pagelines" style="margin-left: 3px; color:green;"></i></em>
+                  <br>
+                  <a>Help us reduce plastic waste - only request cutlery when you need it.</a>
+                </p>
+              </div>
             </div>
 
-              <div class="grid__item note-cart">
-                {% if settings.cart_notes_enable %}
-              <div class="cart__note" style="padding-right:0px;">
+            <div class="grid__item note-cart">
+              {% if settings.cart_notes_enable %}
+                <div class="cart__note" style="padding-right:0px;">
                   <label for="CartSpecialInstructions" style="display: block;">{{ 'cart.general.note' | t }}</label>
                   <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
                 </div>
               {% endif %}
-                {%comment%}<div class="tbtDiscountCombine" data-brandcolor="#2d2d2d" data-boxtitle="Discount Code" data-boxdes="If you have multiple discount code please separating them using a comma" data-buttontext="Apply" data-maxcode="0" data-maxcodetext="We only allow this maximum codes per combination" data-placeholder="Enter discount codes here" data-enable="1">
-                  <input type="date" id="cartFormDate" class="mw-dd-picker" name="cart[Date Return]">
-                </div> 
-                <div id="myItem1"></div>
-                <form method="post" action="/cart/add" id="AddToCartForm--product-template" accept-charset="UTF-8" class="
-                product-single__form
-  " enctype="multipart/form-data" data-product-form=""><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
-                  <div class="radio-wrapper js product-form__item">
-                    <label class="single-option-radio__label" for="ProductSelect-option-0">
-                      Pot Size
-                    </label>
-                      <fieldset class="single-option-radio" name="pot-size" id="ProductSelect-option-0">
-                            <input type="radio" checked="checked" value="Single Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Single Flavor">
-                            <label for="ProductSelect-option-pot-size-Single Flavor">Single Flavor</label>
-                            <input type="radio" value="Two Flavor" data-index="option1" name="pot-size" class="single-option-selector__radio" id="ProductSelect-option-pot-size-Two Flavor">
-                            <label for="ProductSelect-option-pot-size-Two Flavor">Two Flavor</label>
-                      </fieldset>
-                  </div>                
-                  <select name="id" id="ProductSelect" class="product-single__variants no-js">
-                    <option selected="selected" data-sku="" value="30980678942775">
-                      Single Flavor - £40.00 GBP
-                    </option>       
-                    <option data-sku="" value="30980678975543">
-                      Two Flavor - £40.00 GBP
-                    </option>
-                  </select>
-
-                  <div class="product-single__add-to-cart">
-                              
-                  </div>
-                </form>
-              </div>
-              <div class="tooltip" style="bottom:100px;">
-                <i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">If you have multiple discount code please separating them using a comma</span>
-              </div>{%endcomment%}
             </div>
             
             <div class="grid--full cart__row--table-large cart__sub-container">
