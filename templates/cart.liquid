@@ -26,7 +26,7 @@
             
           </script>
         {% else %}
-          <script>
+          <!--script>
             var postRules = new Array();
             $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/0-5.txt?v=1598336126', function(data){
                 postRules = data.split('\n');
@@ -51,17 +51,21 @@
               for(i=0; i<zip.length; i++){
                 for(j=0; j<postRules.length; j++){
                   if(zip[i] == postRules[j]){
-                    console.log(postRules[j]);
+                    //console.log(postRules[j]);
                     k=1;
+                  }else{
+                    k=0;
                   }
                 }
               }
 
               if(k=1){
                 $(".Prime_check").css("display","block");
+              }else{
+                $(".Prime_check").css("display","none");
               }
-            },2000);
-          </script> 
+            },10000);
+          </script--> 
         {% endif %}
       {% endif %}
 
@@ -287,7 +291,7 @@
                     {% endif %}
                   {% endfor %}
                   <div>
-                    <input type="submit" value="ADD" class="btn--secondary large--one-third boldf" style="float:right;"/>
+                    <input type="submit" value="ADD" class="btn--secondary large--one-third boldf" style="float:right; background-color: #C65A17;"/>
                       <br><br>
                   </div>
                 </form>
@@ -354,7 +358,7 @@
                     </label>
                 </p>
                <!--a class="cartitems" href="/cart/clear">Empty cart</a-->
-                <button type="submit" name="update" class="btn--secondary update-cart  large--one-third" style="margin-top: 10px;">{{ 'cart.general.update' | t }}</button>
+                <button type="submit" name="update" class="btn--secondary update-cart  large--one-third" style="margin-top: 10px; background-color: #C65A17;">{{ 'cart.general.update' | t }}</button>
                 <button id="checkout" type="submit" name="checkout" class="btn cart__checkout  large--one-third" style="margin-top: 10px;" disabled>
                   {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
