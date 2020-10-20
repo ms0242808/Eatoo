@@ -145,28 +145,31 @@
     <div class="header-wrapper hero__header">
       {% if section.settings.show_announcement %}
         {% if section.settings.home_page_only == false or template.name == 'index' %}
-          <style>.announcement-bar{background-color: #2d2d2d;}.announcement-bar--link:hover {
+          <style>.announcement-bar{background-color:{{section.settings.color_bg}};}.announcement-bar--link:hover {
               {% assign brightness = section.settings.color_bg | color_brightness %}
               {% if brightness <= 192 %}{% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
                 background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};{% else %}{% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};{% endif %}}.announcement-bar__message{color: {{ section.settings.color_text }};}</style>
-
+          <style>.announcement-bar2{background-color: {{section.settings.color_bg2}} !important;}.announcement-bar--link2:hover {
+              {% assign brightness = section.settings.color_bg2 | color_brightness %}{% if brightness <= 192 %}{% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+                background-color: {{ section.settings.color_bg2 | color_lighten: lightenAmount }}!important;{% else %}{% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}background-color: {{ section.settings.color_bg2 | color_darken: darkenAmount }}!important;{% endif %}}.announcement-bar__message2{color: {{ section.settings.color_text2 }};}</style>
           {% if section.settings.link == blank %}
             <div class="announcement-bar">
           {% else %}
-            <a class="announcement-bar announcement-bar--link">
+            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link">
+                <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link"> 
+                <p class="announcement-bar__message" id="announce1">{{ section.settings.text | escape }}</p>
+              </a>
+            </a>
+          
+            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar2 announcement-bar--link2">
+              <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar2 announcement-bar--link2">
+                <p class="announcement-bar__message announcement-bar__message2" id="announce2" style="display: none;">{{ section.settings.text2 | escape }}</p>
+              </a>
+            </a>
           {% endif %}
-            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link"> 
-            <p class="announcement-bar__message" id="announce1">{{ section.settings.text | escape }}</p>
-            </a>
-            <a href="/pages/contact-us" class="announcement-bar announcement-bar--link">
-              <p class="announcement-bar__message" id="announce2" style="display: none;">Order before 5.30PM for Same-Day Delivery Mon-Sat</p>
-            </a>
           {% if section.settings.link == blank %}
             </div>
-          {% else %}
-            </a>
           {% endif %}
-
         {% endif %}
       {% endif %}
 
@@ -977,6 +980,52 @@
       }
     },
     {
+      "type": "text",
+      "id": "text2",
+      "label": {
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text2",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "hi": "टेक्स्ट",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "ms": "Teks",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": {
+        "da": "Meddel noget her",
+        "de": "Hier Ankündigung platzieren",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fi": "Ilmoita jotakin tässä",
+        "fr": "Annoncer quelque chose ici",
+        "hi": "यहां कुछ घोषित करें",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "ko": "여기에 공지하십시오",
+        "ms": "Mengumumkan sesuatu di sini",
+        "nb": "Kunngjør noe her",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "pt-PT": "Anunciar algo aqui",
+        "sv": "Meddela något här",
+        "th": "ประกาศข้อความที่นี่",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
       "type": "url",
       "id": "link",
       "label": {
@@ -1029,6 +1078,32 @@
     },
     {
       "type": "color",
+      "id": "color_bg2",
+      "label": {
+        "da": "Bjælke",
+        "de": "Leiste",
+        "en": "Bar2",
+        "es": "Barra",
+        "fi": "Palkki",
+        "fr": "Barre",
+        "hi": "बार",
+        "it": "Barra",
+        "ja": "バー",
+        "ko": "바",
+        "ms": "Bar",
+        "nb": "Felt",
+        "nl": "Balk",
+        "pt-BR": "Barra",
+        "pt-PT": "Barra",
+        "sv": "Fält",
+        "th": "แถบ",
+        "zh-CN": "栏",
+        "zh-TW": "橫條"
+      },
+      "default": "#1c1d1d"
+    },
+    {
+      "type": "color",
       "id": "color_text",
       "label": {
         "da": "Tekst",
@@ -1052,6 +1127,42 @@
         "zh-TW": "文字"
       },
       "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "color_text2",
+      "label": {
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text2",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "hi": "टेक्स्ट",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "ms": "Teks",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "text_speed",
+      "label": {
+        "en": "Banner Change Speed(s)"
+      },
+      "default": {
+        "en": "10"
+      }
     }
   ]
 }
