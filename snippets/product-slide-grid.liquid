@@ -1,0 +1,320 @@
+<!-- /snippets/product-slide-grid.liquid -->
+{% comment %}
+
+  This snippet is used to showcase each product during the loop,
+  'for product in collection.products' in collection.liquid.
+
+  A liquid variable (grid_item_width) is set just before the this
+  snippet is included to change the size of the container.
+  Once the variable is set on a page, all future instances of this
+  snippet will use that width. Overwrite the variable to adjust this.
+
+  Example
+    - assign grid_item_width = 'large--one-quarter medium--one-half'
+
+{% endcomment %}
+
+{% unless grid_item_width %}
+  {% assign grid_item_width = 'small--one-half medium--one-half large--one-quarter' %}
+{% endunless %}
+
+{% unless width %}
+  {%- assign width = 310 -%}
+{% endunless %}
+{% unless height %}
+  {%- assign height = 415 -%}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+{% assign deal = false %}
+{% for collection in product.collections %}
+  {% if collection.title == 'Deal' %}
+    {% assign deal = true %}
+  {% endif %}
+{% endfor %}
+
+{% assign best_sell = false %}
+{% for collection in product.collections %}
+    {% if collection.title == "BEST SELLING" %}
+    {% assign best_sell = true %}
+  {% endif %}
+{% endfor %}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{% capture img_id_class %}ProductImage-{{ product.featured_image.id }}{% endcapture %}
+{% capture img_wrapper_id %}ProductImageWrapper-{{ product.featured_image.id }}{% endcapture %}
+{%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+  {% if request.path == '/recommendations/products'%}
+    <div class="grid__item grid-product {{ grid_item_width }}{% if sold_out %} is-sold-out{% endif %}" data-product-card >
+  {% else %}
+    <div class="grid__item grid-product {{ grid_item_width }}{% if sold_out %} is-sold-out{% endif %}" data-product-card data-aos="zoom-in-up" data-aos-duration="500" data-aos-once="true">
+  {% endif %}
+
+  <div class="grid-product__wrapper">
+    <div class="grid-product__image-wrapper">
+      <a style="display: none;" class="deskview quick-view grid-product__image-link{% unless product.featured_image.src == blank %} grid-product__image-link--loading{% endunless %}" data-handle="{{ product.handle }}" href="javascript:void(0);" data-image-link>
+        {% if product.featured_image.src == blank %}
+	        <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}" title="{{ product.featured_image.alt | escape }}">
+        {% else %}
+          {% include 'image-style' with image: product.featured_image, small_style: true, width: width, height: height, wrapper_id: img_wrapper_id, img_id_class: img_id_class %}
+          <div class="reveal">  
+            <div id="{{ img_wrapper_id }}" class="product--wrapper">
+                <div style="padding-top:{{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;">
+                  <p class="img__description">Quick View</p> 
+                  <img class="product--image lazyload {{ img_id_class }}"
+                       data-src="{{ img_url }}"
+                       data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
+                       data-aspectratio="{{ product.featured_image.aspect_ratio }}"
+                       data-sizes="auto"
+                       alt="{{ product.featured_image.alt | escape }}"
+                       title="{{ product.featured_image.alt | escape }}" 
+                       data-image>             
+                  <img class="hidden" src="{{ product.images.last | img_url: '450x450' }}" alt="{{ product.images.last.alt | escape }}" title="{{ product.featured_image.alt | escape }}" />
+               </div>
+            </div>
+          </div>
+          <noscript>
+	      	<img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}" title="{{ product.featured_image.alt | escape }}">
+          </noscript>
+        {% endif %}
+      </a>
+      
+      <a class="mobview grid-product__image-link{% unless product.featured_image.src == blank %} grid-product__image-link--loading{% endunless %}" href="{{ product.url | within: collection }}" data-image-link>
+        {% if product.featured_image.src == blank %}
+          <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}" title="{{ product.featured_image.alt | escape }}">
+        {% else %}
+          {% include 'image-style' with image: product.featured_image, small_style: true, width: width, height: height, wrapper_id: img_wrapper_id, img_id_class: img_id_class %}
+          <div class="reveal">  
+            <div id="{{ img_wrapper_id }}" class="product--wrapper">
+                <div style="padding-top:{{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;"> 
+                  <img class="product--image lazyload {{ img_id_class }}"
+                       data-src="{{ img_url }}"
+                       data-widths="[180, 370, 590, 740, 900, 1080, 1296, 1512, 1728, 2048]"
+                       data-aspectratio="{{ product.featured_image.aspect_ratio }}"
+                       data-sizes="auto"
+                       alt="{{ product.featured_image.alt | escape }}"
+                       title="{{ product.featured_image.alt | escape }}" 
+                       data-image>             
+                  <img class="hidden" src="{{ product.images.last | img_url: '450x450' }}" alt="{{ product.images.last.alt | escape }}" title="{{ product.featured_image.alt | escape }}" />
+               </div>
+            </div>
+          </div>
+          <noscript>
+          <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}" title="{{ product.featured_image.alt | escape }}">
+          </noscript>
+        {% endif %}
+      </a>
+
+
+      {% if sold_out %}
+        <div class="grid-product__sold-out">
+          <p style="font-weight: bold;">{{ 'products.product.sold_out_html' | t }}</p>
+        </div>
+      {% elsif best_sell and on_sale%}
+        <div class="grid-product__best-sell grid-product__sold-out">
+          <p style="font-weight: bold;">Best <br> Seller</p>
+        </div>
+        <div class="grid-product__on-sale"><!--product.compare_at_price | minus: product.price | money_without_trailing_zeros-->
+          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%"}}{% endcapture %}
+          <p style="font-weight: bold;">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
+        </div>
+      {% elsif on_sale %}
+        <div class="grid-product__on-sale">
+          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | times: 100 | money_without_currency | remove:'.00' | replace: '0,', ''| append: "%" }}{% endcapture %}
+          <p style="font-weight: bold;">{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p><!--product.compare_at_price | minus: product.price | money_without_trailing_zeros-->
+        </div>
+      {% elsif deal %}
+        <div class="grid-product__deal">
+          <p style="font-weight: bold;">DEAL</p>
+        </div>
+      {% elsif best_sell %}
+        <div class="grid-product__best-sell grid-product__sold-out">
+          <p style="font-weight: bold;">Best <br> Seller</p>
+        </div>
+      {% else %}
+        {% assign days = 30 %}
+        {% assign period_time = days | times: 24 | times: 60 | times: 60 %}
+        {% assign date_now = 'now' | date:'%s' %}
+        {% assign date_finished = product.published_at | date:'%s' | plus: period_time | date:'%s' %}
+        {% if date_finished > date_now %}
+          <div class="grid-product__new-product grid-product__on-sale">
+            <p style="font-weight: bold;">NEW</p>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <a href="{{ product.url | within: collection }}" class="grid-product__meta">
+      {% if product.title == 'Bean Curd Stick' or product.title == 'Crispy Beancurd Roll' or product.title == 'Compressed Bean Curd' or product.title == 'Fried Bean Curd' or product.title == 'Frozen Tofu' or product.title == 'Fresh Tofu' %}
+        <img src="https://img.icons8.com/metro/15/000000/soy.png" alt="Soybean" title="Soybean">
+      {% elsif product.title == 'Bamboo Fungus Prawn' or product.title == 'King Prawn' or product.title == 'Lobster Ball' or product.title == 'Scallops' %}
+        <img src="https://img.icons8.com/ios/15/000000/crab.png" alt="Crustaceans" title="Crustaceans">
+      {% elsif product.title == 'Fish Ball' %}
+        <img src="https://img.icons8.com/ios/15/000000/whole-fish.png" alt="Fish" title="Fish">
+      {% elsif product.title == 'Seafood Stick' or product.title == 'Seafood Tofu' %}
+        <img src="https://img.icons8.com/ios/15/000000/whole-fish.png" alt="Fish" title="Fish">
+        <img src="https://img.icons8.com/ios/15/000000/crab.png" alt="Crustaceans" title="Crustaceans">
+      {% elsif product.title == 'Chili Oil' or product.title == 'Chili Powder' or product.title == 'Chopped Green Onion' or product.title == 'Chopped Peanuts' or product.title == 'Coriander' or product.title == 'Fermented Bean Curd Sauce' or product.title == 'Oyster Sauce' or product.title == 'Sesame Oil' or product.title == 'Sesame Sauce' or product.title == 'Thai Red Pepper'%}
+        <img src="https://img.icons8.com/ios/15/000000/worcestershire-sauce.png" alt="Sauce" title="Dipping Sauce">
+      {% elsif product.title == 'Pork Bone Base' or product.title == 'Tomato Base' %}
+        <img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png">
+        <img alt="Milk" title="Milk" src="https://img.icons8.com/ios/15/000000/milk-bottle.png">
+      {% elsif product.title == 'Mixed Mushroom Base' %}
+        <img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png">
+        <img alt="Soybean" title="Soybean" src="https://img.icons8.com/metro/15/000000/soy.png">
+      {% elsif product.title == 'Beef Fat Chilli Base' %}
+        <img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png">
+        <img alt="Soybean" title="Soybean" src="https://img.icons8.com/metro/15/000000/soy.png">
+        <img alt="Sulphur Dioxide" title="Sulphur Dioxide" src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/SO2.png?v=1578372392">
+      {% elsif product.title == 'Set for 2 people' or product.title == 'Set for 4 people' or product.title == 'Set for 6 people'%}
+        <img alt="Vegetarian" title="Vegetarian" src="https://img.icons8.com/ios/15/000000/vegetarian-food.png">
+      {% endif %}
+      <span class="grid-product__title" style="font-size: 17px;">
+        {{-product.title-}}
+        {%- unless variant.weight == 0 -%}
+         ,&nbsp;{{-variant.weight-}}{{-variant.weight_unit-}}
+        {%- endunless -%}
+      </span>
+      {% if section.settings.product_vendor_enable %}
+        <p class="grid-product__vendor">{{ product.vendor }}</p>
+      {% endif %}
+    </a>
+    {% if product.available %}
+      <form method="post" action="/cart/add" class="product-form__item">
+        <div class="product-single__quantity">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" /> 
+          <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity" name="quantity" value="1"/>
+        </div>
+        <div class="product-single__add-to-cart">
+          <button {% for item in cart.items %} {%if item.product.title == product.title and item.product.tags contains "Limited"%}disabled{%endif%}{%endfor%} type="submit" name="add" id="AddToCart--product-template" class="btn btn--add-to-cart btn--secondary-accent" style="border:0; font-size:20px; display:contents;">
+            <div class="tooltip">
+              <span class="icon icon-cart" style="margin-left:10px;" aria-hidden="true">
+              </span>
+              <span class="tooltiptext" style="font-size:12px;">Add to cart</span>
+            </div>
+          </button>
+        </div>
+      </form>
+      <style type="text/css">
+        .ajaxified-cart-feedback{
+          line-height:25px !important;
+        }
+        .ro_widget{
+          display: none;
+        }
+
+        .reveal:hover .img__description{
+          visibility: visible;
+          opacity: 1;
+          z-index: 1000000;
+        }
+
+        .img__description {
+          margin-bottom: 0px;
+          position: absolute;
+          top: 50;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          color: #2D2D2D;
+          visibility: hidden;
+          opacity: 0;
+          /* transition effect. not necessary */
+          transition: opacity .2s, visibility .2s;
+          background-color: rgb(0,0,0,0.7);
+          color: white;
+        }
+
+        .product-single__quantity {
+          display: contents;
+        }
+        
+        .product-single__add-to-cart {
+          margin-bottom: 40px;
+        }
+
+        .product-single__description {
+          margin-top: 0px;
+        }
+
+        .product-single__description .ret {
+          margin-bottom: 0px;
+        }
+
+        .icon.icon-cart:hover {
+          color:#A26B25;
+        }
+
+        .product-single__add-to-cart .icon.icon-cart {
+          font-size: 20px;
+        }
+
+        .btn--add-to-cart {
+          min-width: 20px;
+        }
+
+        .mobview {
+          display: none !important;
+        }
+        
+        .deskview {
+          display: block !important;
+        }
+
+        @media screen and (max-width: 768px) {
+          .product-single__meta {
+            padding-top: 0px;
+          }
+
+          .grid-product__title {
+            font-size: 1.11em;
+          }
+
+          .grid-product__wrapper {
+            margin-bottom: 10px;
+          }
+
+          .grid-product__meta {
+            padding-top: 6px;
+            padding-bottom: 6px;
+          }
+
+          .product-single__add-to-cart {
+            margin-bottom: 0px;
+          }
+
+          .btn--add-to-cart.btn {
+            height: 40px;
+          }
+
+          .tooltip .tooltiptext {
+            display: none;
+          }
+
+          .mobview {
+            display: block !important;
+          }
+
+          .deskview {
+            display: none !important;
+          }
+        }
+      </style>
+    {% else %}
+        <span class="btn__text" style="color:red;">
+          Coming back soon!
+        </span>
+     {% endif %}
+  </div>
+</div>
