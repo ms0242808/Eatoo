@@ -194,10 +194,10 @@
       <form method="post" action="/cart/add" class="product-form__item">
         <div class="product-single__quantity">
           <input type="hidden" name="id" value="{{ product.variants.first.id }}" /> 
-          <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity" name="quantity" value="1"/>
+          <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity {{variant.id}}" name="quantity{{ variant.id }}" value="1"/>
         </div>
         <div class="product-single__add-to-cart">
-          <button {% for item in cart.items %} {%if item.product.title == product.title and item.product.tags contains "Limited"%}disabled{%endif%}{%endfor%} type="submit" name="add" id="AddToCart--product-template" class="btn btn--add-to-cart btn--secondary-accent" style="border:0; font-size:20px; display:contents;">
+          <button {% for item in cart.items %} {%if item.product.title == product.title and item.product.tags contains "Limited"%}disabled{%endif%}{%endfor%} type="submit" name="add" id="AddToCart--product-template{{variant.id}}" class="btn btn--add-to-cart btn--secondary-accent" style="border:0; font-size:20px; display:contents;">
             <div class="tooltip">
               <span class="icon icon-cart" style="margin-left:10px;" aria-hidden="true">
               </span>
