@@ -285,7 +285,7 @@
                     {% if product.available and product.title == "Tableware Sets" %}
                       {% for variant in product.variants %}
                         {% if variant.available %}
-                          <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ item.key }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
+                          <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
                         {% endif %}
                       {% endfor %}
                     {% endif %}
