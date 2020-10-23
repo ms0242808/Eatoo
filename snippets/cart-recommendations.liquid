@@ -30,7 +30,7 @@
 				                </td>-->
 				                <td>
 				                  <!--<input name="updates[{{ variant.id }}]" onfocus="this.select()" class="cart__product-qty" min="0" {% unless variant.inventory_management == blank or variant.inventory_policy == 'continue' %} max="{{ variant.inventory_quantity }}" {% endunless %} type="text" value="0" tabindex="1" />-->
-			                    	<input type="checkbox" style="width: 17px;height: 17px;" name="updates[{{ variant.id }}]" id="updates_{{ item.key }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}"> 
+			                    	<input type="checkbox" style="width: 17px;height: 17px;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}"> 
 				                </td>
 				              </tr>
 				            {% endif %}
