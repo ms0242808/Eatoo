@@ -116,6 +116,12 @@
           <div class="grid__item one-third text-right">
             <p class="ajaxcart__subtotal">{{{totalPrice}}}</p>
           </div>
+          <div class="ship_bar" hidden>
+            <p style="width:100%;" data-value={{maths totalPrice}}>Free Delivery Progress!</p>
+            <progress class="progress" id="freeshipping" value="{{maths totalPrice}}" max="100"></progress>
+            <p style="width:100%;padding-top:5px;">{{minus totalPrice}}</p>
+          </div>
+          <br>
         </div>
 
         <p class="ajaxcart__policies">{% endraw %}
@@ -132,7 +138,7 @@
           {%- endcapture -%}
           {{ taxes_shipping_checkout }}
         {% raw %}</p>
-        <button onclick="window.location.href='/cart'" class="btn--secondary btn--full cart-link">
+        <button onclick="window.location.href='/cart'" class="btn--secondary btn--full cart-link" style="background-color:#c65a17;font-weight:bold;">
           {% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} <span class="icon icon-arrow-right" aria-hidden="true"></span>
         </button>
       </div>
@@ -172,5 +178,34 @@
   <style type="text/css">
     #mw-dd-modal, .mw-dd-modal-backdrop{
       display: none !important;
+    }
+
+    p[data-value]{
+      position:relative;
+    }
+    
+    p[data-value]:after {
+      content: attr(data-value) '%';
+      position: absolute;
+      right:0;
+    }
+    
+    .progress {
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      height: 14px;
+      width: 100%;
+    }
+    
+    progress::-webkit-progress-bar {
+      background: #eaeaea;
+      border-radius: 45px;
+      padding: 2px;
+      box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    progress[value]::-webkit-progress-value {
+      background-color:#c65a17;
+      border-radius: 45px; 
     }
   </style>
