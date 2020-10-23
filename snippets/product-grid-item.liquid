@@ -242,10 +242,10 @@
       <form method="post" action="/cart/add" class="product-form__item">
         <div class="product-single__quantity">
           <input type="hidden" name="id" value="{{ product.variants.first.id }}" /> 
-          <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity" name="quantity" value="1"/>
+          <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity{{variant.id}}" name="quantity" value="1"/>
         </div>
         <div class="product-single__add-to-cart">
-          <button type="submit" name="add" id="AddToCart--product-template" class="btn btn--add-to-cart btn--secondary-accent" style=" border: 0px; padding: 0px 0px 0px 10px;">
+          <button type="submit" name="add" id="AddToCart--product-template{{variant.id}}" class="btn btn--add-to-cart btn--secondary-accent" style=" border: 0px; padding: 0px 0px 0px 10px;">
             <div class="tooltip">
               <span class="icon icon-cart" aria-hidden="true">
               </span>
