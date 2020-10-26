@@ -10,9 +10,10 @@
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
   {% endif %}
 
-  {%if shop.url == "https://zh-cn.eatoo.co.uk"%}
-    <script>window.location = "https://zh-tw.eatoo.co.uk";</script>
-  {%endif%}
+  <script>
+    if(window.location.href == "https://zh-cn.eatoo.co.uk/"){
+    window.location = "https://zh-tw.eatoo.co.uk";}
+  </script>
 
   <!-- Title and description ================================================== -->
   <title>
