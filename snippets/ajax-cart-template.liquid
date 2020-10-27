@@ -116,8 +116,8 @@
           <div class="grid__item one-third text-right">
             <p class="ajaxcart__subtotal">{{{totalPrice}}}</p>
           </div>
-          <div class="ship_bar" hidden>
-            <p style="width:100%;" data-value={{maths totalPrice}}>Free Delivery Progress!</p>
+          <div class="ship_bar">
+            <p style="width:100%;" data-value={{maths totalPrice}}>Free Delivery Progress</p>
             <progress class="progress" id="freeshipping" value="{{maths totalPrice}}" max="100"></progress>
             <p style="width:100%;padding-top:5px;">{{minus totalPrice}}</p>
           </div>
