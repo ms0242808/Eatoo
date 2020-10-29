@@ -191,7 +191,7 @@
       {% endif %}
     </a>
     {% if product.available %}
-      <form method="post" action="/cart/add" class="product-form__item">
+      <!--form method="post" action="/cart/add" class="product-form__item">
         <div class="product-single__quantity">
           <input type="hidden" name="id" value="{{ product.variants.first.id }}" /> 
           <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity {{variant.id}}" name="quantity{{ variant.id }}" value="1"/>
@@ -205,7 +205,7 @@
             </div>
           </button>
         </div>
-      </form>
+      </form-->
       <style type="text/css">
         .ajaxified-cart-feedback{
           line-height:25px !important;
