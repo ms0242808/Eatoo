@@ -352,7 +352,7 @@
 {% elsif section.settings.collection_products_grid == 'grid' %}
   <div class="grid-uniform">
     {% assign grid_item_width = 'small--one-half medium--one-half large--one-quarter' %}
-    {% if request.path contains '/collections/grocery' or request.path contains '/collections/grower' or request.path contains '/collections/hot-pot' or request.path contains '/collections/all' or request.path contains '/collections/food-cupboard' %}
+    {% unless collection.all_products_count <= 50 %}
       {% for product in collection.products %}
         {% include 'product-grid-item' %}
       {% endfor %}
@@ -375,7 +375,7 @@
           </div>
         {% endif %}
       {% endfor %}
-    {% endif %}
+    {% endunless %}
   </div>
 {% endif %}
 
