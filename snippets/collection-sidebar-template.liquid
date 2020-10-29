@@ -53,11 +53,11 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    var x = $(location).attr('search');
+    var x = $(location).attr('search').slice(-2);
 
-    if(x == "?view=24"){
+    if(x == "24"){
       $('#v24').addClass('vActive');
-    }else if(x == "?view=36"){
+    }else if(x == "36"){
       $('#v36').addClass('vActive');
     }else{
       jQuery('#v12').addClass('vActive');
@@ -112,7 +112,7 @@
             {% endfor %}
            {% endfor %}
             {% if current_tags contains tag %}
-              {% if tag == 'Equipment' or tag == 'Set' or tag == 'Broth' or tag == 'Drink'%}
+              {% if tag == 'Equipment' or tag == 'Set' or tag == 'Broth'%}
                 <li class="tag--active" style="display: none;">
                   {{ tag | link_to_remove_tag: tag }}
                 </li>
@@ -122,7 +122,7 @@
                 </li>
               {% endif %}
             {% else %}
-              {% if tag == 'Equipment' or tag == 'Set' or tag == 'Broth' or tag == 'Drink' %}
+              {% if tag == 'Equipment' or tag == 'Set' or tag == 'Broth' %}
                 <li style="display: none;"> {{ tag | link_to_tag: tag }} </li>
               {% elsif request.path contains '/collections/sukiyaki' or request.path contains '/collections/budae-jjigae' or request.path contains '/collections/hot-pot' or request.path contains '/collections/bbq' or request.path contains '/collections/hot-deal' or request.path contains '/collections/by-air' %}
                 {% if tag == 'Leaves' or tag == 'Milk & Egg' or tag == 'Herbs' or tag == 'Rice & Noodle' or tag == 'Roots' %}
@@ -143,15 +143,6 @@
           {% endfor %}
 
           {% if request.path contains '/collections/budae-jjigae' or request.path contains '/collections/sukiyaki' or request.path contains '/collections/bbq' %}
-            {% assign tag = 'Drink' %}
-            {% if current_tags contains tag %}
-              <li class="tag--active">
-                {{ tag | link_to_remove_tag: tag }}
-              </li>
-            {% else %}
-              <li class="tag-list">{{ tag | link_to_tag: tag}} {{tag_coll}}</li>
-            {% endif %}
-
             {% assign tag = 'Equipment' %}
             {% if request.path contains '/collections/bbq' %}
             {% else %}
@@ -166,15 +157,6 @@
           {% else %}
             {% if request.path contains '/collections/hot-pot' or request.path contains '/collections/all' %}
               {% assign tag = 'Set' %}
-              {% if current_tags contains tag %}
-                <li class="tag--active">
-                  {{ tag | link_to_remove_tag: tag }}
-                </li>
-              {% else %}
-                <li class="tag-list">{{ tag | link_to_tag: tag}} {{tag_coll}}</li>
-              {% endif %}
-              
-              {% assign tag = 'Drink' %}
               {% if current_tags contains tag %}
                 <li class="tag--active">
                   {{ tag | link_to_remove_tag: tag }}
