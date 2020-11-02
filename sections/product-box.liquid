@@ -1,0 +1,424 @@
+<!-- /templates/product.liquid -->
+<div style="padding-top: 10px;" itemscope itemtype="http://schema.org/Product" id="ProductSection--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product-template" data-image-zoom-type="{{ section.settings.zoom_enable }}" data-enable-history-state="true" data-scroll-to-image="{% if section.settings.image_layout == "stacked" %}true{% else %}false{% endif %}">
+
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+    <div class="grid product-single">
+      <div class="grid__item large--seven-twelfths medium--seven-twelfths text-center">
+
+        {% if section.settings.image_layout == "stacked" %}
+          {% comment %}
+            Default or stacked layout
+          {% endcomment %}
+
+          {% comment %}
+            We need to figure out the max width we want the image to be on the page
+            based on the aspect ratio of the image and based on the size of the
+            image.
+          {% endcomment %}
+          <div class="product-single__photos">
+            {% capture img_id_class %}product-single__photo-{{ featured_image.id }}{% endcapture %}
+            {% capture wrapper_id %}ProductImageWrapper-{{ featured_image.id }}{% endcapture %}
+
+            {% comment %}
+              Display current variant image
+            {% endcomment %}
+            <div class="product-single__photo--flex-wrapper">
+              <div class="product-single__photo--flex">
+                {% include 'image-style' with image: featured_image, width: 575, height: 850, small_style: true, wrapper_id: wrapper_id, img_id_class: img_id_class %}
+                <div id="{{ wrapper_id }}" class="product-single__photo--container">
+                  <div class="product-single__photo-wrapper" style="padding-top:{{ 1 | divided_by: featured_image.aspect_ratio | times: 100}}%;">
+                    {% assign img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                    <img class="product-single__photo lazyload {{ img_id_class }}"
+                      src="{{ featured_image | img_url: '300x300' }}"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 590, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                      data-aspectratio="{{ featured_image.aspect_ratio }}"
+                      data-sizes="auto"
+                      {% if section.settings.zoom_enable %}data-mfp-src="{{ featured_image | img_url: '1024x1024' }}"{% endif %}
+                      data-image-id="{{ featured_image.id }}"
+                      alt="{{ featured_image.alt | escape }}"
+                      title="{{ featured_image.alt | escape }}">
+
+                    <noscript>
+                      <img class="product-single__photo"
+                        src="{{ featured_image | img_url: 'master' }}"
+                        {% if section.settings.zoom_enable %}data-mfp-src="{{ featured_image | img_url: '1024x1024' }}"{% endif %}
+                        alt="{{ featured_image.alt | escape }}" title="{{ featured_image.alt | escape }}" data-image-id="{{ featured_image.id }}">
+                    </noscript>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% comment %}
+              Display rest of product images, not repeating the featured one
+            {% endcomment %}
+            {% for image in product.images %}
+              {% unless image contains featured_image %}
+
+                {% comment %}
+                  We need to figure out the max width we want the image to be on the page
+                  based on the aspect ratio of the image and based on the size of the
+                  image.
+                {% endcomment %}
+                {% capture img_id_class %}product-single__photo-{{ image.id }}{% endcapture %}
+                {% capture wrapper_id %}ProductImageWrapper-{{ image.id }}{% endcapture %}
+
+                <div class="product-single__photo--flex-wrapper">
+                  <div class="product-single__photo--flex">
+                    {% include 'image-style' with image: image, width: 575, height: 850, small_style: true, wrapper_id: wrapper_id, img_id_class: img_id_class %}
+                    <div id="{{ wrapper_id }}" class="product-single__photo--container">
+                      <div class="product-single__photo-wrapper" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+                        {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                        <img class="product-single__photo lazyload {{ img_id_class }}"
+                          src="{{ image | img_url: '300x' }}"
+                          data-src="{{ img_url }}"
+                          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                          data-aspectratio="{{ image.aspect_ratio }}"
+                          data-sizes="auto"
+                          {% if section.settings.zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %}
+                          data-image-id="{{ image.id }}"
+                          alt="{{ image.alt | escape }}"
+                          title="{{ image.alt | escape }}">
+
+                        <noscript>
+                          <img class="product-single__photo" src="{{ image.src | img_url: 'master' }}"
+                            {% if section.settings.zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %}
+                            alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}"
+                            data-image-id="{{ image.id }}">
+                        </noscript>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endunless %}
+            {% endfor %}
+
+          </div>
+
+        {% else %}
+          {% comment %}
+            Thumbnails layout
+          {% endcomment %}
+
+          <div class="product-thumbnail__photos product-single__photos">
+
+            {% comment %}
+              We need to figure out the max width we want the image to be on the page
+              based on the aspect ratio of the image and based on the size of the
+              image.
+            {% endcomment %}
+            {% capture img_id_class %}product-single__photo-{{ featured_image.id }}{% endcapture %}
+            {% capture wrapper_id %}ProductImageWrapper-{{ featured_image.id }}{% endcapture %}
+
+            {% comment %}
+              Display current variant image
+            {% endcomment %}
+            <div class="product-single__photo--flex-wrapper">
+              <div class="product-single__photo--flex">
+                {% include 'image-style' with image: featured_image, width: 575, height: 850, small_style: true, wrapper_id: wrapper_id, img_id_class: img_id_class %}
+                <div id="{{ wrapper_id }}" class="product-single__photo--container product-single__photo--container-thumb">
+                  <div class="product-single__photo-wrapper" style="padding-top:{{ 1 | divided_by: featured_image.aspect_ratio | times: 100}}%;">
+                    {% assign img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                    <img class="product-single__photo lazyload {{ img_id_class }}"
+                      src="{{ featured_image | img_url: '300x300' }}"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 590, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                      data-aspectratio="{{ featured_image.aspect_ratio }}"
+                      data-sizes="auto"
+                      {% if section.settings.zoom_enable %}data-mfp-src="{{ featured_image | img_url: '1024x1024' }}"{% endif %}
+                      data-image-id="{{ featured_image.id }}"
+                      alt="{{ featured_image.alt | escape }}"
+                      title="{{ featured_image.alt | escape }}">
+
+                    <noscript>
+                      <img class="product-single__photo"
+                        src="{{ featured_image | img_url: 'master' }}"
+                        {% if section.settings.zoom_enable %}data-mfp-src="{{ featured_image | img_url: '1024x1024' }}"{% endif %}
+                        alt="{{ featured_image.alt | escape }}" title="{{ featured_image.alt | escape }}" data-image-id="{{ featured_image.id }}">
+                    </noscript>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% comment %}
+              Populate rest of product images with display = none, not repeating the featured one
+            {% endcomment %}
+            {% for image in product.images %}
+              {% unless image contains featured_image %}
+
+                {% comment %}
+                  We need to figure out the max width we want the image to be on the page
+                  based on the aspect ratio of the image and based on the size of the
+                  image.
+                {% endcomment %}
+                {% capture img_id_class %}product-single__photo-{{ image.id }}{% endcapture %}
+                {% capture wrapper_id %}ProductImageWrapper-{{ image.id }}{% endcapture %}
+
+                <div class="product-single__photo--flex-wrapper">
+                  <div class="product-single__photo--flex">
+                    {% include 'image-style' with image: image, width: 575, height: 850, small_style: true, wrapper_id: wrapper_id, img_id_class: img_id_class %}
+                    <div id="{{ wrapper_id }}" class="product-single__photo--container product-single__photo--container-thumb hide">
+                      <div class="product-single__photo-wrapper" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+                        {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                        <img class="product-single__photo lazyload {{ img_id_class }}"
+                          src="{{ image | img_url: '300x' }}"
+                          data-src="{{ img_url }}"
+                          data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                          data-aspectratio="{{ image.aspect_ratio }}"
+                          data-sizes="auto"
+                          {% if section.settings.zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %}
+                          data-image-id="{{ image.id }}"
+                          alt="{{ image.alt | escape }}"
+                          title="{{ image.alt | escape }}">
+
+                        <noscript>
+                          <img class="product-single__photo" src="{{ image.src | img_url: 'master' }}"
+                            {% if section.settings.zoom_enable %}data-mfp-src="{{ image.src | img_url: '1024x1024' }}"{% endif %}
+                            alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}"
+                            data-image-id="{{ image.id }}">
+                        </noscript>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endunless %}
+            {% endfor %}
+
+            {% comment %}
+              Display thumbnails
+            {% endcomment %}
+            <ul class="product-single__thumbnails small--hide grid-uniform" id="ProductThumbs">
+              {% for image in product.images %}
+                {% if product.images.size > 1 %}
+                  <li class="grid__item medium--one-third large--one-quarter product-single__photo-wrapper">
+                    <a data-image-id="{{ image.id }}" href="{{ image.src | img_url: 'grande' }}" class="product-single__thumbnail {% if image contains featured_image %} active-thumb{% endif %}">
+                      <img class="product-single__thumb" style="margin-left: 50px;" src="{{ image.src | img_url: '150x' }}" alt="{{ image.alt | escape }}" title="{{ image.alt | escape }}">
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="grid__item product-single__meta--wrapper medium--five-twelfths large--five-twelfths">
+        <div class="product-single__meta">
+          
+          <h1 class="product-single__title" itemprop="name">{{ product.title }}</h1>
+
+          <div id="box" data-variant-id="{{ boxVariantId }}" data-count="0">
+
+<div id="flavors">
+ {% for variant in product.variants %}
+ {% if variant.title != "Box" %}
+ <a data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" href="#">
+ <img src="{{ variant.image.src | img_url: '190x' }}" alt="{{ variant.title }}">
+ <div class="title">{{ variant.title }}</div>
+ <div class="price">{{ variant.price | money }}</div>
+ <div class="weight">{{ variant.weight | weight_with_unit: variant.weight_unit }}</div>
+ </a>
+ {% endif %}
+ {% endfor %}
+</div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% javascript %}
+$('#flavors a').click(function(e) {
+    var boxItem = $('#box').find('.flavor.empty:first').append($(this).html());
+    $(boxItem).attr({'data-variant-id': $(this).attr('data-variant-id'), 'data-variant-title': $(this).attr('data-variant-title')});
+    $('<a class="remove" href="#"><i class="fa fa-times"></i></a>').insertAfter('.flavor.empty:first');
+    $(boxItem).removeClass('empty');
+    $('#box').attr('data-count', parseInt($('#box').attr('data-count')) + 1);
+    $('#selection-counter').html($('#box').attr('data-count') + ' of ' + $('#box-sizes .selected a').attr('data-quantity') + ' selected');
+    $('.product__price .money').html('$' + (parseCurrency($('.product__price .money').html().replace("$", "")) + parseCurrency($(this).children('.price').html().replace("$", ""))).toFixed(2));
+    e.preventDefault();
+});
+
+$('#AddToCartForm.buildabox').submit(function() {
+    if($('#box-quantity').val() <= 99) { // Shopify limits each add to cart operation to 100 variants so we need to ensure the user doesn't exceed that
+        if($('#box .flavor.empty').length === 0) { // Only process once all flavors are chosen
+            // Set necessary variables for later use
+            var boxQuantity = $('#box-quantity').val(); // The chosen box size
+            var variantsToAdd = {}; // A json array that holds the titles of the flavor variants in the box
+            var boxChoices = []; // An array that holds the overall box choices containing both title and quantity
+            var boxPrice = 0; // Used to calculate the final price for the box a each flavor variant is added up
+
+            // Next we generate the master box product's line item string, which contains the flavors and quantities of each, i.e. "1 x flavor 1, 3 x flavor 2" etc.
+            for (i = 0; i < boxQuantity; i++) { // Loop through quantity of box
+                $("#box .flavor").each(function() { // Loop through each flavor in box
+                    var flavor = $(this).attr('data-variant-title'); // Set flavor title
+                    var flavorId = parseInt($(this).attr('data-variant-id')); // Set flavor variant id
+                    boxPrice = boxPrice + parseFloat($(this).find('.price').html().replace("$", "")); // Add flavor price to box total
+
+                    if(variantsToAdd[flavorId] != null) { // If this flavor is already in the cart then we increment its quantity by the amount chosen in this box
+                    variantsToAdd[flavorId] = parseInt(variantsToAdd[flavorId]) + 1; // Increment quantity
+                    boxChoices[flavor] = boxChoices[flavor] + 1;
+                    $.each(boxChoices, function (i, value) {
+                        if(boxChoices[i].title == flavor) {
+                        boxChoices[i].quantity = boxChoices[i].quantity + 1;
+                        }
+                    });
+                    }
+                    else { // Otherwise if the flavor is not already in the cart then we add only the amount in this box to the data object
+                    variantsToAdd[flavorId] = 1;
+                    boxChoices[flavor] = 1;
+                    boxChoices.push({
+                        id: flavorId,
+                        title: flavor,
+                        quantity: 1
+                    });
+                    }
+                });
+            }
+            var flavorString = ''; // Define empty string to add line item properties to
+
+            // Loop through boxChoices to get the combined flavor quantities and titles and append to the flavorString
+            $.each(boxChoices, function (i, value) {
+                boxChoices[i].quantity = boxChoices[i].quantity / boxQuantity; // If multiple boxes (i.e. quantity > 1) are being added then we need to divide the flavor quantities added to boxChoices above by the box quantity so that they are correct
+                flavorString = flavorString + boxChoices[i].quantity + ' x ' + boxChoices[i].title + ', ';
+            });
+
+            // Remove the trailing comma from the line item string
+            flavorString = flavorString.replace(/,\s*$/, "");
+
+            // Now that the data is ready to go we use the Shopify.moveAlong function to add the master box and flavor variants to the cart
+            Shopify.queue = []; // Define the empty queue
+
+            // Push the master box to the queue
+            Shopify.queue.push({
+                variantId: $('#box').attr('data-variant-id'),
+                quantity: boxQuantity,
+                properties: {
+                    Size: boxQuantity,
+                    Flavors: flavorString,
+                    Price: '$' + formatCartPrice(boxPrice)
+                }
+            });
+
+            // Loop through the boxChoices array and push flavor variants to queue
+            $(boxChoices).each(function(i, element) {
+            Shopify.queue.push({
+                variantId: element.id,
+                quantity: element.quantity * boxQuantity // The flavor quantity needs to be multiplied by box quantity to get total value
+            });
+            });
+
+            Shopify.moveAlong = function() {
+                // If we still have requests in the queue, let's process the next one.
+                if (Shopify.queue.length) {
+                    var request = Shopify.queue.shift();
+                    var data = {};
+                    if(request.properties) {
+                        data = {
+                        id: request.variantId,
+                        quantity: request.quantity,
+                        properties: {
+                            Size: $('#box-sizes .selected a').attr('data-quantity'),
+                            Flavors: flavorString,
+                            Price: '$' + formatCartPrice(boxPrice)
+                        }
+                        };
+                    }
+                    else {
+                        data = {
+                            id: request.variantId,
+                            quantity: request.quantity
+                        };
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '/cart/add.js',
+                        dataType: 'json',
+                        data: data,
+                        success: function(response) {
+                            Shopify.moveAlong();
+                        },
+                        error: function(response) {
+                            alert(response.responseJSON.description); // Show error in dialog
+
+                            // if it's not last one Move Along else update the cart number with the current quantity
+                            if (Shopify.queue.length){
+                                Shopify.moveAlong();
+                            }
+                        }
+                    });
+                }
+            };
+            Shopify.moveAlong();
+        }
+        else { // If the user has not selected enough flavors to fill the box size chosen then we display a warning instead of processing it
+            alert('Please select the remaining items in your box before adding it to the cart.');
+        }
+    }       
+  });
+We also need to add a function to remove flavors from the box too.
+
+
+var parentLineNumber = parseInt($(e.currentTarget).attr("data-line-number")); // Get the cart line number of the parent box that is being removed from its data attribute
+var boxProductsArray = $(e.currentTarget).attr("data-line-items").split(','); // Get the cart line items of the parent box that is being removed from its data attribute
+var flavorsToRemove = []; // Define an array for later use to hold the titles and quantities of the child flavor variants to be removed
+var jsonString = {}; // Define a json string to be used to pass the data in the API call
+var newProductQuantities = []; // Define an array to be used to hold the IDs and quantities of the existing flavor variants in the cart after those in the current box have been removed
+var boxQuantity = parseInt($(e.currentTarget).attr("data-box-quantity")); // Get the box quantity in case the user is removing one with a multiple quantity
+
+// Loop through the flavors extracted from the parent box's line items
+$.each(boxProductsArray, function(index, element) {
+    // For each item process the string and convert it into title and quantity data that is added to the flavorsToRemove array
+    var productChunks = element.split(' x ');
+    var productQuantity = $.trim(productChunks[0]);
+    var productTitle = $.trim(productChunks[1].replace("&amp;", "&"));
+    flavorsToRemove.push({
+        title : productTitle,
+        quantity : productQuantity * boxQuantity // To get the true quantity to remove we need to multiply the quantity of the flavor in the box with the quantity of the box itself
+    });
+});
+
+// Loop through the cart and for any flavor variants that have a greater quantity than that which we are removing (i.e. they belong to other boxes) then subtract only the quantity in our box from them
+jQuery.getJSON('/cart.js', function(thisCart, textStatus) { // Get cart items
+    $.each(thisCart.items, function(cartIndex, cartElement) { // Loop through cart items
+        $.each(flavorsToRemove, function(productsToRemoveIndex, productsToRemoveElement) { // Loop flavorsToRemove array
+            if(cartIndex == parentLineNumber) { // If the loop is at the line number of the master box product
+                newProductQuantities[cartIndex] = 0; // Set the quantity to 0 since the master box is being removed
+            }
+            else { // Else we must be on a line item for a flavor variant
+                var cartProductTitle = cartElement.title.replace('Build a Box - ',''); // Remove the unwanted prefix from the flavor variant title, so we can accurately match it
+                if(cartProductTitle == productsToRemoveElement.title) { // If the title of the cart line item product matches the current one in the flavorsToRemove array then we have a hit
+                    newProductQuantities[cartIndex] = (cartElement.quantity - productsToRemoveElement.quantity); // Deduct the quantity of the flavor from the box that is being removed
+                    return false;
+                }
+                else { // Else the flavor is one that is not in the box we are removing, so leave the quantity the same
+                    newProductQuantities[cartIndex] = cartElement.quantity;
+                }
+            }
+        });
+    });
+
+    jsonString['updates'] = newProductQuantities; // Now that the newProductQuantities array is built, assign it to the json string ready to be passed to the API call
+
+    // Finally we make the API call to update the cart with the new quantities we set above
+    $.ajax({
+        url: '/cart/update.js',
+        type: 'POST',
+        dataType: 'json',
+        data: jsonString,
+        success: function (data) {
+            _doUpdateDropdownCart(data, true); // On success we call a generic function to refresh the cart drawer data displayed
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+});
+{% endjavascript %}
