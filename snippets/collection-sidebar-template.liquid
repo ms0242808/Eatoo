@@ -1,7 +1,7 @@
 {% comment %}
   Collection template, used on collection.liquid and collection.image.liquid
 {% endcomment %}
-{% if page_title == 'Alcohol | Eatoo UK' %}
+{% if request.path == '/collections/drinks/ALCOHOL' %}
   {% render 'age-check' %}
 {% endif %}
 
