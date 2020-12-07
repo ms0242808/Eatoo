@@ -1,9 +1,11 @@
 {% comment %}
   Collection template, used on collection.liquid and collection.image.liquid
 {% endcomment %}
-{% if request.path == '/collections/drinks/ALCOHOL' %}
-  {% render 'age-check' %}
-{% endif %}
+{%for tag in collection.all_tags%}
+  {% if current_tags contains tag  and tag == "ALCOHOL"%}
+    {% render 'age-check' %}
+  {%endif%}
+{%endfor%}
 
 {%- assign limit = 12 -%}
 
@@ -69,7 +71,16 @@
   });
 </script>
 <header class="section-header text-center">
-  <h2 style="font-weight: bold; font-size: 1.6em; margin: 20px 0 0 0;">{{ collection.title }}</h2>
+  <h2 style="font-weight: bold; font-size: 1.6em; margin: 20px 0 0 0;">
+    {%if request.path == collection.url %}
+      {{ collection.title }}
+    {%endif%}
+    {%for tag in collection.all_tags %}
+      {%if current_tags contains tag%}
+        {{tag | upcase}}
+      {%endif%}
+    {%endfor%}
+  </h2>
   <hr class="hr--small">
 </header>
 <div class="grid">
