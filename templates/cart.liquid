@@ -502,13 +502,16 @@
       }
     });
 
+    // function addZero(i) {if (i < 10) {i = "0" + i;}return i;}
+    
     var checkDT = function (){
       var today = new Date();
-      var now = today.getHours();
-      var nowDay = today.getDay();
-      if( 16 > now && nowDay != 0){
+      var nowHour = today.getUTCHours();
+      var nowMin = today.getUTCMinutes();
+      var nowDay = today.getUTCDay();
+      if( nowHour > 16 && nowMin > 29 && nowDay != 0){
         if($('.mw-flatpickr-day').hasClass('today')){
-          $('.today').removeClass('disabled');
+          $('.today').addClass('disabled');
         }
       }
     };
@@ -518,13 +521,13 @@
     },5000);
     
     $(document).on("click",".mw-dd-picker",function(){
-      //checkDT();
+      checkDT();
     });
     
     $(document).on("change",".mw-dd-picker",function(){ 
       var today = new Date();
       var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
-      var time = today.getHours();
+      var time = today.getUTCHours();
       var x = document.getElementsByClassName("mw-dd-picker")[0].value;
       if(x == date.toString() && time >= 11){
         $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
