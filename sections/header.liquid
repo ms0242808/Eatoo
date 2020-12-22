@@ -166,6 +166,12 @@
                 <p class="announcement-bar__message announcement-bar__message2" id="announce2" style="display: none;">{{ section.settings.text2 | escape }}</p>
               </a>
             </a>
+
+            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar2 announcement-bar--link2">
+              <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar2 announcement-bar--link2">
+                <p class="announcement-bar__message announcement-bar__message2" id="announce3" style="display: none;">{{ section.settings.text3 | escape }}</p>
+              </a>
+            </a>
           {% endif %}
           {% if section.settings.link == blank %}
             </div>
@@ -439,19 +445,23 @@
 </div>
 
 <script type="text/javascript">  
-  function swap(x,y){
+  function swap(x,y,z){
     $('#announce1' ).css('display', x);
     $('#announce2').css('display', y);
+    $('#announce3').css('display', z);
   };
 
   var z = 0;
 
   function swaps(){
     if(z == 0){
-      swap("block","none");
+      swap("block","none","none");
       z = 1;
     }else if(z == 1){
-      swap("none","block");
+      swap("none","block","none");
+      z = 2;
+    }else  if(z == 2){
+      swap("none","none","block");
       z = 0;
     }
 
@@ -986,6 +996,52 @@
         "da": "Tekst",
         "de": "Text",
         "en": "Text2",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "hi": "टेक्स्ट",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "ms": "Teks",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": {
+        "da": "Meddel noget her",
+        "de": "Hier Ankündigung platzieren",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fi": "Ilmoita jotakin tässä",
+        "fr": "Annoncer quelque chose ici",
+        "hi": "यहां कुछ घोषित करें",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "ko": "여기에 공지하십시오",
+        "ms": "Mengumumkan sesuatu di sini",
+        "nb": "Kunngjør noe her",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "pt-PT": "Anunciar algo aqui",
+        "sv": "Meddela något här",
+        "th": "ประกาศข้อความที่นี่",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": {
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text3",
         "es": "texto",
         "fi": "Teksti",
         "fr": "Texte",
