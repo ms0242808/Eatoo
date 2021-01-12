@@ -258,8 +258,10 @@
                     <em class="boldf">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
                     <span class="swaptooltiptext">When the goods are out of stock or otherwise unavailable, we shall offer substitutes wherever we can, unless you have told us not to do so. The substitutes has been choosen carefully and offer.</span>
                   </div><br>
-                  <input required class="required" type="radio" name="attributes[Selecet Substitution Preference]" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" checked> <span>Accept swaps</span>
-                  <input required class="required" type="radio" name="attributes[Selecet Substitution Preference]" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"> <span>Do not swap</span>
+                  <input required class="required" id="swap" type="radio" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" checked> <span>Accept swaps</span>
+                  {% comment %}name="attributes[Selecet Substitution Preference]"{% endcomment %}
+                  <input required class="required" id="ask" type="radio" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"> <span>Do not swap</span>
+                  {% comment %}name="attributes[Selecet Substitution Preference]"{% endcomment %}
                 </p>
               </div>
               <div class="Prime_check cart__note" style="padding-right:0px; display:none;">
@@ -447,6 +449,24 @@
       $('#checkout').attr('disabled', true); //disable input
       //$('.tbtDiscountCombine *').attr('disabled', true);
     }
+  });
+  
+  var noteText = '';
+  var swapChoice = '';
+  var submit = false;
+  $('.cart__checkout').click(function(){
+    if(!submit){
+      if($("#swap").is(':checked')){
+        noteText = $('#CartSpecialInstructions').val();
+        swapChoice = $("#swap").val();
+      }
+      else{
+        noteText = $('#CartSpecialInstructions').val();
+        swapChoice = $("#ask").val();
+      }
+      $('#CartSpecialInstructions').val(noteText+'\r\n'+'Select Substitution Preference:'+'\r\n'+swapChoice);
+    }
+    submit = true;
   });
 
   $(document).ready(function() {
