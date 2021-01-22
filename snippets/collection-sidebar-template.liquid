@@ -7,7 +7,7 @@
   {%endif%}
 {%endfor%}
 
-{%- assign limit = 12 -%}
+{%- assign limit = 200 -%}
 
 {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
 {%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
@@ -188,8 +188,8 @@
             {% endif %}
           {% endif %}
         </ul>
-        <b class="sideTitle" for="sel1">Product per page</b>
-        <div id="view">
+        <b class="sideTitle" for="sel1" hidden>Product per page</b>
+        <div id="view" hidden>
           <button id="v12" type="submit" value="/collections/{{ collection.handle }}?view=12">12</button>
           <button id="v24" type="submit" value="/collections/{{ collection.handle }}?view=24">24</button>
           <button id="v36" type="submit" value="/collections/{{ collection.handle }}?view=36">36</button>
