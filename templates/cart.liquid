@@ -304,7 +304,7 @@
               {% if settings.cart_notes_enable %}
                 <div class="cart__note" style="padding-right:0px;">
                   <label for="CartSpecialInstructions" style="display: block;">{{ 'cart.general.note' | t }}</label>
-                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                  <textarea name="note" class="input-full" id="CartSpecialInstructions"></textarea>
                 </div>
               {% endif %}
             </div>
@@ -458,6 +458,8 @@
     if(!submit){
       if($("#swap").is(':checked')){
         noteText = $('#CartSpecialInstructions').val();
+        // noteText = noteText.split("\n");
+        // console.log(noteText.length());
         swapChoice = $("#swap").val();
       }
       else{
