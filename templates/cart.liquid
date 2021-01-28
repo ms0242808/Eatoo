@@ -26,46 +26,6 @@
             
           </script>
         {% else %}
-          <!--script>
-            var postRules = new Array();
-            $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/0-5.txt?v=1598336126', function(data){
-                postRules = data.split('\n');
-            });
-
-            function removeSpace(x) {
-              for(i = 0; i < x.length; i++){
-                x[i] = x[i].split(" ").join("").toUpperCase();
-              }
-            }
-
-            var zip = [
-              {% for address in customer.addresses %}
-                '{{ address.zip}}',
-              {% endfor %}
-            ];
-
-            setTimeout(function checkPrime() { 
-              removeSpace(zip);
-              removeSpace(postRules);
-              var k = 0;
-              for(i=0; i<zip.length; i++){
-                for(j=0; j<postRules.length; j++){
-                  if(zip[i] == postRules[j]){
-                    //console.log(postRules[j]);
-                    k=1;
-                  }else{
-                    k=0;
-                  }
-                }
-              }
-
-              if(k=1){
-                $(".Prime_check").css("display","block");
-              }else{
-                $(".Prime_check").css("display","none");
-              }
-            },10000);
-          </script--> 
         {% endif %}
       {% endif %}
 
@@ -236,78 +196,96 @@
           <div style="border-top: 1px solid #1C1D1D;"></div>-->
 
           <div class="grid__item rightGrid">  <!--class="cart__row cart__row--last"-->
-            <div class="dipping-sauce" style="margin-bottom: 10px;">
+            <div class="grid--small dipping-sauce" style="margin-bottom: 10px;">
               {% assign collection = collections.dipping-sauce %}
               {% include 'cart-recommendations'%}
             </div>
-            <!-- Delivery date and time picker & Discount Code -->
-            <div class="grid grid--small">
-              <div class="grid__item large--one-half">
-                <div class="cart-form">
-                  <div class="right-col" id="right-column">
-                  {%comment%}<span id="expressD">If you wish to receive the order within two hours when the time you placed order, <br> please select the express delivery at the checkout page.</span>
-                  <span id="expressD">If you wish to pick up the oder by yourself, <br> please select the "Self-collection" at the checkout page. <br>Pick up time 3 PM. - 5 PM. at WC1B 4HH. <br> MORN THAN 7 MILES BUT WITHIN M25 PLEASE CONTACT US</span>{%endcomment%}
-                  </div>
-                </div>
-              </div>
-
-              <div class="grid__item note-cart subs"><!-- substitution -->
-              <div class="cart__note" style="padding-right:0px;">
-                <p class="agree-box" style="float: none; clear: both; margin: 10px;">
-                  <div class="swaptooltip">
-                    <em class="boldf">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
-                    <span class="swaptooltiptext">When the goods are out of stock or otherwise unavailable, we shall offer substitutes wherever we can, unless you have told us not to do so. The substitutes has been choosen carefully and offer.</span>
-                  </div><br>
-                  <input required class="required" id="swap" type="radio" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" checked> <span>Accept swaps</span>
-                  {% comment %}name="attributes[Selecet Substitution Preference]"{% endcomment %}
-                  <input required class="required" id="ask" type="radio" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"> <span>Do not swap</span>
-                  {% comment %}name="attributes[Selecet Substitution Preference]"{% endcomment %}
-                </p>
-              </div>
-              <div class="Prime_check cart__note" style="padding-right:0px; display:none;">
-                <br>
-                <em class="boldf">JOIN EATOO PLUS</em> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#d1b159"><path d="M86,7.16667c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,6.01888 3.72331,11.08594 8.95833,13.21354l-23.29167,58.45313l-32.02604,-26.65104c2.07162,-2.49153 3.35938,-5.68294 3.35938,-9.18229c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,7.92253 6.41081,14.33333 14.33333,14.33333c0.97982,0 1.98763,-0.02799 2.91146,-0.22396l12.09375,57.55729h113.32292l12.09375,-57.55729c0.92383,0.19597 1.93164,0.22396 2.91146,0.22396c7.92253,0 14.33333,-6.41081 14.33333,-14.33333c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,3.49935 1.28776,6.69076 3.35938,9.18229l-32.02604,26.65104l-23.29167,-58.45312c5.23503,-2.1276 8.95833,-7.19466 8.95833,-13.21354c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333zM28.66667,136.16667v21.5h114.66667v-21.5z"></path></g></g></svg>
-                <br>
-                <a>
-                  Early Bird Special - Unlimited same day delivery for only £9.99 (Orignial <strike>£14.99</strike>) per month
-                </a>
-                <br>
-                <a class="btn--secondary large--one-third boldf" style="float:right; background-color:#c65a17; margin-bottom: 10px;" href="/products/eatoo-plus">JOIN NOW</a>
-                <br><br>
-              </div>
-              <div class="cart__note" style="padding-right:0px;">
+            <div class="grid--small" style="padding-right:0px;">
                 <p style="float: none; clear: both; margin: 10px 0;">
-                  <em class="boldf">Cutlery <i class="fab fa-pagelines" style="margin-left: 3px; color:green;"></i></em>
+                  <!--input class="required" type="checkbox" name="properties[Cutlery Request]" value="Require cutlery" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"-->
+                  <em class="boldf text-upper">Cutlery <i class="fab fa-pagelines" style="margin-left: 3px; color:green;"></i></em>
                   <br>
-                  <a>Help us reduce plastic waste - only request cutlery when you need it.</a>
+                <a>Help us reduce plastic waste - only request cutlery when you need it.</a>
                 </p>
+                
                 <form action="/cart" method="post">
                   {% assign collection = collections.optional %}
-                  {% for product in collection.products %}
-                    {% if product.available and product.title == "Tableware Sets" %}
-                      {% for variant in product.variants %}
-                        {% if variant.available %}
-                          <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
+                    {% for product in collection.products %}
+                        {% if product.available and product.title == "Tableware Sets" %}
+                            {% for variant in product.variants %}
+                                {% if variant.available %}
+                                    <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id  }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                  <div>
-                    <input type="submit" value="ADD" class="btn--secondary large--one-third boldf" style="float:right; background-color: #C65A17;"/>
+                    {% endfor %}
+                    <div style="padding-right:15px;">
+                      <button type="submit" value="ADD" class="btn--secondary large--one-third boldf" style="float:right;height:30px;width:90px;padding:0 10px;"><i class="fas fa-plus"></i> ADD</button>
                       <br><br>
-                  </div>
+                    </div>
                 </form>
+                <hr class="div_hr">
               </div>
-            </div>
-
-            <div class="grid__item note-cart">
-              {% if settings.cart_notes_enable %}
-                <div class="cart__note" style="padding-right:0px;">
-                  <label for="CartSpecialInstructions" style="display: block;">{{ 'cart.general.note' | t }}</label>
-                  <textarea name="note" class="input-full" id="CartSpecialInstructions">{{cart.note}}</textarea>
+            <!-- Delivery date and time picker & Discount Code -->
+            <div class="grid grid--small">
+              <p class="boldf text-upper" style="margin:10px 0;">Select a delivery method</p>
+              <div class="align--top-middle">
+                <div style="padding-right:0px;" id="deliveryMethod">
+                  <button class="p20 cartB" type="button" id="deliveryBtn"><i class="fas fa-shipping-fast"></i> Delivery</button>
+                  <button class="p20 cartB" type="button" id="selfBtn"><i class="fas fa-box"></i> Self-Pickup</button>
+                  <p class="agree-box" style="float: none; clear: both; margin: 10px;"></p>
+                  <hr class="div_hr">
                 </div>
-              {% endif %}
-            </div>
+              </div>
+              <div style="padding-right:0px;" id="deliveryPostcode" hidden>
+                <p class="agree-boxx boldf text-upper" style="float: none; clear: both; margin: 10px 0;">Enter your postcode</p>
+                <input class="w100" type="text" id="postCode" placeholder="Enter the postcode..." />
+                <p id="deliveryInfo" hidden>Delivery fee costs <span class="boldf" id="deliveryFee"></span></p>
+                <p id="deliveryMsg" hidden>Free delivery for orders over <span class="boldf" id="deliveryNote"></span></p>
+                <hr class="div_hr">
+              </div>
+            
+              <div id="deliveryDate" hidden>
+                <div class="cart-form">
+                  <div class="right-col" id="right-column">
+                  </div>
+                </div>
+                <hr class="div_hr">
+              </div>
+              
+              <div class="note-cart subs" id="swapOption" hidden><!-- substitution -->
+                <div style="padding-right:0px;">
+                  <p class="agree-box" style="float: none; clear: both; margin: 10px;">
+                    <div class="swaptooltip">
+                      <em class="boldf text-upper">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
+                      <span class="swaptooltiptext">If goods are out of stock or otherwise unavailable we’ll offer substitutes wherever we can unless you’ve asked us not to. We choose substitutes very carefully and offer what we believe is the most appropriate alternative to the product you’ve ordered.</span>
+                    </div><br>
+                    <input required id="swap" class="required" type="radio" name="properties[Selecet Substitution Preference]" value="Accept swaps" style="float:none; vertical-align: middle; margin: 0 3px 0 0;" checked> <span>Accept swaps</span>
+                    <input required id="ask" class="required" type="radio" name="properties[Selecet Substitution Preference]" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"> <span>Do not swap</span>
+                  </p>
+                </div>
+                <div class="Prime_check cart__note" style="padding-right:0px; display:none;">
+                  <br>
+                  <em class="boldf">JOIN EATOO PRIME</em> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#d1b159"><path d="M86,7.16667c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,6.01888 3.72331,11.08594 8.95833,13.21354l-23.29167,58.45313l-32.02604,-26.65104c2.07162,-2.49153 3.35938,-5.68294 3.35938,-9.18229c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,7.92253 6.41081,14.33333 14.33333,14.33333c0.97982,0 1.98763,-0.02799 2.91146,-0.22396l12.09375,57.55729h113.32292l12.09375,-57.55729c0.92383,0.19597 1.93164,0.22396 2.91146,0.22396c7.92253,0 14.33333,-6.41081 14.33333,-14.33333c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,3.49935 1.28776,6.69076 3.35938,9.18229l-32.02604,26.65104l-23.29167,-58.45312c5.23503,-2.1276 8.95833,-7.19466 8.95833,-13.21354c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333zM28.66667,136.16667v21.5h114.66667v-21.5z"></path></g></g></svg>
+                  <br>
+                  <a>
+                    Early Bird Special - Unlimited same day delivery for only £9.99(Orignial £14.99) per month
+                  </a>
+                  <br>
+                  <a class="btn--secondary large--one-third boldf" style="float:right; background-color:#c65a17; margin-bottom: 10px;" href="/products/eatoo-prime">JOIN NOW</a>
+                  <br>
+                </div>
+                <hr class="div_hr">
+              </div>
+
+              <div class="grid__item note-cart">
+                {% if settings.cart_notes_enable %}
+                <div style="padding-right:0px;">
+                  <p></p>
+                  <textarea name="note" class="input-full" id="CartSpecialInstructions" placeholder="Additional notice">{{cart.note}}</textarea>
+                </div>
+                {% endif %}
+              </div>
             
             <div class="grid--full cart__row--table-large cart__sub-container">
               {%- comment -%}
@@ -361,9 +339,24 @@
                 </p>
                <!--a class="cartitems" href="/cart/clear">Empty cart</a-->
                 <button type="submit" name="update" class="btn--secondary update-cart  large--one-third" style="margin-top: 10px; background-color: #C65A17;">{{ 'cart.general.update' | t }}</button>
-                <button id="checkout" type="submit" name="checkout" class="btn cart__checkout  large--one-third" style="margin-top: 10px;" disabled>
+                <button id="checkout" type="submit" name="checkout" class="btn cart__checkout  large--one-third Checkout1" style="margin-top: 10px;" disabled>
                   {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
+                <form class="Checkout2" action="/cart" method="post" hidden>
+                  {% assign collection = collections.optional %}
+                    {% for product in collection.products %}
+                        {% if product.available and product.title == "DPD Delivery Fee" %}
+                            {% for variant in product.variants %}
+                                {% if variant.available %}
+                                    <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id  }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <button id="checkout2" type="submit" name="checkout" class="btn cart__checkout  large--one-third" style="margin-top: 10px;" disabled>
+                      {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                    </button>
+                  </form>
 
                 {% if additional_checkout_buttons and settings.cart_type != 'drawer' %}
                   <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
@@ -419,9 +412,6 @@
           console.log('2');
         }
       }
-
-      /*|| product[i] === "Chili Powder" || product[i] === "Chopped Green Onion" || product[i] === "Chopped Peanuts" || product[i] === "Coriander" || product[i] === "Fermented Bean Curd Sauce" || product[i] === "Oyster Sauce" || product[i] === "Sesame Oil"  || product[i] === "Sesame Sauce" || product[i] === "Thai Red Pepper" 
-        }*/
     });
   }
 
@@ -429,25 +419,16 @@
     //check if checkbox is checked
     if ($(this).is(':checked')) {
       var x = document.getElementsByClassName("mw-dd-picker")[0].value;
-      //var y = document.getElementsByClassName('mw-dd-time')[0].value;
-      $('#checkout').removeAttr('disabled');
+      $('#checkout,#checkout2').removeAttr('disabled');
       if(x == "" || x == null ){
-        $('#checkout').attr('disabled', true);
+        $('#checkout,#checkout2').attr('disabled', true);
         alert("You must select delivery date and time before check out.");
         $("#agree").prop("checked", false);
-        //$('.tbtDiscountCombine *').attr('disabled', true);
-      } /*else if(y == 100){
-        $('#checkout').attr('disabled', true);
-        alert("You must select correct deliver date and time before check out.");
-        $("#agree").prop("checked", false);
-        $('.tbtDiscountCombine *').attr('disabled', true);
-      }*/ else {
-        $('#checkout').removeAttr('disabled'); //enable input
-        //$('.tbtDiscountCombine *').removeAttr('disabled');
+      } else {
+        $('#checkout,#checkout').removeAttr('disabled'); //enable input
       }
     } else {
-      $('#checkout').attr('disabled', true); //disable input
-      //$('.tbtDiscountCombine *').attr('disabled', true);
+      $('#checkout,#checkout2').attr('disabled', true); //disable input
     }
   });
   
@@ -479,6 +460,15 @@
         $("#ask").prop("checked", true);
       }
     });
+    var noteText = $('#CartSpecialInstructions').val();
+    noteText = noteText.split("\n");
+    var val = '';
+    for(i in noteText){
+      if(noteText[i] !== "Select Substitution Preference:" && noteText[i] !== "Accept swaps" && noteText[i] !== "Do not swap"){
+        val += noteText[i]+'\r\n';
+      }
+    }
+    $('#CartSpecialInstructions').val(val);
     
     $('#ask').change(function() {
       if($(this).is(':checked')){
@@ -487,32 +477,6 @@
         $("#swap").prop("checked", true);
       }
     });
-    /*setTimeout(function(){
-      let og = $('.wh-original-price').text().slice(1);
-        let prog = (og/200)* 100 ;
-        console.log(prog);
-        var bar1 = new ldBar("#myItem1");
-        /* ldBar stored in the element 
-        var bar2 = document.getElementById('myItem1').ldBar;
-        bar1.set(prog);
-    },500);*/
-
-    /*setTimeout(function() {
-      if($('.cart__product-name:contains(Chili Oil)') || $('.cart__product-name:contains(Chili Powder)') || $('.cart__product-name:contains(Chopped Green Onion)') || $('.cart__product-name:contains(Chopped Peanuts)') || $('.cart__product-name:contains(Coriander)') || $('.cart__product-name:contains(Fermented Bean Curd Sauce)') || $('.cart__product-name:contains(Oyster Sauce)') || $('.cart__product-name:contains(Sesame Oil)') || $('.cart__product-name:contains(Sesame Sauce)') || $('.cart__product-name:contains(Thai Red Pepper)')){
-          $('.right-col *').removeAttr('disabled');
-          console.log('1');
-        } else {
-          $('.right-col *').attr('disabled', true);
-          console.log('2');
-        }
-        //getProduct('.cart__product-name');
-      $('.tbtDiscountCombine *').attr('disabled', true);
-        $('.tbtDiscountCombine *').click( function () {
-          if($('.tbtDiscountCombine *').is(':disabled')){
-            alert("You must pick a delivery date and time and agree with the terms and conditions at below before you can enter discount codes.");
-          }
-        });
-    },5000);*/
     
     $('body').on('click', '[name="checkout"], [name="goto_pp"], [name="goto_gc"]', function() {
       if ($('#agree').is(':checked')) {
@@ -524,8 +488,67 @@
       }
     });
 
-    // function addZero(i) {if (i < 10) {i = "0" + i;}return i;}
+    $('#selfBtn').click(async function(){
+      await $('.mw-dd-time option').each(function(){
+        $(this).remove();
+      });
+      await $('.mw-dd-time').append($('<option>').val("15:00 - 17:00").text("15:00 - 17:00"));
+      await $(document).on("click",".mw-dd-picker",function(){
+        checkDT();
+      });
+      $(this).addClass('bActive');
+      $('#deliveryBtn').removeClass('bActive');
+      $('#postCode').val('');
+      $('#deliveryInfo,#deliveryMsg,#deliveryPostcode,#swapOption').hide();
+      $('.mw-dd-date-wrapper > label > span').text('Choose a Self-Pickup date');
+      $('.mw-dd-date-wrapper > label > span').addClass('text-upper');
+      $('#deliveryDate,#swapOption').show();
+    });
+  
+    $('#deliveryBtn').click(function(){
+      $(this).addClass('bActive');
+      $('#selfBtn').removeClass('bActive');
+      $('#postCode').val('');
+      $('#deliveryInfo,#deliveryMsg,#deliveryDate,#swapOption').hide();
+      $('.mw-dd-date-wrapper > label > span').text('Choose a Delivery date/time');
+      $('.mw-dd-date-wrapper > label > span').addClass('text-upper');
+      $('#deliveryPostcode').show();
+    });
     
+    function datePicker(){
+      $(document).on("change",".mw-dd-picker",function(){
+        checkDT();
+        // $('.mw-dd-time-wrapper > label > span').text('Choose a time slot');
+        // $('.mw-dd-time-wrapper > label > span').addClass('text-upper');
+        $('#swapOption').show();
+        timeCheck();
+      });
+    }
+
+    function timeCheck(){
+      var today = new Date();
+      var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
+      var time = today.getHours();
+      var x = document.getElementsByClassName("mw-dd-picker")[0].value;
+      if(x == date.toString() && time >= 11){
+        $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
+      }  
+      $('.mw-dd-time-wrapper').show();
+    }
+    
+    async function dpdDate(){
+      await $('.today').nextAll(':lt(2)').addClass('disabled');
+      await $('.today').addClass('disabled');
+      $(document).on("change",".mw-dd-picker",function(){
+        $('.today').nextAll(':lt(2)').addClass('disabled');
+        $('.today').addClass('disabled');
+        $('#swapOption').show();
+        $('.mw-dd-time-wrapper').hide();
+      });
+      $('.Checkout1').hide();
+      $('.Checkout2').show();
+    }
+
     var checkDT = function (){
       var today = new Date();
       var nowHour = today.getUTCHours();
@@ -538,66 +561,105 @@
       }
     };
 
-    setTimeout(function() {
-      //checkDT();
-    },5000);
-    
     $(document).on("click",".mw-dd-picker",function(){
       checkDT();
     });
     
-    $(document).on("change",".mw-dd-picker",function(){ 
-      var today = new Date();
-      var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
-      var time = today.getUTCHours();
-      var x = document.getElementsByClassName("mw-dd-picker")[0].value;
-      if(x == date.toString() && time >= 11){
-        $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
-      }  
-      /*if(time >= 15){
-        $('.mw-dd-time option[value="16:00 - 18:00"]').remove();
-      } */ 
+    $('.right-col *').removeAttr('disabled');
+    var post02,post24,post47,post725 = new Array();
+    $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c0-2.txt?v=1610597926', function(data){
+      post02 = data.split('\n');
+    });
+    $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c2-4.txt?v=1610597927', function(data){
+      post24 = data.split('\n');
+    });
+    $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c4-7.txt?v=1610597927', function(data){
+      post47 = data.split('\n');
+    });
+    $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c7-25.txt?v=1610597928', function(data){
+      post725 = data.split('\n');
+    });
+    var msg = ['Delivery fee costs ','Free delivery for orders over '];
+    var keyStop = false;
+    $('#postCode').keyup(async function(){
+      var postCode = $('#postCode').val();
+      postCode = postCode.split(" ").join("").toUpperCase();
+      keyStop = false;
+      if(post02.indexOf(postCode) !== -1){
+        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+        $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+        $('#deliveryFee').text('£4.00');
+        $('#deliveryNote').text('£80');
+        $('.mw-dd-time-wrapper').hide();
+        $('.mw-dd-picker').val("Select a date...");
+        datePicker();
+        keyStop = true;
+      }else if(post24.indexOf(postCode) !== -1){
+        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+        $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+        $('#deliveryFee').text('£6.00');
+        $('#deliveryNote').text('£80');
+        $('.mw-dd-picker').val("Select a date...");
+        $('.mw-dd-time-wrapper').hide();
+        datePicker();
+        keyStop = true;
+      }else if(post47.indexOf(postCode) !== -1){
+        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+        $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+        $('#deliveryFee').text('£8.00');
+        $('#deliveryNote').text('£80');
+        $('.mw-dd-picker').val("Select a date...");
+        $('.mw-dd-time-wrapper').hide();
+        datePicker();
+        keyStop = true;
+      }else if(post725.indexOf(postCode) !== -1){
+        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+        $('#deliverymsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+        $('#deliveryFee').text('£10.00');
+        $('#deliveryNote').text('£150');
+        $('.mw-dd-picker').val("Select a date...");
+        $('.mw-dd-time-wrapper').hide();
+        $(document).on("click",".mw-dd-picker",function(){
+        checkDT();
+          $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
+          $('.mw-dd-time option[value="18:00 - 21:00"]').remove();
+          $('.mw-dd-time').append($('<option>').val("11:00 - 21:00").text("11:00 - 21:00"));
+          $('.mw-dd-time-wrapper').show();
+          $('#swapOption').show();
+        });
+        keyStop = true;
+      }else{
+        $('#deliveryDate,#deliveryInfo,#deliveryMsg').hide();
+      }
+      setTimeout(async function(){
+        if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
+          await dpdDate();
+          $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+          $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
+          $('#deliveryMsg').html('Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
+          $('.mw-dd-picker').val("Select a date...");
+          $('.mw-dd-time-wrapper').hide();
+          keyStop = true;
+        }
+      },5000);
     });
 
-    /*
-      $('.mw-dd-time option[value="12:00 - 14:00"]').remove();
-      $('.mw-dd-time option[value="16:00 - 18:00"]').remove();
-      $('.mw-dd-time option[value="20:00 - 22:00"]').remove();
-      $('.mw-dd-time').append($('<option>').val("18:00 - 21:00").text("18:00 - 21:00"));
-    */
-
-    /*$(document).on("change",".mw-dd-picker",function(){      
-      var slots = [12,16,20];
-      var optSlots  = ["12:00 - 14:00","20:00 - 22:00"];
-      var today = new Date();
-      var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
-      var time = today.getHours(); //testing to add value
-      var x = document.getElementsByClassName("mw-dd-picker")[0].value;
-      var y = document.getElementsByClassName('mw-dd-time')[0].value;
-      var z = "No available time slots for today";
-      $("#agree").prop("checked", false);
-      $('#checkout').attr('disabled', true); //disable input
-      
-      if(x !== date.toString()){//keep all option || $('.mw-dd-time').children().first().remove();   
-        $("#expressD").css("display","none");
-      } else if(x == date.toString()){
-        $("#expressD").css("display","block");
-        if(time <= 11){//Keep all option
-        } else {
-          for(var i=0; i<=2; i++){
-            $('.mw-dd-time option[value="'+optSlots[i]+'"]').remove();//remove first two option if time is greater than them
-            $('.mw-dd-time').append($('<option>').val(optSlots[i]).text(optSlots[i]));
-            if(slots[i] <= time ){
-              $('.mw-dd-time option[value="'+optSlots[i]+'"]').remove();//remove first two option if time is greater than them
-            }  
-          }
-        }
-        if(20 <= time){
-          $('.mw-dd-time').append($('<option>').val(100).text(z));//append value
-        }
-      }
-      $('.tbtDiscountCombine *').attr('disabled', true);
-    });*/
+    // $(document).on("change",".mw-dd-picker",function(){ 
+    //   var today = new Date();
+    //   var date = today.getFullYear()+'-'+getMonth(today)+'-'+('0' + today.getDate()).slice(-2);//today.getDate();
+    //   var time = today.getUTCHours();
+    //   var x = document.getElementsByClassName("mw-dd-picker")[0].value;
+    //   if(x == date.toString() && time >= 11){
+    //     $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
+    //   }  
+    //   /*if(time >= 15){
+    //     $('.mw-dd-time option[value="16:00 - 18:00"]').remove();
+    //   } */ 
+    // });
   });
 </script>
 
@@ -769,6 +831,11 @@
     max-width: calc(100% - 10px);
   }
 
+  .div_hr{
+    border-color:#cacaca;
+    width:100%;
+    margin:0;
+  }
   @media only screen and (max-width: 720px) {
     #mw-dd-container, .cart-form .right-col{
       float: none !important;
