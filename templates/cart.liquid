@@ -549,6 +549,16 @@
       $('.Checkout2').show();
     }
 
+    function validatePostCode(val) {
+      var p = new RegExp('^(([gG][iI][rR] {0,}0[aA]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) {0,}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$', ["i"]);
+      var m = p.exec(val);
+      if (m !== null) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     var checkDT = function (){
       var today = new Date();
       var nowHour = today.getUTCHours();
@@ -585,67 +595,68 @@
       var postCode = $('#postCode').val();
       postCode = postCode.split(" ").join("").toUpperCase();
       keyStop = false;
-      if(post02.indexOf(postCode) !== -1){
-        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
-        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
-        $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
-        $('#deliveryFee').text('£4.00');
-        $('#deliveryNote').text('£80');
-        $('.mw-dd-time-wrapper').hide();
-        $('.mw-dd-picker').val("Select a date...");
-        datePicker();
-        keyStop = true;
-      }else if(post24.indexOf(postCode) !== -1){
-        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
-        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
-        $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
-        $('#deliveryFee').text('£6.00');
-        $('#deliveryNote').text('£80');
-        $('.mw-dd-picker').val("Select a date...");
-        $('.mw-dd-time-wrapper').hide();
-        datePicker();
-        keyStop = true;
-      }else if(post47.indexOf(postCode) !== -1){
-        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
-        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
-        $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
-        $('#deliveryFee').text('£8.00');
-        $('#deliveryNote').text('£80');
-        $('.mw-dd-picker').val("Select a date...");
-        $('.mw-dd-time-wrapper').hide();
-        datePicker();
-        keyStop = true;
-      }else if(post725.indexOf(postCode) !== -1){
-        $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
-        $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
-        $('#deliverymsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
-        $('#deliveryFee').text('£10.00');
-        $('#deliveryNote').text('£150');
-        $('.mw-dd-picker').val("Select a date...");
-        $('.mw-dd-time-wrapper').hide();
-        $(document).on("click",".mw-dd-picker",function(){
-        checkDT();
-          $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
-          $('.mw-dd-time option[value="18:00 - 21:00"]').remove();
-          $('.mw-dd-time').append($('<option>').val("11:00 - 21:00").text("11:00 - 21:00"));
-          $('.mw-dd-time-wrapper').show();
-          $('#swapOption').show();
-        });
-        keyStop = true;
-      }else{
-        $('#deliveryDate,#deliveryInfo,#deliveryMsg').hide();
-      }
-      setTimeout(async function(){
-        if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
-          await dpdDate();
+      if(validatePostCode(postCode)){
+        if(post02.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
-          $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
-          $('#deliveryMsg').html('Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
+          $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+          $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+          $('#deliveryFee').text('£4.00');
+          $('#deliveryNote').text('£80');
+          $('.mw-dd-time-wrapper').hide();
+          $('.mw-dd-picker').val("Select a date...");
+          datePicker();
+          keyStop = true;
+        }else if(post24.indexOf(postCode) !== -1){
+          $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+          $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+          $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+          $('#deliveryFee').text('£6.00');
+          $('#deliveryNote').text('£80');
           $('.mw-dd-picker').val("Select a date...");
           $('.mw-dd-time-wrapper').hide();
+          datePicker();
           keyStop = true;
-        }
-      },5000);
+        }else if(post47.indexOf(postCode) !== -1){
+          $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+          $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+          $('#deliveryMsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+          $('#deliveryFee').text('£8.00');
+          $('#deliveryNote').text('£80');
+          $('.mw-dd-picker').val("Select a date...");
+          $('.mw-dd-time-wrapper').hide();
+          datePicker();
+          keyStop = true;
+        }else if(post725.indexOf(postCode) !== -1){
+          $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+          $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
+          $('#deliverymsg').html(msg[1]+'<span class="boldf" id="deliveryNote"></span>');
+          $('#deliveryFee').text('£10.00');
+          $('#deliveryNote').text('£150');
+          $('.mw-dd-picker').val("Select a date...");
+          $('.mw-dd-time-wrapper').hide();
+          $(document).on("click",".mw-dd-picker",function(){
+          checkDT();
+            $('.mw-dd-time option[value="11:00 - 16:00"]').remove();
+            $('.mw-dd-time option[value="18:00 - 21:00"]').remove();
+            $('.mw-dd-time').append($('<option>').val("11:00 - 21:00").text("11:00 - 21:00"));
+            $('.mw-dd-time-wrapper').show();
+            $('#swapOption').show();
+          });
+          keyStop = true;
+        }else if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
+            await dpdDate();
+            $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
+            $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
+            $('#deliveryMsg').html('Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
+            $('.mw-dd-picker').val("Select a date...");
+            $('.mw-dd-time-wrapper').hide();
+            keyStop = true;
+          }
+      }else{
+        $('#deliveryInfo').show();
+        $('#deliveryDate,#deliveryMsg').hide();
+        $('#deliveryInfo').html('Please enter a valid UK postcode');
+      }
     });
 
     // $(document).on("change",".mw-dd-picker",function(){ 
