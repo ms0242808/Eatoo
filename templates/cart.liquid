@@ -250,6 +250,7 @@
                   <div class="right-col" id="right-column">
                   </div>
                 </div>
+                <div id="selfInfo"></div>
                 <hr class="div_hr">
               </div>
               
@@ -451,7 +452,9 @@
         val += noteText[i]+'\r\n';
       }
     }
-    $('#CartSpecialInstructions').val(val);
+    if(!noteText){
+      $('#CartSpecialInstructions').val(val);  
+    }
     
     $('#ask').change(function() {
       if($(this).is(':checked')){
@@ -477,16 +480,17 @@
       $('#deliveryBtn').removeClass('bActive');
       $('#postCode').val('');
       $('#deliveryInfo,#deliveryMsg,#deliveryPostcode,#swapOption').hide();
+      $('#selfInfo').html('Self-Pickup time: <span class="boldf">15:00 pm - 17:00</span> at WC1b 4HH');
       $('.mw-dd-date-wrapper > label > span').text('Choose a Self-Pickup date');
       $('.mw-dd-date-wrapper > label > span').addClass('text-upper');
-      $('#deliveryDate,#swapOption').show();
+      $('#deliveryDate,#swapOption,#selfInfo').show();
     });
   
     $('#deliveryBtn').click(function(){
       $(this).addClass('bActive');
       $('#selfBtn').removeClass('bActive');
       $('#postCode').val('');
-      $('#deliveryInfo,#deliveryMsg,#deliveryDate,#swapOption').hide();
+      $('#deliveryInfo,#deliveryMsg,#deliveryDate,#swapOption,#selfInfo').hide();
       $('.mw-dd-date-wrapper > label > span').text('Choose a Delivery date/time');
       $('.mw-dd-date-wrapper > label > span').addClass('text-upper');
       $('#deliveryPostcode').show();
@@ -512,24 +516,20 @@
         $('.today').nextAll(':lt(2)').addClass('disabled');
         $('.today').addClass('disabled');
         $(document).on("change",".mw-dd-picker",function(){
-          $('.today').nextAll(':lt(2)').addClass('disabled');
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
+          // $('.today').nextAll(':lt(2)').addClass('disabled');
           $('.today').addClass('disabled');
           $('#swapOption').show();
           $('.mw-dd-time-wrapper').hide();
         });
       }else if(x == "self"){
-        $('.mw-dd-time option').each(function(){
-          $(this).remove();
-        });
-        $('.mw-dd-time').append($('<option>').val("15:00 - 17:00").text("15:00 - 17:00"));
+        $('.mw-dd-time-wrapper').hide();
         $(document).on("change",".mw-dd-picker",function(){
           checkDT();
-          $('.mw-dd-time option').each(function(){
-            $(this).remove();
-          });
-          $('.mw-dd-time').append($('<option>').val("15:00 - 17:00").text("15:00 - 17:00"));
+          $('.mw-dd-time-wrapper').hide();
         });
       }
+      return x;
     }
 
     function timeCheck(){
@@ -581,6 +581,7 @@
     });
     var msg = ['Delivery fee costs ','Free delivery for orders over '];
     var keyStop = false;
+    var y = "";
     $('#postCode').keyup(async function(){
       var postCode = $('#postCode').val();
       postCode = postCode.split(" ").join("").toUpperCase();
@@ -593,7 +594,7 @@
           $('#deliveryFee').text('£4.00');
           $('#deliveryNote').text('£80');
           $('.mw-dd-time-wrapper').hide();
-          datePicker("range");
+          y = datePicker("range");
           keyStop = true;
         }else if(post24.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
@@ -602,7 +603,7 @@
           $('#deliveryFee').text('£6.00');
           $('#deliveryNote').text('£80');
           $('.mw-dd-time-wrapper').hide();
-          datePicker("range");
+          y = datePicker("range");
           keyStop = true;
         }else if(post47.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
@@ -611,7 +612,7 @@
           $('#deliveryFee').text('£8.00');
           $('#deliveryNote').text('£80');
           $('.mw-dd-time-wrapper').hide();
-          datePicker("range");
+          y = datePicker("range");
           keyStop = true;
         }else if(post725.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
@@ -620,10 +621,10 @@
           $('#deliveryFee').text('£10.00');
           $('#deliveryNote').text('£150');
           $('.mw-dd-time-wrapper').hide();
-          datePicker("725");
+          y = datePicker("725");
           keyStop = true;
         }else if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
-            datePicker("dpd");
+            y = datePicker("dpd");
             $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
             $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
             $('#deliveryMsg').html('Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
@@ -634,6 +635,15 @@
         $('#deliveryInfo').show();
         $('#deliveryDate,#deliveryMsg').hide();
         $('#deliveryInfo').html('Please enter a valid UK postcode');
+      }
+    });
+
+    $(document).on("click",".mw-flatpickr-months",function(){
+      if(y == "dpd"){
+        $('.today').nextAll(':lt(2)').addClass('disabled');
+        $('.today').addClass('disabled');
+        $('#swapOption').show();
+        $('.mw-dd-time-wrapper').hide();
       }
     });
 
