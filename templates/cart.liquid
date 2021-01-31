@@ -515,6 +515,7 @@
       }else if(x == "dpd"){
         $('.today').nextAll(':lt(2)').addClass('disabled');
         $('.today').addClass('disabled');
+        $('.today').next().next().next().addClass('selected');
         $(document).on("change",".mw-dd-picker",function(){
           $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
           // $('.today').nextAll(':lt(2)').addClass('disabled');
