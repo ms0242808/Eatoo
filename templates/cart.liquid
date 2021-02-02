@@ -516,8 +516,17 @@
         $('.today').nextAll(':lt(2)').addClass('disabled');
         $('.today').addClass('disabled');
         $('.today').next().next().next().addClass('selected');
-        $(document).on("change",".mw-dd-picker",function(){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
+        $(document).on("click",".mw-dd-picker",function(){
+          var today = new Date();
+          var nowDay = today.getUTCDay();
+          console.log(nowDay);
+          if(nowDay == 5){
+            console.log("1");
+            $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
+          }else{
+            console.log("s");
+            $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
+          }
           // $('.today').nextAll(':lt(2)').addClass('disabled');
           $('.today').addClass('disabled');
           $('#swapOption').show();
@@ -641,7 +650,13 @@
 
     $(document).on("click",".mw-flatpickr-months",function(){
       if(y == "dpd"){
-        $('.today').nextAll(':lt(2)').addClass('disabled');
+        var today = new Date();
+        var nowDay = today.getUTCDay();
+        if(nowDay == 5){
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
+        }else{
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
+        }
         $('.today').addClass('disabled');
         $('#swapOption').show();
         $('.mw-dd-time-wrapper').hide();
