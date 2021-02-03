@@ -517,14 +517,11 @@
         $('.today').addClass('disabled');
         $('.today').next().next().next().addClass('selected');
         $(document).on("click",".mw-dd-picker",function(){
-          var today = new Date();
           var nowDay = today.getUTCDay();
-          console.log(nowDay);
-          if(nowDay == 5){
-            console.log("1");
+          var nowHour = today.getUTCHours();
+          if(nowDay == 5 || nowHour > 14){
             $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
           }else{
-            console.log("s");
             $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
           }
           // $('.today').nextAll(':lt(2)').addClass('disabled');
@@ -652,7 +649,8 @@
       if(y == "dpd"){
         var today = new Date();
         var nowDay = today.getUTCDay();
-        if(nowDay == 5){
+        var nowHour = today.getUTCHours();
+        if(nowDay == 5 || nowHour > 14){
           $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
         }else{
           $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
