@@ -517,15 +517,7 @@
         $('.today').addClass('disabled');
         $('.today').next().next().next().addClass('selected');
         $(document).on("click",".mw-dd-picker",function(){
-          var nowDay = today.getUTCDay();
-          var nowHour = today.getUTCHours();
-          if(nowDay == 5 || nowHour > 14){
-            $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
-          }else{
-            $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
-          }
-          // $('.today').nextAll(':lt(2)').addClass('disabled');
-          $('.today').addClass('disabled');
+          dpdDate();
           $('#swapOption').show();
           $('.mw-dd-time-wrapper').hide();
         });
@@ -558,6 +550,27 @@
       } else {
         return false;
       }
+    }
+
+    function dpdDate(){
+      var today = new Date();
+      var nowDay = today.getUTCDay();
+      var nowHour = today.getUTCHours();
+      if(nowDay == 1 || nowHour > 14){
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(7)').addClass('disabled');
+        }else if(nowDay == 2 || nowHour > 14){
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(4)').addClass('disabled');
+        }else if(nowDay == 3 || nowHour > 14){
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(5)').addClass('disabled');
+        }else if(nowDay == 4 || nowHour > 14){
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(4)').addClass('disabled');
+        }
+        else if(nowDay == 5 || nowHour > 14){
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
+        }else{
+          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
+        }
+      $('.today').addClass('disabled');
     }
 
     var checkDT = function (){
@@ -630,11 +643,17 @@
           $('.mw-dd-time-wrapper').hide();
           y = datePicker("725");
           keyStop = true;
+        }else if(!keyStop && postCode.substr(0, 2) == "BT"){
+          $('#deliveryInfo').show();
+          $('#deliveryDate,#deliveryMsg').hide();
+          $('#deliveryInfo').html('Currently we only deliverys to England, Wales, and Parts of Scotland.');
+          keyStop = true;
         }else if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
             y = datePicker("dpd");
+            dpdDate();
             $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
             $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
-            $('#deliveryMsg').html('Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
+            $('#deliveryMsg').html('Shipping method only available to England, Wales, and Parts of Scotland. Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
             $('.mw-dd-time-wrapper').hide();
             keyStop = true;
           }
@@ -645,21 +664,13 @@
       }
     });
 
-    $(document).on("click",".mw-flatpickr-months",function(){
-      if(y == "dpd"){
-        var today = new Date();
-        var nowDay = today.getUTCDay();
-        var nowHour = today.getUTCHours();
-        if(nowDay == 5 || nowHour > 14){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
-        }else{
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
-        }
-        $('.today').addClass('disabled');
+    if(y == "dpd"){
+      $(document).on("click",".mw-flatpickr-months",function(){
+        dpdDate();
         $('#swapOption').show();
         $('.mw-dd-time-wrapper').hide();
-      }
-    });
+      });
+    }
 
     // $(document).on("change",".mw-dd-picker",function(){ 
     //   var today = new Date();
