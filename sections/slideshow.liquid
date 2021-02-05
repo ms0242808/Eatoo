@@ -41,7 +41,7 @@
 </style>
 
 <div data-section-id="{{ section.id }}"
-     data-section-type="slideshow-section"{% if section.settings.home_hero_height == 'adapt' %} class="hero--adapt"{% endif %}>
+     data-section-type="slideshow-section"{% if section.settings.home_hero_height == 'adapt' %} class="hero--adapt"{% endif %} id="slideshowStart">
   {%- if section.blocks.size > 0 -%}
     <div class="hero-{{ section.id }} hero hero--color-0"
          id="Hero"
@@ -1174,3 +1174,11 @@
   ]
 }
 {% endschema %}
+
+<style>
+  @media only screen and (max-width: 768px){
+    #slideshowStart{
+      padding-top:100px;
+    }
+  }
+</style>
