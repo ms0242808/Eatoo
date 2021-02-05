@@ -606,6 +606,7 @@
     var keyStop = false;
     var y = "";
     $('#postCode').keyup(async function(){
+      $(".Prime_check").css("display","none");
       var postCode = $('#postCode').val();
       postCode = postCode.split(" ").join("").toUpperCase();
       keyStop = false;
@@ -620,6 +621,7 @@
           y = await datePicker("range");
           y = "range";
           keyStop = true;
+          $(".Prime_check").css("display","block");
         }else if(post24.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
           $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
@@ -630,6 +632,7 @@
           y = await datePicker("range");
           y = "range";
           keyStop = true;
+          $(".Prime_check").css("display","block");
         }else if(post47.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
           $('#deliveryInfo').html(msg[0]+'<span class="boldf" id="deliveryFee"></span>');
