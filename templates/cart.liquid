@@ -515,7 +515,7 @@
       }else if(x == "dpd"){
         $('.today').nextAll(':lt(2)').addClass('disabled');
         $('.today').addClass('disabled');
-        $('.today').next().next().next().addClass('selected');
+        
         $(document).on("click",".mw-dd-picker",function(){
           dpdDate();
           $('#swapOption').show();
@@ -556,20 +556,23 @@
       var today = new Date();
       var nowDay = today.getUTCDay();
       var nowHour = today.getUTCHours();
-      if(nowDay == 1 || nowHour > 14){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(7)').addClass('disabled');
-        }else if(nowDay == 2 || nowHour > 14){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(4)').addClass('disabled');
-        }else if(nowDay == 3 || nowHour > 14){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(5)').addClass('disabled');
-        }else if(nowDay == 4 || nowHour > 14){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(4)').addClass('disabled');
-        }
-        else if(nowDay == 5 || nowHour > 14){
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
-        }else{
-          $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
-        }
+      var x = 1,
+       z = 10;
+      for(var i=0;i<10;i++){
+        $('.mw-flatpickr-day:eq('+x+')').addClass('disabled');
+        x += 7;
+      }
+      if(nowDay == 4 || nowHour > 14){
+        $('.today').next().next().next().next().next().addClass('selected');
+        $( ".dayContainer" ).children( ".today" ).nextAll(':lt(4)').addClass('disabled');
+      }
+      else if(nowDay == 5 || nowHour > 14){
+        $('.today').next().next().next().next().addClass('selected');
+        $( ".dayContainer" ).children( ".today" ).nextAll(':lt(3)').addClass('disabled');
+      }else{
+        $('.today').next().next().next().addClass('selected');
+        $( ".dayContainer" ).children( ".today" ).nextAll(':lt(2)').addClass('disabled');
+      }
       $('.today').addClass('disabled');
     }
 
@@ -614,7 +617,8 @@
           $('#deliveryFee').text('£4.00');
           $('#deliveryNote').text('£80');
           $('.mw-dd-time-wrapper').hide();
-          y = datePicker("range");
+          y = await datePicker("range");
+          y = "range";
           keyStop = true;
         }else if(post24.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
@@ -623,7 +627,8 @@
           $('#deliveryFee').text('£6.00');
           $('#deliveryNote').text('£80');
           $('.mw-dd-time-wrapper').hide();
-          y = datePicker("range");
+          y = await datePicker("range");
+          y = "range";
           keyStop = true;
         }else if(post47.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
@@ -632,7 +637,8 @@
           $('#deliveryFee').text('£8.00');
           $('#deliveryNote').text('£80');
           $('.mw-dd-time-wrapper').hide();
-          y = datePicker("range");
+          y = await datePicker("range");
+          y = "range";
           keyStop = true;
         }else if(post725.indexOf(postCode) !== -1){
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
@@ -641,7 +647,8 @@
           $('#deliveryFee').text('£10.00');
           $('#deliveryNote').text('£150');
           $('.mw-dd-time-wrapper').hide();
-          y = datePicker("725");
+          y = await datePicker("725");
+          y = "725";
           keyStop = true;
         }else if(!keyStop && postCode.substr(0, 2) == "BT"){
           $('#deliveryInfo').show();
@@ -649,8 +656,9 @@
           $('#deliveryInfo').html('Currently we only deliverys to England, Wales, and Parts of Scotland.');
           keyStop = true;
         }else if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
-            y = datePicker("dpd");
-            dpdDate();
+            y = await datePicker("dpd");
+            y = "dpd";
+            await dpdDate();
             $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
             $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
             $('#deliveryMsg').html('Shipping method only available to England, Wales, and Parts of Scotland. Package delivered by third-party, refund/cancellation may not be allowed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
@@ -665,8 +673,8 @@
     });
 
     if(y == "dpd"){
-      $(document).on("click",".mw-flatpickr-months",function(){
-        dpdDate();
+      $(document).on("change",".mw-flatpickr-months",async function(){
+        await dpdDate();
         $('#swapOption').show();
         $('.mw-dd-time-wrapper').hide();
       });
