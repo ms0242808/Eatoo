@@ -615,7 +615,7 @@
           $('.mw-dd-time-wrapper').hide();
           y = await datePicker("range");
           keyStop = true;
-        }else if(post725.indexOf(postCode) !== -1){
+        }else if(postCode == "SE100JN" || post725.indexOf(postCode) !== -1){
           $('.mw-dd-date-wrapper label').next().attr('name','attributes[mw-delivery-date]');
           $('.mw-dd-time-wrapper label').next().attr('name','attributes[mw-delivery-time]');
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
