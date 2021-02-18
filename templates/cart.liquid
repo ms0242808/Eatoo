@@ -568,7 +568,7 @@
     $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c4-7.txt?v=1610597927', function(data){
       post47 = data.split('\n');
     });
-    $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c7-25.txt?v=1610597928', function(data){
+    $.get('https://cdn.shopify.com/s/files/1/0093/0306/4631/files/c7-17.txt?v=1613615218', function(data){
       post725 = data.split('\n');
     });
     var msg = ['Delivery fee costs ','Free delivery for orders over '];
@@ -615,7 +615,7 @@
           $('.mw-dd-time-wrapper').hide();
           y = await datePicker("range");
           keyStop = true;
-        }else if(postCode == "SE100JN" || post725.indexOf(postCode) !== -1){
+        }else if(post725.indexOf(postCode) !== -1){
           $('.mw-dd-date-wrapper label').next().attr('name','attributes[mw-delivery-date]');
           $('.mw-dd-time-wrapper label').next().attr('name','attributes[mw-delivery-time]');
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
