@@ -21,7 +21,7 @@
 {% endunless %}
 
 {% assign no_collection_image = true %}
-<div class="grid__item {{ grid_item_width }} collection-collage__item text-center" {{ block.shopify_attributes }} data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true"> 
+<div class="grid__item {{ grid_item_width }} collection-collage__item text-center" {{ block.shopify_attributes }} data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true"> {% comment %}countCol id="{{ collection_title | remove:" "}}"{% endcomment %}
   <a style="font-weight: bold;" href="{{ collections[collection_handle].url }}" class="collection-grid__item-link collection-collage__item-wrapper">
     {% comment %}
       Use capture to put the collection title in a variable that is used in liquid filters
