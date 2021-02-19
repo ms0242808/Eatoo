@@ -3,7 +3,7 @@
       <div class="page-width feature-row">
         {% capture image_layout %}
           <div class="feature-row__item">
-            <div class="grid collection-grid" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true"> {% comment %}colGrid{% endcomment %}
+            <div class="colGrid grid collection-grid" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true">
 
       {% comment %}
         Show up to 9 collections.
@@ -54,15 +54,15 @@
           </div>
         </div>
       {% endif %}
-      {% comment %}<div class="grid__item mobileView" style="order:2">
+      <div class="grid__item mobileView mobileRow" style="order:2">
         <h2 class="h3">{{ section.settings.title | escape }}</h2>
         <div class="rte-setting featured-row__subtext">{{ section.settings.text }}</div>
       </div>
         
-      <div class="grid__item mobileView" style="order:4">
+      <div class="grid__item mobileView mobileRow" style="order:4">
         <h2 class="h3" id="col-title2">{{ section.settings.title2 | escape }}</h2>
         <div class="rte-setting featured-row__subtext">{{ section.settings.text2 }}</div>
-      </div>{% endcomment %}
+      </div>
     </div>
           </div>
         {% endcapture %}
@@ -72,16 +72,17 @@
             {{ image_layout }}
           {% endif %}
 
-          <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }}" id="desk">
-            {% if section.settings.title != blank %}
-              <h2 class="h3" id="col-title1">{{ section.settings.title | escape }}</h2>
-              <h2 class="h3" id="col-title2" style="display:none;">{{ section.settings.title2 | escape }}</h2>
-            {% endif %}
-            {% if section.settings.text != blank %}
-              <div class="rte-setting featured-row__subtext" id="text1">{{ section.settings.text }}</div>
-              <div class="rte-setting featured-row__subtext" id="text2" hidden>{{ section.settings.text2 }}</div>
+          <div id="desk" class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }}">
+            <div id="text1">
+              <h2 class="h3">{{ section.settings.title | escape }}</h2>
+              <div class="rte-setting featured-row__subtext">{{ section.settings.text }}</div>
+            </div>
+            
+            <div id="text2" hidden>
+              <h2 class="h3" id="col-title2">{{ section.settings.title2 | escape }}</h2>
+              <div class="rte-setting featured-row__subtext">{{ section.settings.text2 }}</div>
+            </div>
 
-            {% endif %}
             {% if section.settings.button_label != blank and section.settings.button_link != blank %}
               <a href="{{ section.settings.button_link }}" class="btn" style="float: right; background-color: #EB4F47;">
                 {{ section.settings.button_label | escape }}
@@ -96,42 +97,49 @@
       </div>
     </div>
 </div>
-<br>
+
 <script>
   $('.countCol').each(function(index, value){
     $(this).attr('id','images-'+index);
   })
-  $('#images-0,#images-3').hover(function(){
-    $(this).closest('.feature-row').find('#col-title1').hide();
+  $('#images-3,#images-7').hover(function(){
     $(this).closest('.feature-row').find('#text1').hide();
-    $(this).closest('.feature-row').find('#col-title2').show();
     $(this).closest('.feature-row').find('#text2').show();
   });
-  $('#images-0, #images-3').mouseleave(function(){
-    $(this).closest('.feature-row').find('#col-title2').hide();
+  $('#images-3, #images-7').mouseleave(function(){
     $(this).closest('.feature-row').find('#text2').hide();
     $(this).closest('.feature-row').find('#text1').show();
-    $(this).closest('.feature-row').find('#col-title1').show();
-  });// 3, 7
+  });
+
 </script>
 
 <Style>
   .Image_Text {
     margin-top: 70px;
   }
+  .mobileView{
+    display:none;
+  }
   
-  /*.mobileView{display:none;}*/
   @media screen and (max-width: 768px) {
     .Image_Text {
       margin-top: 30px;
     }
-    /*.colGrid{display: grid;}
-    .collection-collage__item.one-half{height:230px;}
-    .one-half{width:100%;}
-    .mobileView{display:block;}
-    #desk{display:none;}
-    #images-0,#images-4{order:1}
-    #images-2,#images-6{order:3}*/
+    .colGrid{
+      display: grid;
+    }
+    .collection-collage__item.one-half{
+      height:230px;
+  }
+    .one-half{
+      width:100%;
+    }
+  .mobileView{
+    display:block;
+  }
+  #desk{display:none;}
+  #images-0,#images-4{order:1}
+  #images-2,#images-6{order:3}
   }
 </Style>
 
