@@ -38,6 +38,9 @@
 .slick-initialized .hero__slide:not(.slick-slide) {
   display: none;
 }
+.hero .slick-dots{
+  width: unset;
+}
 </style>
 
 <div data-section-id="{{ section.id }}"
@@ -164,10 +167,10 @@
       {%- if section.blocks.size > 1 -%}
         <div class="hero__controls wrapper">
           {%- if section.settings.hero_home_auto -%}
-            <button class="hero__pause" aria-live="polite" aria-label="{{ 'home_page.slideshow.pause' | t }}" data-label-pause="{{ 'home_page.slideshow.pause' | t }}" data-label-play="{{ 'home_page.slideshow.play' | t }}">
+            {% comment %}<button class="hero__pause" aria-live="polite" aria-label="{{ 'home_page.slideshow.pause' | t }}" data-label-pause="{{ 'home_page.slideshow.pause' | t }}" data-label-play="{{ 'home_page.slideshow.play' | t }}">
               <span class="icon icon-pause" aria-hidden="true"></span>
               <span class="icon icon-play" aria-hidden="true"></span>
-            </button>
+            </button>{% endcomment %}
           {%- endif -%}
           <ul>
             <li>
