@@ -9,7 +9,7 @@
   endcase
 -%}
 
-<section class="featured-collections" data-section-id="{{ section.id }}" data-section-type="featured-collections"{% if section.blocks.size == 1 %} data-single-collection="true"{% endif %}{% if settings.show_product_modal %} data-product-modal="true"{% endif %}{% if section.settings.quick_add %} data-quick-add="true"{% endif %}>
+<div class="wrapper featured-collections" data-section-id="{{ section.id }}" data-section-type="featured-collections"{% if section.blocks.size == 1 %} data-single-collection="true"{% endif %}{% if settings.show_product_modal %} data-product-modal="true"{% endif %}{% if section.settings.quick_add %} data-quick-add="true"{% endif %}>
   {%- if section.blocks.size > 0 -%}
     <div class="featured-collections__header" data-sticky-element>
       <div class="featured-collections__tabpanel scroller-parent">
@@ -88,7 +88,7 @@
       {{- 'home_page.onboarding.no_content' | t -}}
     {%- endfor -%}
   </div>
-</section>
+</div>
 
 <script>
   $('.featured-collections-tab__item').on('click',function(){
