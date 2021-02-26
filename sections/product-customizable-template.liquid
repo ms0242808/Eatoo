@@ -244,7 +244,7 @@
                   <option value="Truffle & Black pepper butter">Truffle & Black pepper butter</option>
                 </select>
               </p>
-            
+
               <div class="product-single__add-to-cart{% if section.settings.add_to_cart_button_size == 'large' %} product-single__add-to-cart--full-width{% endif %}">
                 <button {% for item in cart.items %} {%if item.product.title == product.title and item.product.tags contains "Limited"%}disabled{%endif%}{%endfor%}type="submit" name="add" id="AddToCart--{{ section.id }}" class="addtocart btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"{% unless current_variant.available %} disabled="disabled"{% endunless %} style="padding: 8px 10px 8px 10px; width: 161.55px; height: 44px;">
                   <span style="font-weight: bold;" class="btn__text">
