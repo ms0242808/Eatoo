@@ -70,19 +70,19 @@
           </h2>
         </noscript>
           {%- for product in collection.products limit:product_limit -%}
-                {% assign grid_item_width = 'small--one-half medium--one-half large--one-half' %}
-                {% include 'product-grid-item' %}
-            {%- endfor -%}
+            {% assign grid_item_width = 'small--one-whole medium--one-third large--one-third' %}
+            {% include 'product-grid-item' %}
+          {%- endfor -%}
           <br>
           {%- unless collection == blank -%}
             {%- if collection.products_count > product_limit -%}
-          <div style="text-align: center;">
-              <button onclick="window.location.href='{{ collection.url }}'" class="featured-collections__view-more">
-                  View more
-              </button>
-          </div>
+              <div style="text-align: center;">
+                  <button onclick="window.location.href='{{ collection.url }}'" class="featured-collections__view-more">
+                      View more
+                  </button>
+              </div>
             {%- endif -%}
-            {%- endunless -%}
+          {%- endunless -%}
       </div>
     {%- else -%}
       {{- 'home_page.onboarding.no_content' | t -}}
@@ -124,7 +124,7 @@
 
   .featured-collections__header{
     position: sticky;
-    top: 90px;
+    top: 110px;
     background-color: white;
     z-index: 1;
   }
@@ -288,6 +288,10 @@
   
   .no-js button.featured-collections__view-more {
     display: none;
+  }
+
+  .featured-collections__panel>.small--one-half:nth-child(2n+1){
+    clear:unset;
   }
 </style>
 {% schema %}
