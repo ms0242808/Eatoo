@@ -181,7 +181,7 @@
         <img alt="Vegetarian" title="Vegetarian" src="https://img.icons8.com/ios/15/000000/vegetarian-food.png">
       {% endif %}
       <span class="grid-product__title" style="font-size: 17px;">
-        {{-product.title-}}
+        {{-product.title | truncate: 18-}}
         {%- unless variant.weight == 0 -%}
          ,&nbsp;{{-variant.weight-}}{{-variant.weight_unit-}}
         {%- endunless -%}
