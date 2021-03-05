@@ -634,7 +634,7 @@
         }else if(!keyStop && post02.indexOf(postCode) == -1 && post24.indexOf(postCode) == -1 && post47.indexOf(postCode) == -1 && post725.indexOf(postCode) == -1){
           $('.mw-dd-date-wrapper label').next().attr('name','1');
           $('.mw-dd-time-wrapper label').next().attr('name','1');
-          document.getElementsByClassName("mw-dd-picker")[0].value = "1";
+          document.getElementsByClassName("mw-dd-picker")[0].value = postCode;
             $('#deliveryInfo,#deliveryMsg,#swapOption').show();
             $('#deliveryInfo').html('DPD delivery for <span class="boldf" id="deliveryFee">£12.99</span>');
             $('#deliveryMsg').html('Shipping method only available to England, Wales, and Parts of Scotland. We aim to dispatch your order within 2 - 4 working days from the date the order was placed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
