@@ -51,6 +51,10 @@
 
 {%- assign variant = product.selected_or_first_available_variant -%}
 
+{% assign flavour = product.metafields.global.flavour_tag%}
+
+{% assign allergy = product.metafields.global.allergy%}
+
 {% capture img_id_class %}ProductImage-{{ product.featured_image.id }}{% endcapture %}
 {% capture img_wrapper_id %}ProductImageWrapper-{{ product.featured_image.id }}{% endcapture %}
 {%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
@@ -63,7 +67,7 @@
 
   <div class="grid-product__wrapper">
     <div class="grid-product__image-wrapper">
-      <a style="display: none;" class="deskview quick-view grid-product__image-link{% unless product.featured_image.src == blank %} grid-product__image-link--loading{% endunless %}" data-handle="{{ product.handle }}" href="javascript:void(0);" data-image-link>
+      <a style="display: none;" class="deskview {% unless flavour == "1"%}quick-view{% endunless%} grid-product__image-link{% unless product.featured_image.src == blank %} grid-product__image-link--loading{% endunless %}" data-handle="{{ product.handle }}" {% unless flavour == "1"%}href="javascript:void(0);"{% endunless%}href="{{ product.url | within: collection }}" data-image-link>
         {% if product.featured_image.src == blank %}
 	        <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}" title="{{ product.featured_image.alt | escape }}">
         {% else %}
@@ -156,29 +160,14 @@
     </div>
 
     <a href="{{ product.url | within: collection }}" class="grid-product__meta">
-      {% if product.title == 'Bean Curd Stick' or product.title == 'Crispy Beancurd Roll' or product.title == 'Compressed Bean Curd' or product.title == 'Fried Bean Curd' or product.title == 'Frozen Tofu' or product.title == 'Fresh Tofu' %}
-        <img src="https://img.icons8.com/metro/15/000000/soy.png" alt="Soybean" title="Soybean">
-      {% elsif product.title == 'Bamboo Fungus Prawn' or product.title == 'King Prawn' or product.title == 'Lobster Ball' or product.title == 'Scallops' %}
-        <img src="https://img.icons8.com/ios/15/000000/crab.png" alt="Crustaceans" title="Crustaceans">
-      {% elsif product.title == 'Fish Ball' %}
-        <img src="https://img.icons8.com/ios/15/000000/whole-fish.png" alt="Fish" title="Fish">
-      {% elsif product.title == 'Seafood Stick' or product.title == 'Seafood Tofu' %}
-        <img src="https://img.icons8.com/ios/15/000000/whole-fish.png" alt="Fish" title="Fish">
-        <img src="https://img.icons8.com/ios/15/000000/crab.png" alt="Crustaceans" title="Crustaceans">
-      {% elsif product.title == 'Chili Oil' or product.title == 'Chili Powder' or product.title == 'Chopped Green Onion' or product.title == 'Chopped Peanuts' or product.title == 'Coriander' or product.title == 'Fermented Bean Curd Sauce' or product.title == 'Oyster Sauce' or product.title == 'Sesame Oil' or product.title == 'Sesame Sauce' or product.title == 'Thai Red Pepper'%}
-        <img src="https://img.icons8.com/ios/15/000000/worcestershire-sauce.png" alt="Sauce" title="Dipping Sauce">
-      {% elsif product.title == 'Pork Bone Base' or product.title == 'Tomato Base' %}
-        <img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png">
-        <img alt="Milk" title="Milk" src="https://img.icons8.com/ios/15/000000/milk-bottle.png">
-      {% elsif product.title == 'Mixed Mushroom Base' %}
-        <img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png">
-        <img alt="Soybean" title="Soybean" src="https://img.icons8.com/metro/15/000000/soy.png">
-      {% elsif product.title == 'Beef Fat Chilli Base' %}
-        <img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png">
-        <img alt="Soybean" title="Soybean" src="https://img.icons8.com/metro/15/000000/soy.png">
-        <img alt="Sulphur Dioxide" title="Sulphur Dioxide" src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/SO2.png?v=1578372392">
-      {% elsif product.title == 'Set for 2 people' or product.title == 'Set for 4 people' or product.title == 'Set for 6 people'%}
-        <img alt="Vegetarian" title="Vegetarian" src="https://img.icons8.com/ios/15/000000/vegetarian-food.png">
+      {% if allergy == 'soybean'%}<img src="https://img.icons8.com/metro/15/000000/soy.png" alt="Soybean" title="Soybean">
+      {% elsif allergy == 'prawn' %}<img src="https://img.icons8.com/ios/15/000000/crab.png" alt="Crustaceans" title="Crustaceans">
+      {% elsif allergy == 'fish' %}<img src="https://img.icons8.com/ios/15/000000/whole-fish.png" alt="Fish" title="Fish">
+      {% elsif allergy == 'crab, fish' %}<img src="https://img.icons8.com/ios/15/000000/whole-fish.png" alt="Fish" title="Fish"><img src="https://img.icons8.com/ios/15/000000/crab.png" alt="Crustaceans" title="Crustaceans">
+      {% elsif allergy == 'wheat, milk' %}<img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png"><img alt="Milk" title="Milk" src="https://img.icons8.com/ios/15/000000/milk-bottle.png">
+      {% elsif allergy == 'wheat, soy' %}<img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png"><img alt="Soybean" title="Soybean" src="https://img.icons8.com/metro/15/000000/soy.png">
+      {% elsif allergy == 'wheat, soy, so2' %}<img alt="Cereals containing gluten" title="Cereals containing gluten" src="https://img.icons8.com/ios/15/000000/wheat.png"><img alt="Soybean" title="Soybean" src="https://img.icons8.com/metro/15/000000/soy.png"><img alt="Sulphur Dioxide" title="Sulphur Dioxide" src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/SO2.png?v=1578372392">
+      {% elsif allergy == 'veg'%}<img alt="Vegetarian" title="Vegetarian" src="https://img.icons8.com/ios/15/000000/vegetarian-food.png">
       {% endif %}
       <span class="grid-product__title" style="font-size: 17px;">
         {{-product.title | truncate: 18-}}
@@ -245,7 +234,7 @@
           <input style="font-weight: bold;" min="1" type="number" class="js-quantity-selector" id="quantity{{variant.id}}" name="quantity" value="1"/>
         </div>
         <div class="product-single__add-to-cart">
-          <button type="submit" name="add" id="AddToCart--product-template{{variant.id}}" class="btn btn--add-to-cart btn--secondary-accent" style=" border: 0px; padding: 0px 0px 0px 10px;">
+          <button {% if flavour == "1"%} onclick="window.location.href='{{ product.url | within: collection }}'" type="button" {%else%} type="submit" name="add" id="AddToCart--product-template{{variant.id}}" {% endif %} class="btn btn--add-to-cart btn--secondary-accent" style=" border: 0px; padding: 0px 0px 0px 10px;">
             <div class="tooltip">
               <span class="icon icon-cart" aria-hidden="true">
               </span>
