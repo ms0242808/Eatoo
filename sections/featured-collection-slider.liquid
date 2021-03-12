@@ -70,7 +70,14 @@
           </h2>
         </noscript>
           {%- for product in collection.products limit:product_limit -%}
-            {% assign grid_item_width = 'small--one-whole medium--one-third large--one-third' %}
+            {% assign grid_item_width = 'small--one-half medium--one-third large--one-third' %}
+            {%if collection.title == "DIM SUM"%}
+              {% assign title_words = 16 %}
+            {% elsif collection.title == "FOOD CUPBOARD"%}
+              {% assign title_words = 10 %}
+            {%else%}
+              {% assign title_words = 12 %}
+            {%endif%}
             {% include 'product-grid-item' %}
           {%- endfor -%}
           <br>
@@ -145,7 +152,7 @@
   .featured-collections__tablist {
     margin-bottom: 0;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .featured-collections-tab__item,
