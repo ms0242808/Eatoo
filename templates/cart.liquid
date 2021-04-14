@@ -592,7 +592,7 @@
           y = await datePicker("range");
           keyStop = true;
           $(".Prime_check").css("display","block");
-        }else if(post24.indexOf(postCode) !== -1){
+        }else if(post24.indexOf(postCode) !== -1 || postCode == "SE17GT"){
           $('.mw-dd-date-wrapper label').next().attr('name','attributes[mw-delivery-date]');
           $('.mw-dd-time-wrapper label').next().attr('name','attributes[mw-delivery-time]');
           $('#deliveryDate,#deliveryInfo,#deliveryMsg').show();
