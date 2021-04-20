@@ -57,11 +57,17 @@
       <div class="grid__item mobileView mobileRow" style="order:2">
         <h2 class="h3">{{ section.settings.title | escape }}</h2>
         <div class="rte-setting featured-row__subtext">{{ section.settings.text }}</div>
+        <a href="{{ section.settings.button_link1 }}" class="btn" style="margin-bottom: 40px; background-color: #EB4F47;">
+          SHOP NOW
+        </a>
       </div>
         
       <div class="grid__item mobileView mobileRow" style="order:4">
         <h2 class="h3" id="col-title2">{{ section.settings.title2 | escape }}</h2>
         <div class="rte-setting featured-row__subtext">{{ section.settings.text2 }}</div>
+        <a href="{{ section.settings.button_link2 }}" class="btn" style="margin-bottom: 40px; background-color: #EB4F47;">
+          SHOP NOW
+        </a>
       </div>
     </div>
           </div>
@@ -364,7 +370,7 @@
     },
     {
       "type": "url",
-      "id": "button_link",
+      "id": "button_link1",
       "label": {
         "da": "Knaplink",
         "de": "Schaltflächenlink",
@@ -477,6 +483,31 @@
         "th": "<p>จับคู่ข้อความขนาดใหญ่กับรูปภาพเพื่อให้ความสำคัญกับสินค้า คอลเลกชัน หรือโพสต์บล็อกที่คุณเลือก เพิ่มรายละเอียดเกี่ยวกับความพร้อม สไตล์ หรือแม้กระทั่งเขียนรีวิว</p>",
         "zh-CN": "<p>将大文本与图片配对，以便将焦点置于您选择的产品、产品系列或博客文章。添加有关可用性和样式的详细信息，甚至是提供评论。</p>",
         "zh-TW": "<p>大型文字搭配圖片，以便強調特定產品、商品系列或部落格貼文。您可以加上各種有關可用性、樣式的資料，甚至可以提供使用心得。</p>"
+      }
+    },
+  {
+      "type": "url",
+      "id": "button_link2",
+      "label": {
+        "da": "Knaplink",
+        "de": "Schaltflächenlink",
+        "en": "Button link",
+        "es": "Enlace de botón",
+        "fi": "Painikkeen linkki",
+        "fr": "Lien du bouton",
+        "hi": "बटन लिंक",
+        "it": "Link pulsante",
+        "ja": "ボタンリンク",
+        "ko": "버튼 링크",
+        "ms": "Pautan butang",
+        "nb": "Kobling for knapp",
+        "nl": "Knoplink",
+        "pt-BR": "Link do botão",
+        "pt-PT": "Ligação do botão",
+        "sv": "Knapplänk",
+        "th": "ลิงก์ของปุ่ม",
+        "zh-CN": "按钮链接",
+        "zh-TW": "按鈕連結"
       }
     }
   ],
