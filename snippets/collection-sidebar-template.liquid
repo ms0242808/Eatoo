@@ -2,7 +2,7 @@
   Collection template, used on collection.liquid and collection.image.liquid
 {% endcomment %}
 {%for tag in collection.all_tags%}
-  {% if current_tags contains tag  and tag == "ALCOHOL"%}
+  {% if current_tags contains tag  and tag == "SAKE & SOJU" or tag == "WINE" or tag == "SPIRITS"%}
     {% render 'age-check' %}
   {%endif%}
 {%endfor%}
