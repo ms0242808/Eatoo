@@ -176,7 +176,7 @@
       <span class="grid-product__title" style="font-size: 17px;">
         {{-product.title | truncate: title_words-}}
         {%- unless variant.weight == 0 -%}
-         ,&nbsp;{{-variant.weight-}}{{-variant.weight_unit-}}
+         ,&nbsp;{{ product.variants.first.weight | weight_with_unit }}
         {%- endunless -%}
       </span>
       <span class="grid-product__price-wrap">
