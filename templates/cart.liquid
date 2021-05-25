@@ -420,17 +420,23 @@
   var noteText = '';
   var swapChoice = '';
   var submit = false;
+  var dt = '';
   $('#checkout').click(function(){
     if(!submit){
-      if($("#swap").is(':checked')){
-        noteText = $('#CartSpecialInstructions').val();
-        swapChoice = $("#swap").val();
+      if($('.mw-dd-picker').val() == ' '){
+        dt = "Standard Delivery (Selected at checkout page)";
+      }else if($('.mw-dd-time option:selected').text() == 'Self'){
+        dt = "Self-Pickup";
+      }else{
+        dt = "Delivery date: "+ $('.mw-dd-picker').val() + " time: "+ $('.mw-dd-time option:selected').text();
       }
-      else{
-        noteText = $('#CartSpecialInstructions').val();
+      noteText = $('#CartSpecialInstructions').val();
+      if($("#swap").is(':checked')){
+        swapChoice = $("#swap").val();
+      }else{
         swapChoice = $("#ask").val();
       }
-      $('#CartSpecialInstructions').val(noteText+'\r\n'+'Select Substitution Preference:'+'\r\n'+swapChoice);
+      $('#CartSpecialInstructions').val(noteText+'\r\n'+'Select Substitution Preference:'+'\r\n'+swapChoice+'\r\n'+'Delivery information: '+dt);
     }
     submit = true;
   });
@@ -447,7 +453,7 @@
     noteText = noteText.split("\n");
     var val = '';
     for(i in noteText){
-      if(noteText[i] !== "Select Substitution Preference:" && noteText[i] !== "Accept swaps" && noteText[i] !== "Do not swap"){
+      if(noteText[i] !== "Select Substitution Preference:" && noteText[i] !== "Accept swaps" && noteText[i] !== "Do not swap" && noteText[i].indexOf('D') !== 0){
         val += noteText[i]+'\r\n';
       }
     }
@@ -519,6 +525,7 @@
         $(document).on("change",".mw-dd-picker",function(){
           checkDT();
           $('.mw-dd-time-wrapper').hide();
+          $('.mw-dd-time option:selected').text("Self");
         });
       }
       return x;
@@ -593,7 +600,8 @@
             $("#selective").prop("checked", false);
             $('.mw-dd-date-wrapper label').next().attr('name','1');
             $('.mw-dd-time-wrapper label').next().attr('name','1');
-            document.getElementsByClassName("mw-dd-picker")[0].value = postCode;
+            $('.mw-dd-picker').val(" ");
+            $('.mw-dd-time option:selected').text(" ");
             $('#deliveryInfo,#deliveryMsg,#swapOption').show();
             $('#deliveryMsg').html('Shipping method only available to England, Wales, and Parts of Scotland. We aim to dispatch your order within 2 - 4 working days from the date the order was placed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
             $('.mw-dd-time-wrapper,#deliveryDate').hide();
@@ -608,7 +616,8 @@
         }else{
           $('.mw-dd-date-wrapper label').next().attr('name','1');
           $('.mw-dd-time-wrapper label').next().attr('name','1');
-          document.getElementsByClassName("mw-dd-picker")[0].value = postCode;
+          $('.mw-dd-picker').val(" ");
+          $('.mw-dd-time option:selected').text(" ");
           $('#deliveryInfo,#deliveryMsg,#swapOption').show();
           var html = '<label>Delivery option</label><div class="p10 cartB"><input id="standard" type="radio" name="properties[Standard Delivery]" value="standard" checked> <label for="standard" aria-label="Standard">Standard Delivery - £7.00</label></div>';
           $('#deliveryInfo').addClass("line-item-property__field");
