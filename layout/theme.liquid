@@ -259,5 +259,17 @@
   {% capture content %}{% include 'quickview' %}{% endcapture %}
   var content = {{ content | json }};
 </script>
+<!-- Handle registration redirect -->
+<script>
+  $(document).ready(function(){
+    var $returnTo = $('<input type="hidden" name="return_to" value="/cart" />');
+
+    if ($('#create_customer').length > 0){ //if registration form
+      $returnTo.insertBefore($('#create_customer input[type="submit"]')); // add return_to input
+    } else if ($('#g-recaptcha').length){ //if captcha form
+       $returnTo.insertBefore($('.shopify-challenge__container input[type="submit"]'));
+    }
+  });
+</script> 
 </body>
 </html>
