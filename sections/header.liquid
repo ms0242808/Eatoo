@@ -80,15 +80,15 @@
       color: #D1B159 !important;
   }
 
-  .column {
-    float: left;
+  .column, .column2 {
+    /*float: left;*/
     width: 16.66%;
     padding: 0 20px;
     height: min-content;
     /*width:fit-content;*/
   }
 
-  .column a {
+  .column a, .column2 a {
     float: none;
     color: #2D2D2D !important;
     padding: 2px;
@@ -98,17 +98,28 @@
     font-style: normal;
   }
 
+  .column2 {
+    width: 20%;
+  }
+  
+  .list2{
+    text-align: center;
+  }
+  
   .site-nav__dropdown, .site-nav__dropdown-grandchild ul{
-    background-color: unset !important;
+    background-color: white !important;
   }
 
-  .column>site-nav__item {
+.menu2{
+    background-color: white;
+  }
+/*  .column>site-nav__item {
     position: static;
   }
 
   .site-nav--has-dropdown{
     position: static;
-  }
+  }*/
   
   .category{
     font-weight:bold;
@@ -440,6 +451,39 @@
 
         </div>
       </header>
+      <div class="grid__item menu2 medium-up-one-quarter large--text-left medium-down--hide" role="navigation">
+          <ul class="list2" id="AccessibleNav">
+            {% for link in linklists[section.settings.drawer_bottom_link_list].links %}
+            {% if link.links != blank %}
+                  {% assign parent_index = forloop.index %}
+          <li class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}" aria-haspopup="true" data-meganav-type="parent">
+                      <a style="font-weight: bold;" href="{{ link.url }}" class="site-nav__link" data-meganav-type="parent" aria-controls="MenuParent-{{ parent_index }}" aria-expanded="false" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                          <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                      </a>
+                      <ul id="MenuParent-{{ parent_index }}" class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %} menubg2" data-meganav-dropdown>
+                        {% for childlink in link.links %}
+              {% assign child_index = forloop.index %}
+              <div class="column2">
+                              <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                                <a href="{{ childlink.url }}" class="site-nav__dropdown-link" data-meganav-type="child" {% if childlink.active %}aria-current="page"{% endif %} tabindex="-1">
+                                    {{ childlink.title | escape }}
+                                </a>
+                              </li>
+              </div>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}" style="position: static;">
+                      <a style="font-weight: bold;" href="{{ link.url }}" class="site-nav__link" data-meganav-type="child" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                      </a>
+                    </li>
+        {% endif %}
+          {% endfor %}
+          </ul>
+        </div>
     </div>
   </div>
 </div>
@@ -549,31 +593,7 @@
         "zh-TW": "商標"
       }
     },
-    {
-      "type": "image_picker",
-      "id": "prime-logo1",
-      "label": {
-        "da": "Logo",
-        "de": "Logo",
-        "en": "Prime-Logo-inverted",
-        "es": "Logo",
-        "fi": "Logo",
-        "fr": "Logo",
-        "hi": "लोगो",
-        "it": "Logo",
-        "ja": "ロゴ",
-        "ko": "로고",
-        "ms": "Logo",
-        "nb": "Logo",
-        "nl": "Logo",
-        "pt-BR": "Logotipo",
-        "pt-PT": "Logótipo",
-        "sv": "Logotyp",
-        "th": "โลโก้",
-        "zh-CN": "logo",
-        "zh-TW": "商標"
-      }
-    },
+
     {
       "type": "image_picker",
       "id": "logo-inverted",
@@ -1035,13 +1055,59 @@
         "zh-TW": "在此公告資訊"
       }
     },
-    {
+      {
       "type": "text",
       "id": "text3",
       "label": {
         "da": "Tekst",
         "de": "Text",
         "en": "Text3",
+        "es": "texto",
+        "fi": "Teksti",
+        "fr": "Texte",
+        "hi": "टेक्स्ट",
+        "it": "Testo",
+        "ja": "テキスト",
+        "ko": "텍스트",
+        "ms": "Teks",
+        "nb": "Tekst",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "pt-PT": "Texto",
+        "sv": "Text",
+        "th": "ข้อความ",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": {
+        "da": "Meddel noget her",
+        "de": "Hier Ankündigung platzieren",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fi": "Ilmoita jotakin tässä",
+        "fr": "Annoncer quelque chose ici",
+        "hi": "यहां कुछ घोषित करें",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "ko": "여기에 공지하십시오",
+        "ms": "Mengumumkan sesuatu di sini",
+        "nb": "Kunngjør noe her",
+        "nl": "Kondig hier iets aan",
+        "pt-BR": "Anuncie algo aqui",
+        "pt-PT": "Anunciar algo aqui",
+        "sv": "Meddela något här",
+        "th": "ประกาศข้อความที่นี่",
+        "zh-CN": "在此处进行公告",
+        "zh-TW": "在此公告資訊"
+      }
+    },
+      {
+      "type": "text",
+      "id": "text4",
+      "label": {
+        "da": "Tekst",
+        "de": "Text",
+        "en": "Text4",
         "es": "texto",
         "fi": "Teksti",
         "fr": "Texte",
