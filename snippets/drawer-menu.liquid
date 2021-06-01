@@ -5,7 +5,7 @@
     {% endif %}
 
     <ul class="mobile-nav">
-      {% for link in linklists[section.settings.main_menu_link_list].links %}
+      {% for link in linklists[section.settings.drawer_menu_link_list].links %}
         {% if link.links != blank %}
           <li class="mobile-nav__item">
             <div class="mobile-nav__has-sublist">
