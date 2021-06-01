@@ -453,7 +453,7 @@
       </header>
       <div class="grid__item menu2 medium-up-one-quarter large--text-left medium-down--hide" role="navigation">
           <ul class="list2" id="AccessibleNav">
-            {% for link in linklists[section.settings.drawer_bottom_link_list].links %}
+            {% for link in linklists[section.settings.main_link_list2].links %}
             {% if link.links != blank %}
                   {% assign parent_index = forloop.index %}
           <li class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}" aria-haspopup="true" data-meganav-type="parent">
@@ -838,7 +838,7 @@
     },
     {
       "type": "link_list",
-      "id": "drawer_bottom_link_list",
+      "id": "main_link_list2",
       "label": {
         "da": "Sekundær sidebjælkemenu",
         "de": "Zusätzliches Menü",
@@ -860,7 +860,33 @@
         "zh-CN": "辅助侧边栏菜单",
         "zh-TW": "次要側邊欄選單"
       },
-      "default": "footer"
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu_link_list",
+      "label": {
+        "da": "Sekundær sidebjælkemenu",
+        "de": "Zusätzliches Menü",
+        "en": "Drawer sidebar menu",
+        "es": "Menú adicional",
+        "fi": "Sivupalkkivalikko",
+        "fr": "Menu supplémentaire",
+        "hi": "माध्यमिक साइडबार मेनू",
+        "it": "Menu aggiuntivo",
+        "ja": "追加メニュー",
+        "ko": "보조 사이드바 메뉴",
+        "ms": "Menu bar sisi sekunder",
+        "nb": "Sekundær meny i sidefeltet",
+        "nl": "Secundair zijbalkmenu",
+        "pt-BR": "Menu adicional",
+        "pt-PT": "Menu lateral secundário",
+        "sv": "Sekundär sidofältsmeny",
+        "th": "เมนูแถบด้านข้างรอง",
+        "zh-CN": "辅助侧边栏菜单",
+        "zh-TW": "次要側邊欄選單"
+      },
+      "default": "main-menu"
     },
     {
       "type": "checkbox",
