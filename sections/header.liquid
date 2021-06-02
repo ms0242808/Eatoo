@@ -3,16 +3,24 @@
     max-width: 90px;
   }
 
+  .h-menu{
+    float: left !important;
+  }
+
   .h-logo{
     margin: 0 auto;
   }
   
   .site-nav__link{
-    color: black !important;  
+    /*color: white !important;  */
   }
   
+  .item1{
+    color: white;
+  }
+
   .burger-icon{
-    background: black !important;
+    /*background: black !important;*/
    }
 
   @media screen and (max-width: 768px) {
@@ -21,7 +29,7 @@
     }
 
     .burger-icon{
-      background: black !important;
+      /*background: black !important;*/
     }
   }
 
@@ -108,6 +116,7 @@
   
   .site-nav__dropdown, .site-nav__dropdown-grandchild ul{
     background-color: white !important;
+    z-index: 99999;
   }
 
 .menu2{
@@ -211,7 +220,7 @@
                   - http://docs.shopify.com/themes/liquid-variables/linklists
               {% endcomment %}
               <!-- begin site-nav -->
-              <ul class="site-nav h-menu" id="AccessibleNav">
+              <ul class="site-nav h-menu" id="AccessibleNav" hidden>
                 {% for link in linklists[section.settings.main_menu_link_list].links %}
                   {% if link.links != blank %}
                   {% assign parent_index = forloop.index %}
@@ -380,7 +389,7 @@
                         {% assign search_modal = false %}
                       {% endif %}
                       <li class="site-nav__item site-nav__item--compressed">
-                        <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
+                        <a href="{{ routes.search_url }}" class="item1 site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
                           <span class="icon-fallback-text">
                             <span class="icon icon-search" aria-hidden="true"></span>
                             <span class="fallback-text">{{ 'general.search.title' | t }}</span>
@@ -390,7 +399,7 @@
                     {% endif %}
 
                     <li class="site-nav__item site-nav__item--compressed">
-                      <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer" style="top: 3px;">
+                      <a href="{{ routes.cart_url }}" class="item1 site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer" style="top: 3px;">
                         <span class="icon-fallback-text">
                           <span class="icon icon-cart" aria-hidden="true" style="font-size: 24px;"></span>
                           <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
@@ -405,7 +414,7 @@
                     </li>{%comment%}{%endcomment%}
                   {% if shop.customer_accounts_enabled %}
                       <li class="site-nav__item site-nav__item--compressed" style="margin-left:7px;">
-                        <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}">
+                        <a class="item1 site-nav__link site-nav__link--icon" href="{{ routes.account_url }}">
                           <span class="icon-fallback-text">
                             <span class="icon icon-customer" aria-hidden="true"></span>
                             <span class="fallback-text">
@@ -429,8 +438,8 @@
                   {% if section.settings.search == 'page' %}
                     {% assign search_modal = false %}
                   {% endif %}
-                  <li class="site-nav__item site-nav__item--compressed" style="position: absolute; display: block;margin-left: 7px;">
-                    <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
+                  <li class="site-nav__item item1 site-nav__item--compressed" style="position: absolute; display: block;margin-left: 7px;">
+                    <a href="{{ routes.search_url }}" class="item1 site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
                       <span class="icon-fallback-text">
                         <span class="icon icon-search" aria-hidden="true"></span>
                         <span class="fallback-text">{{ 'general.search.title' | t }}</span>
@@ -438,7 +447,7 @@
                     </a>
                   </li>
                 {% endif %}
-                <a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                <a href="{{ routes.cart_url }}" class="item1 site-nav__link cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
                   <span class="icon-fallback-text">
                     <span class="icon icon-cart" aria-hidden="true"></span>
                     <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
@@ -451,7 +460,31 @@
 
         </div>
       </header>
-      <div class="grid__item menu2 medium-up-one-quarter large--text-left medium-down--hide" role="navigation">
+      <div class="grid__item menu2 medium-up-one-quarter large--text-left medium-down--hide" role="navigation" style="color: black !important;">
+          <ul class="site-nav h-menu" id="AccessibleNav">
+            {% for link in linklists[section.settings.main_menu_link_list].links %}
+              {% if link.links != blank %}
+              {% assign parent_index = forloop.index %}
+                <li class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}"aria-haspopup="true" data-meganav-type="parent">
+                  <a style="font-weight: bold;" href="{{ link.url }}"class="site-nav__link" data-meganav-type="parent" aria-controls="MenuParent-{{ parent_index }}" aria-expanded="false"
+                    {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                      {{ link.title | escape }}
+                      <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                  </a>
+                </li>
+              {% else %}
+                <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}" style="position: static;">
+                  <a style="font-weight: bold;"
+                    href="{{ link.url }}"
+                    class="site-nav__link"
+                    data-meganav-type="child"
+                    {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                      {{ link.title | escape }}
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
           <ul class="list2" id="AccessibleNav">
             {% for link in linklists[section.settings.main_link_list2].links %}
             {% if link.links != blank %}
