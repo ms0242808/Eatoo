@@ -195,66 +195,51 @@
           <div style="border-top: 1px solid #1C1D1D;"></div>-->
 
           <div class="grid__item rightGrid">  <!--class="cart__row cart__row--last"-->
-            <div class="grid--small dipping-sauce" style="margin-bottom: 10px;">
-              {% assign collection = collections.dipping-sauce %}
-              {% include 'cart-recommendations'%}
-            </div>
-            <div class="grid--small" style="padding-right:0px;">
-                <p style="float: none; clear: both; margin: 10px 0;">
-                  <!--input class="required" type="checkbox" name="properties[Cutlery Request]" value="Require cutlery" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"-->
-                  <em class="boldf text-upper">Cutlery <i class="fab fa-pagelines" style="margin-left: 3px; color:green;"></i></em>
-                  <br>
-                <a>Help us reduce plastic waste - only request cutlery when you need it.</a>
-                </p>
-                
-                <form action="/cart" method="post">
-                  {% assign collection = collections.optional %}
+            
+            <!-- Delivery date and time picker & Discount Code -->
+            <div class="grid grid--small">
+              <div class="grid--full cart__row--table sideCard" >
+                <div class="grid__item large--text-center">
+                  <p class="cart__subtotal boldf" style="margin-bottom:0px; height:30px;">
+                    {{ 'cart.general.subtotal' | t }} {{ cart.total_price | money }}
+                    <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>
+                  </p>
+                </div>
+              </div>
+              
+              <div class="note-cart subs sideCard" id="swapOption" style="margin-top:20px;"><!-- substitution -->
+                <div class="grid--small dipping-sauce" style="margin:0 0 0 10px;">
+                  {% assign collection = collections.dipping-sauce %}
+                  {% include 'cart-recommendations'%}
+                </div>
+
+                <div class="grid--small" style="padding-right:0px;margin: 0 0 0 10px;">
+                  <p style="float: none; clear: both; margin: 10px 0;">
+                    <!--input class="required" type="checkbox" name="properties[Cutlery Request]" value="Require cutlery" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"-->
+                    <em class="boldf text-upper">Cutlery <i class="fab fa-pagelines" style="margin-left: 3px; color:green;"></i></em>
+                    <br>
+                    <a>Help us reduce plastic waste - only request cutlery when you need it.</a>
+                  </p>
+                  <form action="/cart" method="post">
+                    {% assign collection = collections.optional %}
                     {% for product in collection.products %}
-                        {% if product.available and product.title == "Tableware Sets" %}
-                            {% for variant in product.variants %}
-                                {% if variant.available %}
-                                    <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id  }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
+                      {% if product.available and product.title == "Tableware Sets" %}
+                        {% for variant in product.variants %}
+                          {% if variant.available %}
+                              <input type="checkbox" style="display:none;" name="updates[{{ variant.id }}]" id="updates_{{ variant.id  }}" class="cart__product-qty" value="1" {% unless item.variant.inventory_management == blank or item.variant.inventory_policy == 'continue' %} max="{{ item.variant.inventory_quantity }}" {% endunless %} min="0" data-id="{{ item.key }}" checked>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
                     {% endfor %}
                     <div style="padding-right:15px;">
                       <button type="submit" value="ADD" class="btn--secondary large--one-third boldf" style="float:right;height:30px;width:90px;padding:0 10px;"><i class="fas fa-plus"></i> ADD</button>
                       <br><br>
                     </div>
-                </form>
-                <hr class="div_hr">
-              </div>
-            <!-- Delivery date and time picker & Discount Code -->
-            <div class="grid grid--small">
-              <p class="boldf text-upper" style="margin:10px 0;">Select a delivery method</p>
-              <div class="align--top-middle">
-                <div style="padding-right:0px;" id="deliveryMethod">
-                  <button class="p20 cartB" type="button" id="deliveryBtn"><i class="fas fa-shipping-fast"></i> Delivery</button>
-                  <button class="p20 cartB" type="button" id="selfBtn"><i class="fas fa-box"></i> Self-Pickup</button>
-                  <p class="agree-box" style="float: none; clear: both; margin: 10px;"></p>
+                  </form>
                   <hr class="div_hr">
                 </div>
-              </div>
-              <div style="padding-right:0px;" id="deliveryPostcode" hidden>
-                <p class="agree-boxx boldf text-upper" style="float: none; clear: both; margin: 10px 0;">Enter your postcode</p>
-                <input class="w100" type="text" id="postCode" placeholder="Enter the postcode..." />
-                <p id="deliveryInfo" hidden>Delivery fee costs <span class="boldf" id="deliveryFee"></span></p>
-                <p id="deliveryMsg" hidden>Free delivery for orders over <span class="boldf" id="deliveryNote"></span></p>
-                <hr class="div_hr">
-              </div>
-            
-              <div id="deliveryDate" hidden>
-                <div class="cart-form" id="deliveryDatePicker">
-                  <div class="right-col" id="right-column">
-                  </div>
-                </div>
-                <div id="selfInfo"></div>
-                <hr class="div_hr">
-              </div>
-              
-              <div class="note-cart subs" id="swapOption" hidden><!-- substitution -->
-                <div style="padding-right:0px;">
+
+                <div style="padding-right:0px; margin-left:10px;">
                   <p class="agree-box" style="float: none; clear: both; margin: 10px;">
                     <div class="swaptooltip">
                       <em class="boldf text-upper">Selcet Substitution Preference <i class="fas fa-info-circle"></i></em>
@@ -264,6 +249,7 @@
                     <input required id="ask" class="required" type="radio" name="properties[Selecet Substitution Preference]" value="Do not swap" style="float:none; vertical-align: middle; margin: 0 3px 0 0;"> <span>Do not swap</span>
                   </p>
                 </div>
+
                 <div class="Prime_check cart__note" style="padding-right:0px; display:none;">
                   <br>
                   <em class="boldf">JOIN EATOO PLUS</em> <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#d1b159"><path d="M86,7.16667c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,6.01888 3.72331,11.08594 8.95833,13.21354l-23.29167,58.45313l-32.02604,-26.65104c2.07162,-2.49153 3.35938,-5.68294 3.35938,-9.18229c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,7.92253 6.41081,14.33333 14.33333,14.33333c0.97982,0 1.98763,-0.02799 2.91146,-0.22396l12.09375,57.55729h113.32292l12.09375,-57.55729c0.92383,0.19597 1.93164,0.22396 2.91146,0.22396c7.92253,0 14.33333,-6.41081 14.33333,-14.33333c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333c-7.92253,0 -14.33333,6.41081 -14.33333,14.33333c0,3.49935 1.28776,6.69076 3.35938,9.18229l-32.02604,26.65104l-23.29167,-58.45312c5.23503,-2.1276 8.95833,-7.19466 8.95833,-13.21354c0,-7.92253 -6.41081,-14.33333 -14.33333,-14.33333zM28.66667,136.16667v21.5h114.66667v-21.5z"></path></g></g></svg>
@@ -273,11 +259,51 @@
                   </a>
                   <br>
                   <a class="btn--secondary large--one-third boldf" style="float:right; background-color:#c65a17; margin-bottom: 10px;" href="/products/eatoo-plus">JOIN NOW</a>
-                  <br>
+                  <br><br>
                 </div>
-                <hr class="div_hr">
               </div>
 
+              <div class="align--top-middle sideCard" style="margin-top:20px;">
+                <p class="boldf text-upper" style="margin:10px 0;">Select a delivery method</p>
+                <div style="padding-right:0px;" id="deliveryMethod">
+                  <button class="p20 cartB" type="button" id="deliveryBtn"><i class="fas fa-shipping-fast"></i> Delivery</button>
+                  <button class="p20 cartB" type="button" id="selfBtn"><i class="fas fa-box"></i> Self-Pickup</button>
+                  <p class="agree-box" style="float: none; clear: both; margin: 10px;"></p>
+                </div>
+              </div>
+
+              <div class="sideCard" style="padding-right:0px;" id="deliveryPostcode" hidden>
+                <p class="agree-boxx boldf text-upper" style="float: none; clear: both; margin: 10px 0 0 10px;">Enter your postcode</p>
+                <input style="width:90%; margin:0 15px 15px 15px;" type="text" id="postCode" placeholder="Enter the postcode..." />
+
+                <!-- <p id="deliveryInfo" hidden>Delivery fee costs <span class="boldf" id="deliveryFee"></span></p>
+                <p id="deliveryMsg" hidden>Free delivery for orders over <span class="boldf" id="deliveryNote"></span></p> -->
+
+                <span id="deliveryTitle" hidden>Delivery option</span><br>
+                <div class="p10 cartB" id="deliveryOpt1" hidden>
+                  <input id="selective" type="radio" name="properties[Nominated Delivery]" value="nominated"> 
+                  <label class="text-upper deliveryLabel" for="selective" aria-label="Selective">Premium Delivery</label>
+                  <br><span>+£9.00 delivery on selected date</span>
+                </div>
+                
+                <div class="p10 cartB" id="deliveryOpt2" hidden><input id="standard" type="radio" name="properties[DPD Delivery]" value="standard">
+                  <label class="text-upper deliveryLabel" for="standard" aria-label="Standard">Standard Delivery free over £80</label>
+                  <br><span>+£7.00 for order under £80<br>Dispatch next working day</span>
+                </div>
+                
+                <p id="#deliveryError" style="margin:10px;" hidden>Please enter a valid UK postcode</p>
+                <p id="deliveryInfo" style="margin:10px;" hidden>Delivery fee costs <span class="boldf" id="deliveryFee"></span></p>
+                <p id="deliveryMsg" style="margin:10px;" hidden>Free delivery for orders over <span class="boldf" id="deliveryNote"></span></p>
+              </div>
+            
+              <div id="deliveryDate" style="margin-top:20px;"hidden>
+                <div class="cart-form" id="deliveryDatePicker">
+                  <div class="right-col sideCard" id="right-column">
+                    <div id="selfInfo"></div>
+                  </div>
+                </div>
+              </div>
+              
               <div class="grid__item note-cart">
                 {% if settings.cart_notes_enable %}
                 <div style="padding-right:0px;">
@@ -310,12 +336,12 @@
                 </div>
                 {%- endif -%}
                 <div class="grid--full cart__row--table">
-                  <div class="grid__item large--text-center">
+                  <!-- <div class="grid__item large--text-center">
                     <p class="cart__subtotal boldf">{{ 'cart.general.subtotal' | t }}</p>
                   </div>
                   <div class="grid__item">
                     <p class="cart__subtotal boldf"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
-                  </div>
+                  </div> -->
                 </div>
 
                 {%- capture taxes_shipping_checkout -%}
@@ -379,6 +405,19 @@
     }
   });
 
+  function addShipping(){
+    jQuery.post('/cart/add.js',{
+      items: [{
+          quantity: 1,
+          id: 30722410217527
+      }]
+    });
+  }
+  
+  function removeShipping(){
+    jQuery.post('/cart/update.js', {updates: {30722410217527: 0}});
+  }
+  
   function getMonth(date) {
     var month = date.getMonth() + 1;
     return month < 10 ? '0' + month : '' + month;
@@ -491,14 +530,14 @@
       $('.mw-dd-date-wrapper > label > span').text('Choose a Self-Pickup date');
       $('.mw-dd-date-wrapper > label > span').addClass('text-upper');
       $('#deliveryDate,#swapOption,#selfInfo').show();
-      $('.Prime_check').hide();
+      // $('.Prime_check').hide();
     });
   
     $('#deliveryBtn').click(function(){
       $(this).addClass('bActive');
       $('#selfBtn').removeClass('bActive');
       $('#postCode').val('');
-      $('#deliveryInfo,#deliveryMsg,#deliveryDate,#swapOption,#selfInfo,.Prime_check').hide();
+      $('#deliveryInfo,#deliveryMsg,#deliveryDate,#selfInfo,.Prime_check').hide();
       $('.mw-dd-date-wrapper > label > span').text('Choose a Delivery date/time');
       $('.mw-dd-date-wrapper > label > span').addClass('text-upper');
       $('#deliveryPostcode').show();
@@ -573,7 +612,7 @@
     var keyStop = false;
     var y = "";
     $('#postCode').keyup(async function(){
-      $(".Prime_check,#swapOption").css("display","none");
+      // $(".Prime_check,#swapOption").css("display","none");
       var postCode = $('#postCode').val();
       postCode = postCode.split(" ").join("").toUpperCase();
       keyStop = false;
@@ -581,12 +620,9 @@
         if(post055.indexOf(postCode) !== -1){
           $('.mw-dd-date-wrapper label').next().attr('name','attributes[mw-delivery-date]');
           $('.mw-dd-time-wrapper label').next().attr('name','attributes[mw-delivery-time]');
-          $('#deliveryInfo').show();
-          var html = '<span>Delivery option</span><br><div class="p10 cartB"><input id="selective" type="radio" name="properties[Premier Delivery]" value="premier"> <label for="selective" aria-label="Selective">Premier Delivery - £9.00</label></div><div class="p10 cartB"><input id="standard" type="radio" name="properties[Standard Delivery]" value="standard"> <label for="standard" aria-label="Standard">Standard Delivery - £7.00</label></div>';
-          $('#deliveryInfo').addClass("line-item-property__field");
-          $('#deliveryInfo').html(html);
+          $('deliveryTitle,#deliveryOpt1,#deliveryOpt2').show();
           $('#deliveryDate,.mw-dd-time-wrapper,.Prime_check').hide();
-          $(".Prime_check").css("display","none");
+
           $('#selective').click(async function() {
             $("#selective").prop("checked", true);
             $("#standard").prop("checked", false);
@@ -602,36 +638,33 @@
             $('.mw-dd-time-wrapper label').next().attr('name','1');
             $('.mw-dd-picker').val(" ");
             $('.mw-dd-time option:selected').text(" ");
-            $('#deliveryInfo,#deliveryMsg,#swapOption').show();
-            $('#deliveryMsg').html('Shipping method only available to England, Wales, and Parts of Scotland. We aim to dispatch your order within 2 - 4 working days from the date the order was placed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
-            $('.mw-dd-time-wrapper,#deliveryDate').hide();
-            $(".Prime_check").css("display","block");
+            $('#swapOption,.Prime_check').show();
+            $('#deliveryMsg,#deliveryInfo,.mw-dd-time-wrapper,#deliveryDate,#deliveryError').hide();
             keyStop = true;
           });
         }else if(!keyStop && postCode.substr(0, 2) == "BT"){
-          $('#deliveryInfo').show();
-          $('#deliveryDate,#deliveryMsg').hide();
+          // $('#deliveryInfo').show();
+          // $('#deliveryDate,#deliveryMsg').hide();
+          // $('#deliveryInfo').html('Currently we only deliverys to England, Wales, and Parts of Scotland.');
+          // keyStop = true;
           $('#deliveryInfo').html('Currently we only deliverys to England, Wales, and Parts of Scotland.');
+          $('#deliveryInfo').show();
+          $('#deliveryTitle,#deliveryOpt1,#deliveryOpt2,#deliveryDate,#deliveryMsg,#deliveryError').hide();
           keyStop = true;
         }else{
+          $(".Prime_check").css("display","block");
           $('.mw-dd-date-wrapper label').next().attr('name','1');
           $('.mw-dd-time-wrapper label').next().attr('name','1');
-          $('.mw-dd-picker').val(" ");
-          $('.mw-dd-time option:selected').text(" ");
-          $('#deliveryInfo,#deliveryMsg,#swapOption').show();
-          var html = '<label>Delivery option</label><div class="p10 cartB"><input id="standard" type="radio" name="properties[Standard Delivery]" value="standard" checked> <label for="standard" aria-label="Standard">Standard Delivery - £7.00</label></div>';
-          $('#deliveryInfo').addClass("line-item-property__field");
-          $('#deliveryInfo').html(html);
+          document.getElementsByClassName("mw-dd-picker")[0].value = postCode;
           $('#deliveryMsg').html('Shipping method only available to England, Wales, and Parts of Scotland. We aim to dispatch your order within 2 - 4 working days from the date the order was placed. <a href="https://www.eatoo.co.uk/pages/faqs" style="text-decoration:underline">More information</a>');
-          $('.mw-dd-time-wrapper,#deliveryDate').hide();
-          $(".Prime_check").css("display","block");
+          $('deliveryTitle,#deliveryOpt2,#deliveryMsg,#swapOption').show();
+          $('#deliveryInfo').addClass("line-item-property__field");
+          $('#deliveryInfo,#deliveryError,#deliveryOpt1,.mw-dd-time-wrapper,#deliveryDate,#deliveryError').hide();
           keyStop = true;
         }
       }else{
-        $('#deliveryInfo').show();
-        $('#deliveryDate,#deliveryMsg').hide();
-        $('#deliveryInfo').html('Please enter a valid UK postcode');
-        $(".Prime_check").css("display","none");
+        $('#deliveryError').show();
+        $('#deliveryInfo,#deliveryDate,#deliveryMsg,#deliveryTitle,#deliveryOpt1,#deliveryOpt2').hide();
       }
     });
 
@@ -651,6 +684,22 @@
 </script>
 
 <style>
+  .deliveryLabel{
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  #mw-dd-container{
+    width: 100%;
+  }
+  
+  .sideCard{
+    background-color: #ededed;
+    border-radius: 5px;
+    box-shadow: 3px 3px #eaeaea;
+    color:black;
+  }
+
   .main-content {
      margin-top: 60px;
   }
