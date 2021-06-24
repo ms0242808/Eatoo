@@ -6,7 +6,18 @@
     - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
 
 {% endcomment %}
-    <br><br><br><br>
+<br><br><br><br>
+{% for item in cart.items %}
+  {% if item.product.id == 6785917976769 %}
+  <script>
+    function removeShipping(){
+      jQuery.post('/cart/update.js', {updates: {40173703233729 : 0}});
+      window.location.href = '/cart';
+    }
+    removeShipping();
+  </script>
+ {% endif %}
+{% endfor %}
 <div class="grid">
   <div class="grid__item medium-up--four-fifths medium-up--push-one-tenth cwidth">
     {% if cart.item_count > 0 %}
@@ -335,14 +346,14 @@
                   </div>
                 </div>
                 {%- endif -%}
-                <div class="grid--full cart__row--table">
-                  <!-- <div class="grid__item large--text-center">
+                 <!-- <div class="grid--full cart__row--table">
+                 <div class="grid__item large--text-center">
                     <p class="cart__subtotal boldf">{{ 'cart.general.subtotal' | t }}</p>
                   </div>
                   <div class="grid__item">
                     <p class="cart__subtotal boldf"><span class="wh-original-cart-total"><span class='wh-original-price'><span class=''><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>{{ cart.total_price | money }}</span></span></span><span class="wh-cart-total"></span><div class="additional-notes"><span class="wh-minimums-note"></span><span class="wh-extra-note"></span></div></p>
-                  </div> -->
-                </div>
+                  </div> 
+                </div>-->
 
                 {%- capture taxes_shipping_checkout -%}
                   {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
@@ -406,16 +417,11 @@
   });
 
   function addShipping(){
-    jQuery.post('/cart/add.js',{
-      items: [{
-          quantity: 1,
-          id: 30722410217527
-      }]
-    });
+    jQuery.post('/cart/update.js', {updates: {40173703233729 : 1}});
   }
   
   function removeShipping(){
-    jQuery.post('/cart/update.js', {updates: {30722410217527: 0}});
+    jQuery.post('/cart/update.js', {updates: {40173703233729: 0}});
   }
   
   function getMonth(date) {
@@ -565,6 +571,7 @@
           checkDT();
           $('.mw-dd-time-wrapper').hide();
           $('.mw-dd-time option:selected').text("Self");
+          removeShipping();
         });
       }
       return x;
@@ -630,6 +637,7 @@
             $('.mw-dd-time-wrapper,#deliveryMsg').hide();
             y = await datePicker("range");
             keyStop = true;
+            addShipping();
           });
           $('#standard').click(async function() {
             $("#standard").prop("checked", true);
@@ -641,6 +649,7 @@
             $('#swapOption,.Prime_check').show();
             $('#deliveryMsg,#deliveryInfo,.mw-dd-time-wrapper,#deliveryDate,#deliveryError').hide();
             keyStop = true;
+            removeShipping();
           });
         }else if(!keyStop && postCode.substr(0, 2) == "BT"){
           // $('#deliveryInfo').show();
@@ -661,6 +670,7 @@
           $('#deliveryInfo').addClass("line-item-property__field");
           $('#deliveryInfo,#deliveryError,#deliveryOpt1,.mw-dd-time-wrapper,#deliveryDate,#deliveryError').hide();
           keyStop = true;
+          removeShipping();
         }
       }else{
         $('#deliveryError').show();
