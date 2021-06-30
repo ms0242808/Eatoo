@@ -58,6 +58,32 @@
   <div class="featured-collections__wrapper" data-featured-collections-wrapper>
     {%- for block in section.blocks -%}
       {%- assign collection = collections[block.settings.collection] -%}
+      {% assign availableProducts = '' %}
+      {% unless collection.all_products_count >= 50 %}
+        {% assign unsortedProducts = collection.products | reverse | reverse %}
+        {% for product in unsortedProducts %}
+          {% assign sliceIndex = forloop.index0 %}
+          {% assign aProduct = unsortedProducts | slice: sliceIndex, 1 %}
+          {% if product.available == true %}
+            {% if availableProducts.size == 0 %}
+              {% assign availableProducts = aProduct %}
+            {% else %}
+              {% assign availableProducts = availableProducts | concat:aProduct %}
+            {% endif %}
+          {% else %}
+            {% if unavailableProducts.size == 0 %}
+              {% assign unavailableProducts = aProduct %}
+            {% else %}
+              {% assign unavailableProducts = unavailableProducts | concat: aProduct %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% assign sortedProducts = collection.products %}
+        {% if unavailableProducts.size > 0 and availableProducts.size > 0 %}
+          {% assign sortedProducts = availableProducts | concat:unavailableProducts %}
+        {% endif %}
+      {% endunless %}
+
       <div class="featured-collections__panel{% if forloop.first %} featured-collections__panel--active featured-collections__panel--visible{% endif %}" role="tabpanel" id="{{ block.id }}-tab-panel" aria-labelledby="{{ block.id }}-tab" data-featured-collections-tab-panel data-collection-title="{{ collection.title }}" {% unless collection == blank %} {% if collection.products_count > product_limit %} data-view-more="true"{% endif %}{% endunless %}>
         <noscript>
           <h2 class="featured-collections__title">
@@ -78,7 +104,12 @@
             {%else%}
               {% assign title_words = 12 %}
             {%endif%}
-            {% include 'product-grid-item' %}
+            {%if collection.all_products_count >= 50%}
+              {% include 'product-grid-item' %}
+            {%else%}
+              {% assign sortedProductsIndex = 0 | plus: forloop.index0 %}
+              {% include 'product-grid-item', product: sortedProducts[sortedProductsIndex] %}
+            {%endif%}
           {%- endfor -%}
           <br>
           {%- unless collection == blank -%}
