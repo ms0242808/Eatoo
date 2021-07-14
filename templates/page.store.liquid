@@ -1,0 +1,174 @@
+<script type="text/javascript"
+src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script type="text/javascript">
+emailjs.init('user_Nk0NlEPPY6HXKUWshFtjy')
+</script>
+<div class="grid">
+
+  <div class="grid__item large--five-sixths push--large--one-twelfth">
+
+    <header class="section-header text-center" style="margin-bottom: 0px;">
+      <h2 style="font-size: 2em;"><b>{{ page.title }}</b></h2>
+      <hr class="hr--small">
+    </header>
+
+    <div class="grid">
+      <div class="grid__item large--four-fifths push--large--one-tenth">
+        <div class="rte rte--nomargin rte--indented-images">
+          
+        </div>
+        <div class="feature-row" style="padding-top: 0px;">
+          <div class="ffeature-row__item feature-row__text " style="text-align: start;">
+            <p><b>DINING FRIDAY AND SATURDAY ONLY</b></p>
+            <p><b>EMAIL</b></p>
+            <p class="Cicon"><i class="far fa-envelope" style="font-size: 18px;"></i><span class="details">holborn@eatoo.co.uk</span></p>
+            <br>
+            <p><b>RESERVATION NUMBBER</b></p>
+            <p class="Cicon" style="all:unset"><i class="fas fa-phone" style="font-size: 18px;"></i><span class="details">02076377773</span></p>
+          </div>
+          <div class="eature-row__item" style="flex: 0 1 50%;">
+            <img src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/Eatoo_Holborn_store_1_480x480.jpg?v=1626228712" alt="contact us" title="EATOO HOLBORN | Eatoo UK"  />
+          </div>
+        </div>
+        <br><br>
+        <div class="feature-row" style="padding-top: 0px;">
+          <div class="feature-row__item" style="text-align: start;">
+            <img src="https://cdn.shopify.com/s/files/1/0093/0306/4631/files/Eatoo_Holborn_store_2_480x480.jpg?v=1626228773" alt="EATOO HOLBORD | Eatoo UK" />
+          </div>
+          <div class="feature-row__item feature-row__text feature-row__text--left" style="flex: 0 1 80%;">
+            <div class="form-vertical">
+              <form id="form">
+                <div class="grid grid--small">
+                  <div class="field grid__item large--one-half">
+                    <label for="ContactFormName">Name</label>
+                    <input type="text" name="ContactFormName" id="ContactFormName">
+                  </div>
+                  <div class="field grid__item large--one-half">
+                    <label for="ContactFormEmail">Email</label>
+                    <input type="email" name="ContactFormEmail" id="ContactFormEmail">
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="ContactFormPhone">Contact number</label>
+                  <input class="input-full" type="text" name="ContactFormPhone" id="ContactFormPhone">
+                </div>
+                <div class="grid grid--small">
+                  <div class="field grid__item large--one-half">
+                    <label for="ContactFormPeople">Guests</label>
+                    <input type="number" name="ContactFormPeople" id="ContactFormPeople">
+                  </div>
+                  <div class="field grid__item large--one-half">
+                    <label for="ContactFormDate">Reservation Date</label>
+                    <input class="input-full" id="ContactFormDate" type="text" name="ContactFormDate"/>
+                  </div>
+                </div>
+                <div class="field">
+                  <textarea class="input-full" rows="5" id="ContactFormRequest" name="ContactFormRequest"></textarea>
+                </div>
+                <input type="submit" id="button" value="Reserve!" >
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.onload = function(){
+    if(window.jQuery){
+      let $ = window.jQuery;
+      $(function(){
+        $("#ContactFormDate").datepicker({
+          minDate: +1,
+          maxDate: '+2M',
+          beforeShowDay: function(date){
+            let string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            let day = date.getDay();
+            if(day > 4){
+              return [true,'']
+            }else{
+              return [false ,''];
+            }
+          }
+        });
+      });
+    }
+  }
+  const parambtn = document.getElementById('button');
+  document.getElementById('form').addEventListener('submit', function(event){
+    event.preventDefault();
+    parambtn.value = 'Reserving...';
+    const serviceID = 'default_service';
+    const templateID = 'template_irgc7v4';
+    emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      parambtn.value = 'Reserve!';
+    }, (err) => {
+      parambtn.value = 'Reserve!';
+      alert(JSON.stringify(err));
+      });
+  });
+</script>
+<style>
+  .main-content {
+    margin-top: 120px;
+  }
+  
+  .mtel {
+    margin-left: 30px;
+  }
+
+  .Cicon {
+    margin: 0px 2px -3px 0px !important;
+    cursor: pointer;
+  }
+
+  .fdetails {
+    padding-left: 5px;
+    padding-right: 30px;
+    cursor: pointer;
+  }
+  
+  .mbr {
+    display: none;
+  }
+
+  .details {
+    padding-left: 5px;
+  }
+  
+  .fa.fa-instagram, .fab.fa-facebook,.fab .fa-twitter{
+    cursor: pointer;
+  }
+  
+  .fa.fa-instagram {
+    color: transparent;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  
+  /*#fSel {
+    width: 100%;
+  }*/
+
+  @media screen and (max-width: 768px) {
+    .main-content {
+      margin-top: 100px;
+    }
+
+    .mtel {
+      margin-left: 0px;
+    }
+
+    .mbr {
+      display: block;
+    }
+
+    .mobile{
+      display: none;
+  }
+</style>
