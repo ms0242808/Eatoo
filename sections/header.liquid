@@ -225,7 +225,38 @@
                   - http://docs.shopify.com/themes/liquid-variables/linklists
               {% endcomment %}
               <!-- begin site-nav -->
-              <ul class="site-nav h-menu" id="AccessibleNav" hidden>
+              <ul class="site-nav h-menu" id="AccessibleNav">
+                {% for link in linklists[section.settings.main_menu_link_list].links %}
+                  {% if link.links != blank %}
+                    {% assign parent_index = forloop.index %}
+                    <li class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}" aria-haspopup="true" data-meganav-type="parent">
+                      <a style="font-weight: bold;" href="{{ link.url }}" class="site-nav__link" data-meganav-type="parent" aria-controls="MenuParent-{{ parent_index }}" aria-expanded="false" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                        {{ link.title | escape }}
+                        <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                      </a>
+                      <ul id="MenuParent-{{ parent_index }}" class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %} menubg2" data-meganav-dropdown>
+                        {% for childlink in link.links %}
+                        {% assign child_index = forloop.index %}
+                          <div class="column2">
+                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                              <a href="{{ childlink.url }}" class="site-nav__dropdown-link" data-meganav-type="child" {% if childlink.active %}aria-current="page"{% endif %} tabindex="-1">
+                                  {{ childlink.title | escape }}
+                              </a>
+                            </li>
+                          </div>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}" style="position: static;">
+                      <a style="font-weight: bold;" href="{{ link.url }}" class="site-nav__link" data-meganav-type="child" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+              {% comment %}<ul class="site-nav h-menu" id="AccessibleNav" >
                 {% for link in linklists[section.settings.main_menu_link_list].links %}
                   {% if link.links != blank %}
                   {% assign parent_index = forloop.index %}
@@ -321,7 +352,7 @@
                     {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header' %}
                   </li>
                 {% endcomment %}
-              </ul>
+              </ul>{% endcomment %}
               <!-- //site-nav 
                 [removed 286 after cart-link"js-drawer-open-button-right"]-->
             </nav>
@@ -468,7 +499,7 @@
       <div class="wrapper menu2" role="navigation" style="color: black !important;">
         <div class="grid--full grid--table">
           <div class="grid__item menu2 medium-up-one-quarter large--text-left medium-down--hide" role="navigation" style="width:30%">
-            <ul class="site-nav h-menu" id="AccessibleNav">
+            <ul class="site-nav h-menu" id="AccessibleNav" hidden>
             {% for link in linklists[section.settings.main_menu_link_list].links %}
               {% if link.links != blank %}
                 {% assign parent_index = forloop.index %}
