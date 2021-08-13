@@ -2,8 +2,8 @@
   case section.settings.list_size
     when 'small'
       assign product_limit = 6
-    when 'medium'
-      assign product_limit = 12
+    when 'xs'
+      assign product_limit = 3
     when 'large'
       assign product_limit = 36
   endcase
@@ -96,7 +96,7 @@
           </h2>
         </noscript>
           {%- for product in collection.products limit:product_limit -%}
-            {% assign grid_item_width = 'small--one-half medium--one-third large--one-third' %}
+            {% assign grid_item_width = 'small--one-half medium--one-third large--one-third col-slide' %}
             {%if collection.title == "DIM SUM"%}
               {% assign title_words = 16 %}
             {% elsif collection.title == "FOOD CUPBOARD"%}
@@ -168,7 +168,7 @@
   }
   
   .featured-collections__tabpanel {
-    display: flex;
+    /*display: flex;*/
     text-align: center;
     position: relative;
     max-width: 1200px;
@@ -179,6 +179,12 @@
   @media only screen and (min-width: 46.85em) {
     .featured-collections__tabpanel {
       max-width: 1200px;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .col-slide{
+      width: 100% !important;
     }
   }
   
@@ -472,12 +478,12 @@
             }
           },
           {
-            "value": "medium",
+            "value": "xs",
             "label": {
               "cs": "Střední",
               "da": "Medium",
               "de": "Mittel",
-              "en": "Medium",
+              "en": "xs",
               "es": "Mediana",
               "fi": "Keskisuuri",
               "fr": "Medium",
