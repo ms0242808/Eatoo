@@ -1,0 +1,37 @@
+<!-- /templates/product.liquid -->
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+{% if product %}
+  <div class="text-left" style="margin-bottom: 20px; margin-left: 55px;">
+    <a href="/collections/all" class="return-link">&larr; back </a>
+  </div>
+{% elsif collection %}
+  <div class="text-left" style="margin-bottom: 20px; margin-left: 55px;">
+    <a style="font-weight: bold;" href="{{ collection.url }}" class="return-link">&larr; {{ 'products.general.collection_return' | t: collection: collection.title }}</a>
+  </div>
+{% endif %}
+
+{% section 'product-template' %}
+{% section 'product-recommendations' %}
+
+
+<style>
+	.subbox,.ro_widget{
+		display: block !important;
+	}
+
+	.main-content {
+	 	margin-top: 130px;
+	}
+
+	@media screen and (max-width: 768px) {
+	  .main-content {
+	  	margin-top: 100px;
+	  }
+	  
+	  .text-left {
+	  	display:none;
+	  }
+	}
+</style>
