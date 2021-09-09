@@ -207,8 +207,8 @@
       <header class="site-header{% if template.name == 'index' %} hero--color-0{% endif %}" role="banner">
         <div class="wrapper">
           <div class="grid--full grid--table">
-            <div class="grid__item large--hide large--one-sixth one-quarter">
-              <div class="site-nav--open site-nav--mobile">
+            <div class="grid__item large--hide large--one-sixth one-quarter mobileM">
+              <div class="site-nav--open site-nav--mobile mobileM">
                 <button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer">
                   <span class="burger-icon burger-icon--top"></span>
                   <span class="burger-icon burger-icon--mid"></span>
@@ -225,7 +225,7 @@
                   - http://docs.shopify.com/themes/liquid-variables/linklists
               {% endcomment %}
               <!-- begin site-nav -->
-              <ul class="site-nav h-menu" id="AccessibleNav">
+              <ul class="site-nav h-menu desktopMenu" id="AccessibleNav">
                 {% for link in linklists[section.settings.main_menu_link_list].links %}
                   {% if link.links != blank %}
                     {% assign parent_index = forloop.index %}
@@ -496,7 +496,7 @@
 
         </div>
       </header>
-      <div class="wrapper menu2" role="navigation" style="color: black !important;">
+      <div class="wrapper menu2 desktopMenu" role="navigation" style="color: black !important;">
         <div class="grid--full grid--table">
           <div class="grid__item menu2 medium-up-one-quarter large--text-left medium-down--hide" role="navigation" style="width:30%">
             <ul class="site-nav h-menu" id="AccessibleNav" hidden>
@@ -570,7 +570,14 @@
   </div>
 </div>
 
-<script type="text/javascript">  
+<script type="text/javascript">
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+  if(isTablet){
+    $('.desktopMenu').attr('style','display:none');
+    $('.mobileM').attr('style','display: block !important');
+  }
+
   function swap(x,y,z){
     $('#announce1' ).css('display', x);
     $('#announce2').css('display', y);
